@@ -84,7 +84,10 @@ class User extends CActiveRecord
 		$criteria->compare('salt',$this->salt,true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+                    'criteria'=>$criteria,
+                    'pagination'=>array(
+                        'pageSize'=>10
+                    ),
 		));
 	}
 
