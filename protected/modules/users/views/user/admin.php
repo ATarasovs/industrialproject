@@ -1,4 +1,5 @@
-<?php
+
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print"><?php
 /* @var $this UserController */
 /* @var $model User */
 
@@ -31,17 +32,26 @@ $('.search-form form').submit(function(){
     <label>Search by user ID</label>
     <input></input>
 </div>-->
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'user-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'userID',
-		'username',
-		'password',
-		'salt',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+<?php // $this->widget('zii.widgets.grid.CGridView', array(
+//	'id'=>'user-grid',
+//	'dataProvider'=>$model->search(),
+//	'filter'=>$model,
+//	'columns'=>array(
+//		'userID',
+//		'username',
+//		'password',
+//		'salt',
+//		array(
+//			'class'=>'CButtonColumn',
+//		),
+//	),
+//)); ?>
+
+<table>
+    <thead>
+        
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
