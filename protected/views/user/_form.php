@@ -21,21 +21,21 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textField($model,'username',array('size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->passwordField($model,'password',array('size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'admin'); ?>
-		<?php echo $form->textField($model,'admin'); ?>
-		<?php echo $form->error($model,'admin'); ?>
-	</div>
+<!--	<div class="row">
+		<?php // echo $form->labelEx($model,'salt'); ?>
+		<?php // echo $form->textField($model,'salt',array('size'=>32,'maxlength'=>32)); ?>
+		<?php // echo $form->error($model,'salt'); ?>
+	</div>-->
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

@@ -17,8 +17,8 @@
 	<?php echo CHtml::encode($data->password); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('admin')); ?>:</b>
-	<?php echo CHtml::encode($data->admin); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('salt')); ?>:</b>
+	<?php echo CHtml::encode($data->salt); ?>
 	<br />
 
 

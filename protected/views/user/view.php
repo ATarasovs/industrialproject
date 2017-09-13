@@ -24,6 +24,6 @@ $this->menu=array(
 		'userID',
 		'username',
 		'password',
-		'admin',
+		'salt',
 	),
 )); ?>

@@ -18,12 +18,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textField($model,'username',array('size'=>32,'maxlength'=>32)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'admin'); ?>
-		<?php echo $form->textField($model,'admin'); ?>
+		<?php echo $form->label($model,'salt'); ?>
+		<?php echo $form->textField($model,'salt',array('size'=>32,'maxlength'=>32)); ?>
 	</div>
 
 	<div class="row buttons">

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "user".
  *
- * The followings are the available columns in table 'users':
+ * The followings are the available columns in table 'user':
  * @property integer $userID
  * @property string $username
  * @property string $password
- * @property integer $admin
+ * @property string $salt
  */
 class User extends CActiveRecord
 {
@@ -16,7 +16,7 @@ class User extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'user';
 	}
 
 	/**
@@ -27,12 +27,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password', 'required'),
-			array('admin', 'numerical', 'integerOnly'=>true),
-			array('username, password', 'length', 'max'=>45),
+			array('username, password, salt', 'required'),
+			array('username, password, salt', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('userID, username, password, admin', 'safe', 'on'=>'search'),
+			array('userID, username, password, salt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +55,7 @@ class User extends CActiveRecord
 			'userID' => 'User',
 			'username' => 'Username',
 			'password' => 'Password',
-			'admin' => 'Admin',
+			'salt' => 'Salt',
 		);
 	}
 
@@ -81,12 +80,42 @@ class User extends CActiveRecord
 		$criteria->compare('userID',$this->userID);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('admin',$this->admin);
+		$criteria->compare('salt',$this->salt,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+        // hash password
+        public function hashPassword($password, $salt)
+        {
+            return md5($salt.$password);
+        }
+
+        // password validation
+        public function validatePassword($password)
+        {
+            return $this->hashPassword($password,$this->salt)===$this->password;
+        }
+
+        //generate salt
+        public function generateSalt()
+        {
+            return uniqid('',true);
+        }
+
+        public function beforeValidate()
+        {
+            $this->salt = $this->generateSalt();
+            return parent::beforeValidate();
+        }
+
+        public function beforeSave()
+        {
+            $this->password = $this->hashPassword($this->password, $this->salt);
+            return parent::beforeSave();
+        }
 
 	/**
 	 * Returns the static model of the specified AR class.
