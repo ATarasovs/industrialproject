@@ -39,6 +39,7 @@
 	),
 )); ?>
 </div>
+
 	
 <div class="container">
 	<?php if(isset($this->breadcrumbs)):?>
