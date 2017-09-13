@@ -32,20 +32,20 @@ $('.search-form form').submit(function(){
     <label>Search by user ID</label>
     <input></input>
 </div>-->
-<?php // $this->widget('zii.widgets.grid.CGridView', array(
-//	'id'=>'user-grid',
-//	'dataProvider'=>$model->search(),
-//	'filter'=>$model,
-//	'columns'=>array(
-//		'userID',
-//		'username',
-//		'password',
-//		'salt',
-//		array(
-//			'class'=>'CButtonColumn',
-//		),
-//	),
-//)); ?>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'user-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'userID',
+		'username',
+		'password',
+		'salt',
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
+)); ?>
 
 <table>
     <thead>
