@@ -3,15 +3,22 @@
 Yii::app()->clientScript->registerCoreScript('jquery'); 
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
 
+
+
 $this->pageTitle=Yii::app()->name;
 ?>
 
 <?php if (Yii::app()->user->isGuest) { ?>
 
-<?php $this->widget('bootstrap.widgets.TbHeroUnit', array(
-    'heading' => 'Welcome to DUSA Analytics! ',
-    'content' => '<p>To begin using the DUSA analytics dashboard, please login using the account details provided by your administrator.</p>' . TbHtml::button('Login', array('color' =>TbHtml::BUTTON_COLOR_PRIMARY, 'size' => TbHtml::BUTTON_SIZE_LARGE, 'onclick'=>"window.location='index.php?r=/site/login'")),
-)); ?>
+	<div class="jumbotron">
+  <h1 class="display-3">Welcome to DUSA Analytics!</h1>
+  <p class="lead">Providing all-new insights into DUSA sales data.</p>
+  <hr class="my-4">
+  <p>To begin using the DUSA Analytics dashbord, please sign in using the details provided by your administrator.</p>
+  <p class="lead">
+	<?php echo CHtml::link('Login',array('/site/login'), array('class'=>'btn btn-success btn-lg')); ?>
+  </p>
+</div>
 
 <?php
 } else { 
@@ -25,41 +32,48 @@ $this->pageTitle=Yii::app()->name;
 		array('label' => 'All-time', 'url' => '#'),
 	),	array('size'=>TbHtml::BUTTON_SIZE_LARGE, 'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 
-	echo "<div class=\"myChart\">";
-	$this->widget(
-		'chartjs.widgets.ChLine', 
-		array(
-			'width' => 1200,
-			'height' => 600,
-			'htmlOptions' => array(),
-			'labels' => array("January","February","March","April","May","June"),
-			'datasets' => array(
-				array(
-					"fillColor" =>"rgb(30,144,255)",
-					"strokeColor" => "rgba(220,220,220,1)",
-					"pointColor" => "rgba(220,220,220,1)",
-					"pointStrokeColor" => "#ffffff",
-					"data" => array(10, 20, 30, 25, $dataValue5, 10)
-				),
-				array(
-					"fillColor" =>"rgb(255,165,0)",
-					"strokeColor" => "rgba(220,220,220,1)",
-					"pointColor" => "rgba(220,220,220,1)",
-					"pointStrokeColor" => "#ffffff",
-					"data" => array(5, 10, 25, 30, 35, 40)
-				)      
-			),
-			'options' => array("datasetFill"=>"false")
-		)
-	);
-	echo "</div>";
-}
-?>
-
-
+	?>
+	
+	<canvas id="myChart" width="700" height="400"></canvas>
+	<script>
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			datasets: [{ 
+				data: [86,114,106,76,134,111,200,221],
+				label: "Air-bar",
+				borderColor: "#3e95cd",
+				fill: false
+			  }, { 
+				data: [282,350,112,502,105,809,700],
+				label: "Mono",
+				borderColor: "#8e5ea2",
+				fill: false
+			  }, { 
+				data: [765,70,378,190,42,276,408,123,400,34],
+				label: "Union Shop",
+				borderColor: "#3cba9f",
+				fill: false
+			  }
+		]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true
+					}
+				}]
+			}
+		}
+	});
+	
+	</script>
 
 <?php
-
+}
 ?>
 
 <br>

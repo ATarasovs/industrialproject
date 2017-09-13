@@ -29,8 +29,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$dataValue5=4; //testing passing values into views
-		$this->render('index', array('dataValue5'=>$dataValue5));
+		$this->render('index');
 	}
 
 	/**

@@ -47,6 +47,6 @@ class ChartJs extends CApplicationComponent
     */
     public function getVersion()
     {
-        return '0.0.1';
+        return '2.7.0';
     }
 }

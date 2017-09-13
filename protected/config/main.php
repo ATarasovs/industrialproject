@@ -48,11 +48,17 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
-		'chartjs' => array('class' => 'chartjs.components.ChartJs'),
+		#'bootstrap' => array('class' => 'bootstrap.components.TbApi.php'),
 		'bootstrap' => array(
 			'class' => 'bootstrap.components.TbApi',
-			'cdnUrl'=>"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/",
+			'cdnUrl'=>"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.6/",
 		),
+
+		##'chartjs' => array(
+		##	'class' => "yii-chartjs.components.ChartJs",
+		##	'cdnUrl'=>"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js",
+		##),
+		
 
 		// uncomment the following to enable URLs in path-format
 		/*
