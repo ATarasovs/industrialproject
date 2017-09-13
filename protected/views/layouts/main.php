@@ -1,4 +1,5 @@
-<?php /* @var $this Controller */ ?>
+<?php Yii::app()->bootstrap->register(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,6 @@
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection">
 	<![endif]-->
-
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
@@ -20,23 +20,26 @@
 
 <body>
 
-<div class="container" id="page">
-
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+<div class="nav">
+<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+	'brandLabel' => 'Dusa Analytics',
+	'display' => null, // default is static to top
+	'items' => array(
+		array(
+			'class' => 'bootstrap.widgets.TbNav',
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
+				array('label'=>'Dashboard', 'url'=>array('/site/index')),
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>'Upload', 'url'=>array('/site/contact'), 'visible'=>!Yii::app()->user->getState('isAdmin')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-		)); ?>
-	</div><!-- mainmenu -->
+		),
+	),
+)); ?>
+</div>
+	
+<div class="container">
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
@@ -45,15 +48,11 @@
 
 	<?php echo $content; ?>
 
-	<div class="clear"></div>
-
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> Team 8<br/>
 		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
 </div><!-- page -->
-
 </body>
 </html>

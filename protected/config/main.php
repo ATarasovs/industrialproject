@@ -1,4 +1,6 @@
 <?php
+Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -10,12 +12,18 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array(
+		'log',
+		'chartjs',
+	),
 
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'bootstrap.helpers.TbHtml',
+		'bootstrap.helpers.TbArray',
+		'bootstrap.behaviors.TbWidget',
 	),
 
 	'modules'=>array(
@@ -23,6 +31,7 @@ return array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'root',
+			'generatorPaths' => array('bootstrap.gii'),
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 //			'ipFilters'=>array('127.0.0.1','::1'),
 		),
@@ -36,10 +45,17 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
+		'chartjs' => array('class' => 'chartjs.components.ChartJs'),
+		'bootstrap' => array(
+			'class' => 'bootstrap.components.TbApi',
+			'cdnUrl'=>"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/",
+		),
+
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
