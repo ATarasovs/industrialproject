@@ -133,15 +133,37 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new User('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['User']))
-			$model->attributes=$_GET['User'];
-
+            $users = User::model()->findAll();
+//		$model=new User('search');
+//		$model->unsetAttributes();  // clear any default values
+//		if(isset($_GET['User']))
+//			$model->attributes=$_GET['User'];
+//            
+//
 		$this->render('admin',array(
-			'model'=>$model,
+			'users'=>$users,
 		));
 	}
+        
+//        public function actionAdmin(){
+//		$filterParams = Yii::app()->request->getParam('filterParams');
+//		if($filterParams == "erase"){
+//			Yii::app()->user->setState('searchParamUserID_usersList', '');
+//			Yii::app()->user->setState('searchParamUsername_usersList', '');
+//		}
+//		
+//		$pageNr = Yii::app()->request->getParam('page', '');
+//		if($pageNr){
+//			Yii::app()->user->setState('listPage_usersList', $pageNr);
+//		}
+//		$usersArray = "";
+////		$usersArray = getStaticClassifierAsArray('users');
+//		$this->render('admin', array(
+//		    'usersArray' => $usersArray,
+//		));
+//	}
+        
+      
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
