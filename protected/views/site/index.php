@@ -16,7 +16,7 @@ $this->pageTitle=Yii::app()->name;
   <hr class="my-4">
   <p>To begin using the DUSA Analytics dashbord, please sign in using the details provided by your administrator.</p>
   <p class="lead">
-	<?php echo CHtml::link('Login',array('/site/login'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo CHtml::link('<i class="fa fa-sign-in"></i> Login',array('/site/login'), array('class'=>'btn btn-success btn-lg')); ?>
   </p>
 </div>
 

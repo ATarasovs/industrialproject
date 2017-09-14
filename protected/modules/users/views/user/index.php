@@ -12,7 +12,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Users</h1>
+<h1>Users  <i class="fa fa-users" aria-hidden="true"></i></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
