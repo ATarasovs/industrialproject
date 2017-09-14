@@ -1,5 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print"><?php
+
 /* @var $this UserController */
 /* @var $model User */
 
@@ -28,10 +29,6 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Manage Users</h1>
-<!--<div class="row">
-    <label>Search by user ID</label>
-    <input></input>
-</div>-->
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
