@@ -45,8 +45,8 @@
         
         <div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'surname',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'surname'); ?>
+		<?php echo $form->textField($model,'email',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'email'); ?>
 	</div>
         
         <div class="row">
