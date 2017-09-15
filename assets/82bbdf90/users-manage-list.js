@@ -1,5 +1,7 @@
 $(document).ready(function() {
+    console.log("Connected");
     initButtons();
+    addContent();
 });
 
 function initButtons() {
@@ -9,8 +11,8 @@ function initButtons() {
         location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
     });
     
-    $( "#unsetFiltersBtn" ).click(function() {
-        location.href = usersManageListReqUrl;
+    $( "#unsetfiltersBtn" ).click(function() {
+        location.href = usersManageListReqUrl;;
     });
     
     $( ".viewBtn" ).click(function() {
@@ -24,13 +26,19 @@ function initButtons() {
         console.log(userId);
         location.href = userUpdateReqUrl + "&id=" + userId;
     });
-    
-//    $( ".deleteBtn" ).click(function() {
-//        var userId = $(this).parent().siblings('.id').text();
-//        console.log(userId);
-//        
-//        location.href = userDeleteReqUrl + "&id=" + userId;
-//    });
+    $( ".updateBtn" ).click(function() {
+        var userId = $(this).parent().siblings('.id').text();
+        console.log(userId);
+        
+        location.href = userDeleteReqUrl + "&id=" + userId;
+    });
 }
 
+function addContent() {
+        
+}
+
+function filters() {
+   
+}
 

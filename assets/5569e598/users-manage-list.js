@@ -24,7 +24,6 @@ function initButtons() {
         console.log(userId);
         location.href = userUpdateReqUrl + "&id=" + userId;
     });
-    
 //    $( ".deleteBtn" ).click(function() {
 //        var userId = $(this).parent().siblings('.id').text();
 //        console.log(userId);

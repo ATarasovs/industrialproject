@@ -9,7 +9,7 @@ function initButtons() {
         location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
     });
     
-    $( "#unsetFiltersBtn" ).click(function() {
+    $( "#unsetfiltersBtn" ).click(function() {
         location.href = usersManageListReqUrl;
     });
     
@@ -24,7 +24,6 @@ function initButtons() {
         console.log(userId);
         location.href = userUpdateReqUrl + "&id=" + userId;
     });
-    
 //    $( ".deleteBtn" ).click(function() {
 //        var userId = $(this).parent().siblings('.id').text();
 //        console.log(userId);

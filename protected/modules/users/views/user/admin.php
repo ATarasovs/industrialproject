@@ -39,22 +39,29 @@ $('.search-form form').submit(function(){
 <table id="users">
     <input id="filterByUserId" placeholder="filterByUserId" onkeyup="filters()"></input>
     <input id="filterByUserName" placeholder="filterByUserName" onkeyup="filters()" ></input>
-    <button id="search">Search</button>
-    <button id="unsetfilters">Unset filters</button>
+    <button id="searchBtn">Search</button>
+    <button id="unsetFiltersBtn">Unset filters</button>
     <thead>
         <th>User ID</th>
         <th>User name</th>
         <th>Password</th>
         <th>Salt</th>
+        <th>Actions</th>
         
     </thead>
     <tbody>
         <?php foreach($users as $user) { ?>
         <tr class="user-row">
-            <td><?php echo $user->userID; ?></td>
-            <td><?php echo $user->username; ?></td>
-            <td><?php echo $user->password; ?></td>
-            <td><?php echo $user->salt; ?></td>
+            <td class="id"><?php echo $user->userID; ?></td>
+            <td class="username"><?php echo $user->username; ?></td>
+            <td class="password"><?php echo $user->password; ?></td>
+            <td class="salt"><?php echo $user->salt; ?></td>
+            <td>
+                    <button class="viewBtn">View</button>
+                    <button class="updateBtn">Update</button>
+                <!--<button class="deleteBtn">Delete</button>-->
+
+            </td>
         </tr>
        <?php } ?>
 
@@ -64,8 +71,8 @@ $('.search-form form').submit(function(){
 </table>
 <?php // $this->widget('zii.widgets.grid.CGridView', array(
 //	'id'=>'user-grid',
-//	'dataProvider'=>$model->search(),
-//	'filter'=>$model,
+//	'dataProvider'=>$user->search(),
+//	'filter'=>$user,
 //	'columns'=>array(
 //		'userID',
 //		'username',
@@ -78,7 +85,10 @@ $('.search-form form').submit(function(){
 //)); ?>
 
 <script>
-    var usersManageListReqUrl = '<?php print Yii::app()->createUrl('users/user/admin') ?>';		
+    var usersManageListReqUrl = '<?php print Yii::app()->createUrl('users/user/admin') ?>';	
+    var userViewReqUrl = '<?php print Yii::app()->createUrl('users/user/view') ?>';
+    var userUpdateReqUrl = '<?php print Yii::app()->createUrl('users/user/update') ?>';
+//    var userDeleteReqUrl = '<?php print Yii::app()->createUrl('users/user/delete') ?>';
 </script>
 
 
