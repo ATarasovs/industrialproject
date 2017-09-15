@@ -42,10 +42,9 @@ $('.search-form form').submit(function(){
     <button id="searchBtn">Search</button>
     <button id="unsetFiltersBtn">Unset filters</button>
     <thead>
-        <th>User ID</th>
-        <th>User name</th>
-        <th>Password</th>
-        <th>Salt</th>
+        <th><?php echo User::model()->getAttributeLabel('userID') ?></th>
+        <th><?php echo User::model()->getAttributeLabel('username') ?></th>
+        <th><?php echo User::model()->getAttributeLabel('forename')?></th>
         <th>Actions</th>
         
     </thead>
@@ -54,13 +53,11 @@ $('.search-form form').submit(function(){
         <tr class="user-row">
             <td class="id"><?php echo $user->userID; ?></td>
             <td class="username"><?php echo $user->username; ?></td>
-            <td class="password"><?php echo $user->password; ?></td>
-            <td class="salt"><?php echo $user->salt; ?></td>
+            <td class="forename"><?php echo $user->forename; ?> <?php echo $user->surname; ?></td>
             <td>
                     <button class="viewBtn">View</button>
                     <button class="updateBtn">Update</button>
                 <!--<button class="deleteBtn">Delete</button>-->
-
             </td>
         </tr>
        <?php } ?>

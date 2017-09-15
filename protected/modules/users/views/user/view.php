@@ -18,12 +18,53 @@ $this->menu=array(
 
 <h1>View User #<?php echo $model->userID; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'userID',
-		'username',
-		'password',
-		'salt',
-	),
-)); ?>
+<table id="users">
+    <thead>
+        
+    </thead>
+    <tbody>
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('userID') ?>:</th>
+            <td><?php echo $model->userID; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('username') ?>:</th>
+            <td><?php echo $model->username; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('forename') ?>:</th>
+            <td><?php echo $model->forename; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('surname') ?>:</th>
+            <td><?php echo $model->surname; ?></td>
+        </tr>
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('email') ?>:</th>
+            <td><?php echo $model->email; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('phone') ?>:</th>
+            <td><?php echo $model->phone; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('position') ?>:</th>
+            <td><?php echo $model->position; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('password') ?>:</th>
+            <td><?php echo $model->password; ?></td>
+        </tr>
+        
+        <tr>
+            <th><?php echo User::model()->getAttributeLabel('salt') ?>:</th>
+            <td><?php echo $model->salt; ?></td>
+        </tr>
+    </tbody>
+</table>

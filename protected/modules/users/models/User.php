@@ -28,11 +28,11 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
                         array('username', 'unique','className'=>'User','attributeName'=>'username','message'=>"Username already exists"),
-			array('username, password, salt', 'required'),
+			array('username, password, salt, forename, surname, email, position, phone', 'required'),
 			array('username, password, salt', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('userID, username, password, salt', 'safe', 'on'=>'search'),
+			array('userID, username, forename, surname, email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,10 +53,16 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'userID' => 'User',
+			'userID' => 'User ID',
 			'username' => 'Username',
 			'password' => 'Password',
 			'salt' => 'Salt',
+                        'forename' => 'Name',
+                        'surname' => 'Surname',
+                        'email' => 'Email',
+                        'position' => 'Position',
+                        'phone' => 'Phone',
+                        
 		);
 	}
 
@@ -80,8 +86,9 @@ class User extends CActiveRecord
 
 		$criteria->compare('userID',$this->userID);
 		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('salt',$this->salt,true);
+		$criteria->compare('forename',$this->forename,true);
+		$criteria->compare('surname',$this->surname,true);
+                $criteria->compare('email',$this->email,true);
 
 		return new CActiveDataProvider($this, array(
                     'criteria'=>$criteria,

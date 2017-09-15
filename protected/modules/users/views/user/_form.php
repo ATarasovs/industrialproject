@@ -30,12 +30,36 @@
 		<?php echo $form->passwordField($model,'password',array('size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
-
-<!--	<div class="row">
-		<?php // echo $form->labelEx($model,'salt'); ?>
-		<?php // echo $form->textField($model,'salt',array('size'=>32,'maxlength'=>32)); ?>
-		<?php // echo $form->error($model,'salt'); ?>
-	</div>-->
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'forename'); ?>
+		<?php echo $form->textField($model,'forename',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'forename'); ?>
+	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'surname'); ?>
+		<?php echo $form->textField($model,'surname',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'surname'); ?>
+	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'email'); ?>
+		<?php echo $form->textField($model,'surname',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'surname'); ?>
+	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'position'); ?>
+		<?php echo $form->textField($model,'position',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'position'); ?>
+	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'phone'); ?>
+		<?php echo $form->textField($model,'phone',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'phone'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
