@@ -10,7 +10,7 @@ function initButtons() {
         var userName = $("#filterByUserName").val();
         console.log(userId);
         console.log(userName);
-        location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
+        location.href = usersManageListReqUrl;
     });
 }
 

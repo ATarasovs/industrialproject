@@ -133,7 +133,31 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
-            $users = User::model()->findAll();
+//            $users = User::model();
+            $userid = Yii::app()->request->getParam('userid');
+            $username = Yii::app()->request->getParam('username');
+            if($userid!="" && $username!="") {
+                $users = User::model()->findAll(array(
+                    "condition"=>"userID = $userid and username = '$username'"
+                    )
+                );
+            }
+            else if($userid!="") {
+                $users = User::model()->findAll(array(
+                    "condition"=>"userID = $userid"
+                    )
+                );
+            }
+            else if($username!="") {
+                $users = User::model()->findAll(array(
+                    "condition"=>"username = '$username'"
+                    )
+                );
+            }
+            else {
+                $users = User::model()->findAll();
+            }
+//            $doctors = MasterDoctor::model()->findAll(array("condition"=>"hospitalid = $model->hospitalid"));
 //		$model=new User('search');
 //		$model->unsetAttributes();  // clear any default values
 //		if(isset($_GET['User']))

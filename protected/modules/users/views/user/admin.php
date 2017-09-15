@@ -39,7 +39,7 @@ $('.search-form form').submit(function(){
 <table id="users">
     <input id="filterByUserId" placeholder="filterByUserId" onkeyup="filters()"></input>
     <input id="filterByUserName" placeholder="filterByUserName" onkeyup="filters()" ></input>
-    <button id="Search">Search</button>
+    <button id="search">Search</button>
     <thead>
         <th>User ID</th>
         <th>User name</th>
@@ -49,7 +49,7 @@ $('.search-form form').submit(function(){
     </thead>
     <tbody>
         <?php foreach($users as $user) { ?>
-        <tr>
+        <tr class="user-row">
             <td><?php echo $user->userID; ?></td>
             <td><?php echo $user->username; ?></td>
             <td><?php echo $user->password; ?></td>
@@ -77,10 +77,7 @@ $('.search-form form').submit(function(){
 //)); ?>
 
 <script>
-
-
-	
-	
+    var usersManageListReqUrl = '<?php print Yii::app()->createUrl('users/user/admin') ?>';		
 </script>
 
 

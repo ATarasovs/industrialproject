@@ -7,10 +7,7 @@ $(document).ready(function() {
 function initButtons() {
     $( "#search" ).click(function() {
         var userId = $("#filterByUserId").val();
-        var userName = $("#filterByUserName").val();
-        console.log(userId);
-        console.log(userName);
-        location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
+        var usserName = $("#filterByUserName").val();
     });
 }
 
