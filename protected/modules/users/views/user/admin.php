@@ -1,12 +1,8 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
-<!--<script src="/protected/modules/users/assets/users-manage-list.js"></script>-->
 <?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.users.assets.js').'\users-manage-list.js'), CClientScript::POS_HEAD);
-
-//Yii::app()->clientScript->registerScriptFile(
-//	Yii::app()->baseUrl.'/protected/modules/users/assets/users-manage-list.js'
-//);
+    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pagination.css');
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.users.assets.js').'\users-manage-list.js'), CClientScript::POS_HEAD);
 
 /* @var $this UserController */
 /* @var $model User */
@@ -37,16 +33,15 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Users</h1>
 <table id="users">
-    <input id="filterByUserId" placeholder="filterByUserId" onkeyup="filters()"></input>
-    <input id="filterByUserName" placeholder="filterByUserName" onkeyup="filters()" ></input>
-    <button id="searchBtn">Search</button>
-    <button id="unsetFiltersBtn">Unset filters</button>
+    <input id="filterByUserId" placeholder="filterByUserId"></input>
+        <input id="filterByUserName" placeholder="filterByUserName"></input>
+        <button id="searchBtn">Search</button>
+        <button id="unsetFiltersBtn">Unset filters</button>
     <thead>
         <th><?php echo User::model()->getAttributeLabel('userID') ?></th>
         <th><?php echo User::model()->getAttributeLabel('username') ?></th>
         <th><?php echo User::model()->getAttributeLabel('forename')?></th>
         <th>Actions</th>
-        
     </thead>
     <tbody>
         <?php foreach($users as $user) { ?>
@@ -86,6 +81,7 @@ $('.search-form form').submit(function(){
     var userViewReqUrl = '<?php print Yii::app()->createUrl('users/user/view') ?>';
     var userUpdateReqUrl = '<?php print Yii::app()->createUrl('users/user/update') ?>';
 //    var userDeleteReqUrl = '<?php print Yii::app()->createUrl('users/user/delete') ?>';
+
 </script>
 
 

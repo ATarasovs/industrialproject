@@ -1,5 +1,11 @@
 $(document).ready(function() {
     initButtons();
+    
+    $('td', 'table').each(function(i) {
+        $(this).text(i+1);
+    });
+
+
 
 $('table#users').each(function() {
     var currentPage = 0;

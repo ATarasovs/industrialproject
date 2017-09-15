@@ -1,12 +1,18 @@
 $(document).ready(function() {
     initButtons();
+    
+    $('td', 'table').each(function(i) {
+        $(this).text(i+1);
+    });
+
+
 
 $('table#users').each(function() {
     var currentPage = 0;
-    var numPerPage = 2;
+    var numPerPage = 10;
     var $table = $(this);
     $table.bind('repaginate', function() {
-        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+//        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
     });
     $table.trigger('repaginate');
     var numRows = $table.find('tbody tr').length;
@@ -21,7 +27,7 @@ $('table#users').each(function() {
             $(this).addClass('active').siblings().removeClass('active');
         }).appendTo($pager).addClass('clickable');
     }
-    $pager.insertAfter($table).find('span.page-number:first').addClass('active');
+    $pager.insertBefore($table).find('span.page-number:first').addClass('active');
 });
 
 });

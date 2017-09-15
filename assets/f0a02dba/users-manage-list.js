@@ -1,5 +1,11 @@
 $(document).ready(function() {
     initButtons();
+    
+    $('td', 'table').each(function(i) {
+        $(this).text(i+1);
+    });
+
+
 
 $('table#users').each(function() {
     var currentPage = 0;
@@ -21,7 +27,7 @@ $('table#users').each(function() {
             $(this).addClass('active').siblings().removeClass('active');
         }).appendTo($pager).addClass('clickable');
     }
-    $pager.insertAfter($table).find('span.page-number:first').addClass('active');
+    $pager.insertBefore($table).find('span.page-number:first').addClass('active');
 });
 
 });
