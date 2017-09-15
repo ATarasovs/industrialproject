@@ -40,6 +40,7 @@ $('.search-form form').submit(function(){
     <input id="filterByUserId" placeholder="filterByUserId" onkeyup="filters()"></input>
     <input id="filterByUserName" placeholder="filterByUserName" onkeyup="filters()" ></input>
     <button id="search">Search</button>
+    <button id="unsetfilters">Unset filters</button>
     <thead>
         <th>User ID</th>
         <th>User name</th>
