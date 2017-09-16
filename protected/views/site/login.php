@@ -37,13 +37,7 @@ $this->breadcrumbs=array(
 	<?php echo $form->passwordField( $model,'password', array('class'=>'form-control') ); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
-
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe', array('class'=>'form-signin-heading') ); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
-
+	<br>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login', array('class' => 'btn btn-lg btn-primary btn-block')); ?>
 	</div>

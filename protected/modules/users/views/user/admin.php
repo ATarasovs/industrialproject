@@ -32,12 +32,25 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Manage Users</h1>
-<table id="users">
-    <input id="filterByUserId" placeholder="filterByUserId"></input>
-        <input id="filterByUserName" placeholder="filterByUserName"></input>
-        <button id="searchBtn">Search</button>
-        <button id="unsetFiltersBtn">Unset filters</button>
-    <thead>
+    <br>
+    <div class="form-inline">
+    <label class="sr-only" for="inlineFormInput">Name</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+        <input id="filterByUserId" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Filter By UserID" onkeyup="filters()">
+    </div>
+
+    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+        <input id="filterByUserName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" onkeyup="filters()">
+    </div>
+
+    <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
+    <button id="unsetFiltersBtn" class="btn btn-primary">Unset Filters</button>
+    </div>
+<table id="users" class="table">
+    <thead class="thead-inverse">
         <th><?php echo User::model()->getAttributeLabel('userID') ?></th>
         <th><?php echo User::model()->getAttributeLabel('username') ?></th>
         <th><?php echo User::model()->getAttributeLabel('forename')?></th>
@@ -45,13 +58,13 @@ $('.search-form form').submit(function(){
     </thead>
     <tbody>
         <?php foreach($users as $user) { ?>
-        <tr class="user-row">
+        <tr class="table-info">
             <td class="id"><?php echo $user->userID; ?></td>
             <td class="username"><?php echo $user->username; ?></td>
             <td class="forename"><?php echo $user->forename; ?> <?php echo $user->surname; ?></td>
             <td>
-                    <button class="viewBtn">View</button>
-                    <button class="updateBtn">Update</button>
+                    <button class="viewBtn"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
+                    <button class="updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update</button>
                 <!--<button class="deleteBtn">Delete</button>-->
             </td>
         </tr>

@@ -97,10 +97,10 @@ Yii::app()->clientScript->registerScriptFile(
 
 	<?php echo $content; ?>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> Team 8<br/>
+	<!--<div id="footer">
+		Copyright &copy; <?php ##echo date('Y'); ?> Team 8<br/>
 		All Rights Reserved.<br/>
-	</div><!-- footer -->
+	</div><!footer -->
 
 </div><!-- page -->
 </body>
