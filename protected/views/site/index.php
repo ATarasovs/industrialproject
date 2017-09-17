@@ -22,55 +22,199 @@ $this->pageTitle=Yii::app()->name;
 
 <?php
 } else { 
-	
-	//Analytics Dashboard
-	echo TbHtml::buttonDropdown('Weekly', array(
-		array('label' => 'Weekly', 'url' => '#'),
-		array('label' => 'Monthly', 'url' => '#'),
-		array('label' => 'Yearly', 'url' => '#'),
-		TbHtml::menuDivider(),
-		array('label' => 'All-time', 'url' => '#'),
-	),	array('size'=>TbHtml::BUTTON_SIZE_LARGE, 'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 
 	?>
-	
-	<canvas id="myChart" width="700" height="400"></canvas>
-	<script>
-	var ctx = document.getElementById("myChart").getContext('2d');
-	var myChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-			datasets: [{ 
-				data: [86,114,106,76,134,111,200,221],
-				label: "Air-bar",
-				borderColor: "#3e95cd",
-				fill: false
-			  }, { 
-				data: [282,350,112,502,105,809,700],
-				label: "Mono",
-				borderColor: "#8e5ea2",
-				fill: false
-			  }, { 
-				data: [765,70,378,190,42,276,408,123,400,34],
-				label: "Union Shop",
-				borderColor: "#3cba9f",
-				fill: false
-			  }
-		]
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero:true
-					}
-				}]
+
+	<div class="card text-center">
+  <div class="card-header">
+    Quick Links
+  </div>
+  <div class="card-block">
+    <h4 class="card-title">DUSA Analytics Dashboard</h4>
+    <p class="card-text">Use the buttons below to navigate to different analytics</p>
+    <a href="#" class="btn btn-primary">Weekly Sales View</a>
+		<a href="#" class="btn btn-primary">Monthly Sales View</a>
+		<a href="#" class="btn btn-primary">Calendar View</a>
+  </div>
+  <div class="card-footer text-muted">
+    -
+  </div>
+</div>
+<br>
+<!-- FIRST AND SECOND CARDS WITH SUMMARY OF WEEKLY SALES DATA -->	
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+		<div class="card">
+			<h6 class="card-header">Quick View - Weekly Sales</h6>
+			<div class="card-block">
+				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
+				<canvas id="chart-area" width="400" height="400"/>
+				</div>
+			</div>
+		</div>
+		</div>
+    <div class="col-sm-6">
+		<div class="card">
+			<h6 class="card-header">Quick View - YoYo Usage</h6>
+			<div class="card-block">
+				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
+				<canvas id="bar-chart-grouped" width="450" height="400"></canvas>
+				</div>
+			</div>
+		</div>
+		</div>
+  </div>
+</div>
+<br>
+<!-- THIRD CARD WITH DETAILED WEEKLY SALES DATA -->
+<div class="card text-center">
+  <div class="card-header">
+    Weekly Sales Data
+  </div>
+  <div class="card-block">
+    <h4 class="card-title">Weekly Sales Data</h4>
+    <p class="card-text">The weekly yoyo sales data across all outlets can be found below.</p>
+
+		<canvas id="myChart" width="300" height="150"></canvas>
+
+  </div>
+</div>
+<br><br>
+
+
+<!-- LOAD DATA FOR FIRST CHART -->
+<script>
+var doughnutData = {
+ labels: [
+		 "Air Bar",
+		 "Mono",
+		 "Union Shop",
+		 "Floor 5",
+		 "Online"
+ ],
+ datasets: [
+		 {
+				 data: [43, 45, 80, 89, 88],
+				 backgroundColor: [
+						 "#ec8316",
+						 "#AF23A5",
+						 "#66008C",
+						 "#568E14",
+						 "#00829B"
+				 ],
+				 hoverBackgroundColor: [
+						 "#ff8300",
+						 "#9d3292",
+						 "#522e91",
+						 "#5d9632",
+						 "#0083a8"
+				 ],
+				 borderWidth: 0.2
+		 }]
+};
+
+jQuery(document).ready(function() {
+ var ctx = document.getElementById("chart-area").getContext("2d");
+
+ window.myDoughnutChart = new Chart(ctx, {
+		 type: 'doughnut',
+		 data: doughnutData,
+		 options: {
+				 responsive: true,
+				 legend: {
+						position: 'bottom',
+				},
+				 elements: {
+						 arc: {
+								 borderColor: "#000000"
+						 }
+				 }, 
+				 title: {
+                display: true,
+                text: 'Weekly Sales - 17/09/17'
+        	},
+				 cutoutPercentage: 50
+		 },
+		 animation:{
+				 animateScale: true
+		 },
+ });
+});
+</script>
+
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+	type: 'line',
+	data: {
+		labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+		datasets: [{ 
+			data: [86,114,106,76,134,111,200,221],
+			label: "Air-bar",
+			borderColor: "#3e95cd",
+			fill: false
+			}, { 
+			data: [0,350,0,0,405,809,0],
+			label: "Mono",
+			borderColor: "#8e5ea2",
+			fill: false
+			}, { 
+			data: [265,70,378,190,42,276,408,123,400,34],
+			label: "Union Shop",
+			borderColor: "#3cba9f",
+			fill: false
+			}, { 
+			data: [165,170,178,90,34,76,148,23,250,334],
+			label: "Floor 5",
+			borderColor: "#FF007F",
+			fill: false
+			}, { 
+			data: [265,170,128,144,422,76,138,103,100,134],
+			label: "Online",
+			borderColor: "#FFFF00",
+			fill: false
 			}
+	]
+	},
+	options: {
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero:true
+				}
+			}]
 		}
-	});
-	
-	</script>
+	}
+});
+</script>
+
+
+<script>
+new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+      labels: ["Current Week", "Previous Week"],
+      datasets: [
+        {
+          label: "YoYo Sales",
+          backgroundColor: "#3e95cd",
+          data: [268,321]
+        }, {
+          label: "Total Sales",
+          backgroundColor: "#8e5ea2",
+          data: [408,547]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Sales totals YoYo Wallet vs Other'
+      }
+    }
+});
+</script>
 
 <?php
 }
