@@ -24,8 +24,8 @@ return array(
 		'bootstrap.helpers.TbHtml',
 		'bootstrap.helpers.TbArray',
 		'bootstrap.behaviors.TbWidget',
-            
                 'application.modules.users.models.*',
+                'application.modules.sales.models.*',
 	),
 
 	'modules'=>array(
@@ -38,6 +38,7 @@ return array(
 //			'ipFilters'=>array('127.0.0.1','::1'),
 		),
                 'users',
+                'sales',
 	),
 
 	// application components
