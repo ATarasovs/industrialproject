@@ -133,13 +133,40 @@ class SaleController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Sale('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Sale']))
-			$model->attributes=$_GET['Sale'];
+//            $userid = Yii::app()->request->getParam('userid');
+//            $username = Yii::app()->request->getParam('username');
+//            if($userid!="" && $username!="") {
+//                $users = User::model()->findAll(array(
+//                    "condition"=>"userID = $userid and username = '$username'"
+//                    )
+//                );
+//            }
+//            else if($userid!="") {
+//                $users = User::model()->findAll(array(
+//                    "condition"=>"userID = $userid"
+//                    )
+//                );
+//            }
+//            else if($username!="") {
+//                $users = User::model()->findAll(array(
+//                    "condition"=>"username = '$username'"
+//                    )
+//                );
+//            }
+//            else {
+//                $users = User::model()->findAll();
+//            }
+              // $sales = "";
+				$criteria = new CDbCriteria();
+				$count=Sale::model()->count($criteria);
+				$pages=new CPagination($count);
+				$pages->pageSize=10;
+				$pages->applyLimit($criteria);
+				$sales = Sale::model()->findAll($criteria);
 
 		$this->render('admin',array(
-			'model'=>$model,
+			'sales'=>$sales,
+			'pages' => $pages
 		));
 	}
 
