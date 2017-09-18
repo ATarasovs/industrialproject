@@ -20,40 +20,43 @@ $this->menu=array(
     <br/>
     <div class="form-group col-md-5">
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <input id="filterBySaleId" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Filter by Sale ID">
+            </div>
+        </div>
+
+
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByDate" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by date">
+        </div>
+
+
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterBySaleId" type="text" class="form-control" id="inlineFormInput" placeholder="Filter by Sale ID">
-        </div>
-
-
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByDate" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by date">
-        </div>
-
-
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTime" type="text" class="form-control" id="inlineFormInput" placeholder="Filter by time">
+            <input id="filterByTime" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Filter by time">
         </div>
         
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByRetailerName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by retailer name">
-        </div>
+        <div id="hidden" class="hide">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer name">
+            </div>
 
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByOutletName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by outlet name">
-        </div>
-        
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByUserId" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by user ID">
-        </div>
-        
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByTransactionType" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by transaction type">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">
+            </div>
+
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
+            </div>
+
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">
+            </div>
         </div>
     </div>
     
@@ -90,7 +93,6 @@ $this->menu=array(
             <td class="totalamount"><?php echo $sale->Total_Amount; ?></td>
             <td>
                     <button class="viewBtn"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
-                <!--<button class="deleteBtn">Delete</button>-->
             </td>
         </tr>
        <?php } ?>
@@ -110,21 +112,6 @@ $this->menu=array(
         )
     ))?>
 </div>
-
-<?php // $this->widget('zii.widgets.grid.CGridView', array(
-//	'id'=>'user-grid',
-//	'dataProvider'=>$user->search(),
-//	'filter'=>$user,
-//	'columns'=>array(
-//		'userID',
-//		'username',
-//		'password',
-//		'salt',
-//		array(
-//			'class'=>'CButtonColumn',
-//		),
-//	),
-//)); ?>
 
 <script>
     var salesListReqUrl = '<?php print Yii::app()->createUrl('sales/sale/admin') ?>';	

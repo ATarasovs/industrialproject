@@ -33,10 +33,6 @@ function initButtons() {
         console.log(saleId);
         location.href = salesViewReqUrl + "&id=" + saleId;
     });
-    
-    $( "#advancedFiltersBtn" ).click(function() {
-        $( "#hidden" ).toggleClass( "hide" );
-    });
 }
 
 function getParameterByName(name, url) {

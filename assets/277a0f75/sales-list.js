@@ -33,10 +33,6 @@ function initButtons() {
         console.log(saleId);
         location.href = salesViewReqUrl + "&id=" + saleId;
     });
-    
-    $( "#advancedFiltersBtn" ).click(function() {
-        $( "#hidden" ).toggleClass( "hide" );
-    });
 }
 
 function getParameterByName(name, url) {
@@ -49,7 +45,7 @@ function getParameterByName(name, url) {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
-function initKeyPress() {
+function keyPress() {
     $('.filterInput').keypress(function(e){
         if(e.which == 13){//Enter key pressed
            search();
