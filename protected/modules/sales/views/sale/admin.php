@@ -67,7 +67,6 @@ $this->menu=array(
             <td class="totalamount"><?php echo $sale->Total_Amount; ?></td>
             <td>
                     <button class="viewBtn"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
-                    <button class="updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update</button>
                 <!--<button class="deleteBtn">Delete</button>-->
             </td>
         </tr>

@@ -133,40 +133,49 @@ class UserController extends Controller
 	 * Manages all models.
 	 */
 	public function actionAdmin()
-	{
-//            $users = User::model();
+	{           
+            $criteria = new CDbCriteria();
+            
             $userid = Yii::app()->request->getParam('userid');
             $username = Yii::app()->request->getParam('username');
             if($userid!="" && $username!="") {
-                $users = User::model()->findAll(array(
-                    "condition"=>"userID = $userid and username = '$username'"
-                    )
-                );
+                $criteria->addCondition("userID = $userid and username = '$username'");
+                $criteria->params = array(':userID' => $userid, ':username' => $username);
+                $count=User::model()->count($criteria);
+                $pages=new CPagination($count);
+                $pages->pageSize=3;
+                $pages->applyLimit($criteria);
+                $users = User::model()->findAll($criteria);
             }
             else if($userid!="") {
-                $users = User::model()->findAll(array(
-                    "condition"=>"userID = $userid"
-                    )
-                );
+                $criteria->addCondition("userID = $userid");
+                $criteria->params = array(':userID' => $userid);
+                $count=User::model()->count($criteria);
+                $pages=new CPagination($count);
+                $pages->pageSize=3;
+                $pages->applyLimit($criteria);
+                $users = User::model()->findAll($criteria);
             }
             else if($username!="") {
-                $users = User::model()->findAll(array(
-                    "condition"=>"username = '$username'"
-                    )
-                );
+                $criteria->addCondition("username = $username");
+                $criteria->params = array(':username' => $username);
+                $count=User::model()->count($criteria);
+                $pages=new CPagination($count);
+                $pages->pageSize=3;
+                $pages->applyLimit($criteria);
+                $users = User::model()->findAll($criteria);
             }
             else {
-                $users = User::model()->findAll();
+                $count=User::model()->count($criteria);
+                $pages=new CPagination($count);
+                $pages->pageSize=3;
+                $pages->applyLimit($criteria);
+                $users = User::model()->findAll($criteria);
             }
-//            $doctors = MasterDoctor::model()->findAll(array("condition"=>"hospitalid = $model->hospitalid"));
-//		$model=new User('search');
-//		$model->unsetAttributes();  // clear any default values
-//		if(isset($_GET['User']))
-//			$model->attributes=$_GET['User'];
-//            
-//
+
 		$this->render('admin',array(
 			'users'=>$users,
+			'pages' => $pages
 		));
 	}
         

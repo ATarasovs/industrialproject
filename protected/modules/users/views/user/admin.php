@@ -1,5 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 <?php
     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pagination.css');
     Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.users.assets.js').'\users-manage-list.js'), CClientScript::POS_HEAD);
@@ -74,6 +75,20 @@ $this->menu=array(
 
     
 </table>
+    
+<div class="pagination">
+    <?php $this->widget('CLinkPager', array(
+        'pages' => $pages,
+        'header' => '',
+        'nextPageLabel' => 'Next',
+        'prevPageLabel' => 'Prev',
+        'selectedPageCssClass' => 'active',
+        'hiddenPageCssClass' => 'disabled',
+        'htmlOptions' => array(
+            'class' => '',
+        )
+    ))?>
+</div>
 <?php // $this->widget('zii.widgets.grid.CGridView', array(
 //	'id'=>'user-grid',
 //	'dataProvider'=>$user->search(),

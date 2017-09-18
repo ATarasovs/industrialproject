@@ -156,7 +156,6 @@ class SaleController extends Controller
 //            else {
 //                $users = User::model()->findAll();
 //            }
-              // $sales = "";
 				$criteria = new CDbCriteria();
 				$count=Sale::model()->count($criteria);
 				$pages=new CPagination($count);
