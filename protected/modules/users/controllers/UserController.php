@@ -138,6 +138,7 @@ class UserController extends Controller
             
             $userid = Yii::app()->request->getParam('userid');
             $username = Yii::app()->request->getParam('username');
+            
             if($userid!="" && $username!="") {
                 $criteria->addCondition("userID = $userid and username = '$username'");
                 $criteria->params = array(':userID' => $userid, ':username' => $username);
@@ -147,6 +148,7 @@ class UserController extends Controller
                 $pages->applyLimit($criteria);
                 $users = User::model()->findAll($criteria);
             }
+            
             else if($userid!="") {
                 $criteria->addCondition("userID = $userid");
                 $criteria->params = array(':userID' => $userid);
@@ -156,6 +158,7 @@ class UserController extends Controller
                 $pages->applyLimit($criteria);
                 $users = User::model()->findAll($criteria);
             }
+            
             else if($username!="") {
                 $criteria->addCondition("username = $username");
                 $criteria->params = array(':username' => $username);
@@ -165,6 +168,7 @@ class UserController extends Controller
                 $pages->applyLimit($criteria);
                 $users = User::model()->findAll($criteria);
             }
+            
             else {
                 $count=User::model()->count($criteria);
                 $pages=new CPagination($count);
@@ -173,33 +177,13 @@ class UserController extends Controller
                 $users = User::model()->findAll($criteria);
             }
 
-		$this->render('admin',array(
-			'users'=>$users,
-			'pages' => $pages
-		));
+            $this->render('admin',array(
+                    'users'=>$users,
+                    'pages' => $pages
+            ));
 	}
-        
-//        public function actionAdmin(){
-//		$filterParams = Yii::app()->request->getParam('filterParams');
-//		if($filterParams == "erase"){
-//			Yii::app()->user->setState('searchParamUserID_usersList', '');
-//			Yii::app()->user->setState('searchParamUsername_usersList', '');
-//		}
-//		
-//		$pageNr = Yii::app()->request->getParam('page', '');
-//		if($pageNr){
-//			Yii::app()->user->setState('listPage_usersList', $pageNr);
-//		}
-//		$usersArray = "";
-////		$usersArray = getStaticClassifierAsArray('users');
-//		$this->render('admin', array(
-//		    'usersArray' => $usersArray,
-//		));
-//	}
-        
-      
 
-	/**
+        /**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded

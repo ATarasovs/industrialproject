@@ -1,6 +1,5 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 <?php
     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pagination.css');
     Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.users.assets.js').'\users-manage-list.js'), CClientScript::POS_HEAD);
@@ -17,19 +16,6 @@ $this->menu=array(
 	array('label'=>'List User', 'url'=>array('index')),
 	array('label'=>'Create User', 'url'=>array('create')),
 );
-
-//Yii::app()->clientScript->registerScript('search', "
-//$('.search-button').click(function(){
-//	$('.search-form').toggle();
-//	return false;
-//});
-//$('.search-form form').submit(function(){
-//	$('#user-grid').yiiGridView('update', {
-//		data: $(this).serialize()
-//	});
-//	return false;
-//});
-//");
 ?>
 
 <h1>Manage Users</h1>
@@ -69,11 +55,8 @@ $this->menu=array(
                 <!--<button class="deleteBtn">Delete</button>-->
             </td>
         </tr>
-       <?php } ?>
-
+        <?php } ?>
     </tbody>
-
-    
 </table>
     
 <div class="pagination">
@@ -89,20 +72,6 @@ $this->menu=array(
         )
     ))?>
 </div>
-<?php // $this->widget('zii.widgets.grid.CGridView', array(
-//	'id'=>'user-grid',
-//	'dataProvider'=>$user->search(),
-//	'filter'=>$user,
-//	'columns'=>array(
-//		'userID',
-//		'username',
-//		'password',
-//		'salt',
-//		array(
-//			'class'=>'CButtonColumn',
-//		),
-//	),
-//)); ?>
 
 <script>
     var usersManageListReqUrl = '<?php print Yii::app()->createUrl('users/user/admin') ?>';	
