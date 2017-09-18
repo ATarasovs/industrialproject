@@ -20,9 +20,8 @@ $this->menu=array(
     <br/>
     <div class="form-group col-md-5">
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-                <input id="filterBySaleId" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Filter by Sale ID">
-            </div>
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <input id="filterBySaleId" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Filter by Sale ID">
         </div>
 
 
