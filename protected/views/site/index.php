@@ -53,7 +53,7 @@ $this->pageTitle=Yii::app()->name;
 				</div>
 			</div>
 		</div>
-		</div>
+		</div>	
     <div class="col-sm-6">
 		<div class="card">
 			<h6 class="card-header">Quick View - YoYo Usage</h6>
@@ -64,7 +64,12 @@ $this->pageTitle=Yii::app()->name;
 			</div>
 		</div>
 		</div>
-  </div>
+	</div>
+	<div class="row">
+	<div class="col-sm-6">
+		
+</div>
+	</div>
 </div>
 <br>
 <!-- THIRD CARD WITH DETAILED WEEKLY SALES DATA -->
@@ -73,10 +78,26 @@ $this->pageTitle=Yii::app()->name;
     Weekly Sales Data
   </div>
   <div class="card-block">
-    <h4 class="card-title">Weekly Sales Data</h4>
-    <p class="card-text">The weekly yoyo sales data across all outlets can be found below.</p>
+    <h4 class="card-title">Sales Data</h4>
+		<input id="btn" type="button" value="Day" class="btn btn-primary" />
+		<input id="btn" type="button" value="Week" class="btn btn-primary" />
+		<input id="btn" type="button" value="Month" class="btn btn-primary" />
+		<hr>
+		<br>
 
 		<canvas id="myChart" width="300" height="150"></canvas>
+		<!-- Function which handles button request -->
+		<script>
+		$(document).ready(function() {
+			$('#btn').click(function() {
+				myChart.data.datasets[0].data[2] = 555; //test chart animation
+				myChart.update();	
+
+
+				//$("#content").load("");			
+			});
+		}); 
+		</script>
 
   </div>
 </div>
@@ -191,7 +212,7 @@ var myChart = new Chart(ctx, {
 
 
 <script>
-new Chart(document.getElementById("bar-chart-grouped"), {
+var myBarChart = new Chart(document.getElementById("bar-chart-grouped"), {
     type: 'bar',
     data: {
       labels: ["Current Week", "Previous Week"],
@@ -222,13 +243,4 @@ new Chart(document.getElementById("bar-chart-grouped"), {
 
 <br>
 <br>
-<script>
-document.write("jQuery version.."+$.fn.jquery);
 
-$(function(){
-    $('#btn').click(function() {
-        $dataValue5 = 25;
-		window.reload();
-    });
-});
-</script>
