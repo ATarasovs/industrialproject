@@ -18,49 +18,58 @@ $this->menu=array(
 
 <h1>List of Sales</h1>
     <br/>
-    <div class="row">
-        <div class="col-xs-4">
-    </div>
-    <div class="form-inline">
-        <label class="sr-only" for="inlineFormInput">Name</label>
+    <div class="form-group col-md-5">
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByUserId" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Filter By UserID" onkeyup="filters()">
+            <input id="filterBySaleId" type="text" class="form-control" id="inlineFormInput" placeholder="Filter by Sale ID">
         </div>
 
-        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByUserName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" onkeyup="filters()">
+            <input id="filterByDate" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by date">
+        </div>
+
+
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <input id="filterByTime" type="text" class="form-control" id="inlineFormInput" placeholder="Filter by time">
+        </div>
+        
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByRetailerName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by retailer name">
+        </div>
+
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByOutletName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by outlet name">
+        </div>
+        
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByUserId" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by user ID">
+        </div>
+        
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByTransactionType" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by transaction type">
         </div>
     </div>
-<!--    <div>
-        <div class="form-inline">
-            <label class="sr-only" for="inlineFormInput">Name</label>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-                <input id="filterByUserId" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Filter By UserID" onkeyup="filters()">
-            </div>
-
-        <label class="sr-only" for="inlineFormInputGroup">Username</label>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByUserName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" onkeyup="filters()">
-        </div>
-        </div>
-    </div>-->
-
+    
+    <div class="form-group col-md-6">
         <button id="advancedFiltersBtn" class="btn btn-primary">Advanced Filters</button> &nbsp;
         <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
         <button id="unsetFiltersBtn" class="btn btn-primary">Unset Filters</button>
     </div>
+   
 <table id="sales" class="table">
     <thead class="thead-inverse">
-        <th><?php echo Sale::model()->getAttributeLabel('saleID') ?></th>
+        <th><?php echo Sale::model()->getAttributeLabel('sales_id') ?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Date_Time') ?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Retailer_Name')?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Outlet_Name')?></th>
-        <th><?php echo Sale::model()->getAttributeLabel('New_User_ID')?></th>
+        <th><?php echo Sale::model()->getAttributeLabel('New_user_id')?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Transaction_Type')?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Cash_Spent')?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Discount_Amount')?></th>
@@ -70,11 +79,11 @@ $this->menu=array(
     <tbody>
         <?php foreach($sales as $sale) { ?>
         <tr class="table-info">
-            <td class="id"><?php echo $sale->saleID; ?></td>
+            <td class="id"><?php echo $sale->sales_id; ?></td>
             <td class="datetime"><?php echo $sale->Date_Time; ?></td>
             <td class="retailername"><?php echo $sale->Retailer_Name; ?></td>
             <td class="outletname"><?php echo $sale->Outlet_Name; ?></td>
-            <td class="userid"><?php echo $sale->New_User_ID; ?></td>
+            <td class="userid"><?php echo $sale->New_user_id; ?></td>
             <td class="transactiontype"><?php echo $sale->Transaction_Type; ?></td>
             <td class="cashspent"><?php echo $sale->Cash_Spent; ?></td>
             <td class="discountamount"><?php echo $sale->Discount_Amount; ?></td>
@@ -118,11 +127,8 @@ $this->menu=array(
 //)); ?>
 
 <script>
-    var usersManageListReqUrl = '<?php print Yii::app()->createUrl('users/user/admin') ?>';	
-    var userViewReqUrl = '<?php print Yii::app()->createUrl('users/user/view') ?>';
-    var userUpdateReqUrl = '<?php print Yii::app()->createUrl('users/user/update') ?>';
-//    var userDeleteReqUrl = '<?php print Yii::app()->createUrl('users/user/delete') ?>';
-
+    var salesListReqUrl = '<?php print Yii::app()->createUrl('sales/sale/admin') ?>';	
+    var salesViewReqUrl = '<?php print Yii::app()->createUrl('sales/sale/view') ?>';
 </script>
 
 

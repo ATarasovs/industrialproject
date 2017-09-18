@@ -34,7 +34,7 @@ class Sale extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Date_Time, Retailer_Ref, Outlet_Ref, Retailer_Name, Outlet_Name, New_User_ID, Transaction_Type, Cash_Spent, Discount_Amount, Total_Amount', 'required'),
+			array('Date_Time, Retailer_Ref, Outlet_Ref, Retailer_Name, Outlet_Name, New_user_id, Transaction_Type, Cash_Spent, Discount_Amount, Total_Amount', 'required'),
 			array('Retailer_Ref, Outlet_Ref', 'numerical', 'integerOnly'=>true),
 			array('Retailer_Name, Outlet_Name', 'length', 'max'=>45),
 			array('New_User_ID', 'length', 'max'=>9),
@@ -42,7 +42,7 @@ class Sale extends CActiveRecord
 			array('Cash_Spent, Discount_Amount, Total_Amount', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('saleID, Date_Time, Retailer_Ref, Outlet_Ref, Retailer_Name, Outlet_Name, New_User_ID, Transaction_Type, Cash_Spent, Discount_Amount, Total_Amount', 'safe', 'on'=>'search'),
+			array('sales_id, Date_Time, Retailer_Ref, Outlet_Ref, Retailer_Name, Outlet_Name, New_user_id, Transaction_Type, Cash_Spent, Discount_Amount, Total_Amount', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,13 +63,13 @@ class Sale extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'saleID' => 'Sale',
+			'sales_id' => 'Sale',
 			'Date_Time' => 'Date Time',
 			'Retailer_Ref' => 'Retailer Ref',
 			'Outlet_Ref' => 'Outlet Ref',
 			'Retailer_Name' => 'Retailer Name',
 			'Outlet_Name' => 'Outlet Name',
-			'New_User_ID' => 'New User',
+			'New_user_id' => 'New User',
 			'Transaction_Type' => 'Transaction Type',
 			'Cash_Spent' => 'Cash Spent',
 			'Discount_Amount' => 'Discount Amount',
@@ -95,13 +95,13 @@ class Sale extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('saleID',$this->saleID);
+		$criteria->compare('sales_id',$this->sales_id);
 		$criteria->compare('Date_Time',$this->Date_Time,true);
 		$criteria->compare('Retailer_Ref',$this->Retailer_Ref);
 		$criteria->compare('Outlet_Ref',$this->Outlet_Ref);
 		$criteria->compare('Retailer_Name',$this->Retailer_Name,true);
 		$criteria->compare('Outlet_Name',$this->Outlet_Name,true);
-		$criteria->compare('New_User_ID',$this->New_User_ID,true);
+		$criteria->compare('New_user_id',$this->New_user_id,true);
 		$criteria->compare('Transaction_Type',$this->Transaction_Type,true);
 		$criteria->compare('Cash_Spent',$this->Cash_Spent,true);
 		$criteria->compare('Discount_Amount',$this->Discount_Amount,true);

@@ -8,12 +8,7 @@ $(document).ready(function() {
     var transactionTypeParam = getParameterByName('transactiontype');
     
     $("#filterBySaleId").val(saleIdParam);
-    $("#filterByDate").val(dateParam);
-    $("#filterByTime").val(timeParam);
-    $("#filterByRetailerName").val(retailerNameParam);
-    $("#filterByOutletName").val(outletNameParam);
-    $("#filterByUserId").val(userIdParam);
-    $("#filterByTransactionType").val(transactionTypeParam);
+    
     
     initButtons();
 });

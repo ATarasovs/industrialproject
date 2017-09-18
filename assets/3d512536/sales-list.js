@@ -15,6 +15,7 @@ $(document).ready(function() {
     $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     
+    
     initButtons();
 });
 

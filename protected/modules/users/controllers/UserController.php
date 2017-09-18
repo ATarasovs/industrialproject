@@ -139,43 +139,19 @@ class UserController extends Controller
             $userid = Yii::app()->request->getParam('userid');
             $username = Yii::app()->request->getParam('username');
             
-            if($userid!="" && $username!="") {
-                $criteria->addCondition("userID = $userid and username = '$username'");
-                $criteria->params = array(':userID' => $userid, ':username' => $username);
-                $count=User::model()->count($criteria);
-                $pages=new CPagination($count);
-                $pages->pageSize=3;
-                $pages->applyLimit($criteria);
-                $users = User::model()->findAll($criteria);
+            if ($userid != "") {
+               $criteria->addCondition("userID = $userid"); 
             }
             
-            else if($userid!="") {
-                $criteria->addCondition("userID = $userid");
-                $criteria->params = array(':userID' => $userid);
-                $count=User::model()->count($criteria);
-                $pages=new CPagination($count);
-                $pages->pageSize=3;
-                $pages->applyLimit($criteria);
-                $users = User::model()->findAll($criteria);
+            if ($username != "") {
+                $criteria->addCondition("username = '$username'");
             }
             
-            else if($username!="") {
-                $criteria->addCondition("username = $username");
-                $criteria->params = array(':username' => $username);
-                $count=User::model()->count($criteria);
-                $pages=new CPagination($count);
-                $pages->pageSize=3;
-                $pages->applyLimit($criteria);
-                $users = User::model()->findAll($criteria);
-            }
-            
-            else {
-                $count=User::model()->count($criteria);
-                $pages=new CPagination($count);
-                $pages->pageSize=3;
-                $pages->applyLimit($criteria);
-                $users = User::model()->findAll($criteria);
-            }
+            $count=User::model()->count($criteria);
+            $pages=new CPagination($count);
+            $pages->pageSize=3;
+            $pages->applyLimit($criteria);
+            $users = User::model()->findAll($criteria);
 
             $this->render('admin',array(
                     'users'=>$users,

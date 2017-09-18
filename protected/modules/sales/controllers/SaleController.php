@@ -133,40 +133,55 @@ class SaleController extends Controller
 	 */
 	public function actionAdmin()
 	{
-//            $userid = Yii::app()->request->getParam('userid');
-//            $username = Yii::app()->request->getParam('username');
-//            if($userid!="" && $username!="") {
-//                $users = User::model()->findAll(array(
-//                    "condition"=>"userID = $userid and username = '$username'"
-//                    )
-//                );
+            $criteria = new CDbCriteria();
+            
+            $saleid = Yii::app()->request->getParam('saleid');
+//            $date = Yii::app()->request->getParam('date');
+//            $time = Yii::app()->request->getParam('time');
+            $outletname = Yii::app()->request->getParam('outlet');
+            $retailername = Yii::app()->request->getParam('retailer');
+            $userid = Yii::app()->request->getParam('userid');
+            $transactiontype = Yii::app()->request->getParam('transactiontype');
+            
+            if ($saleid != "") {
+               $criteria->addCondition("sales_id = $saleid"); 
+            }
+            
+//            if ($date != "") {
+//                $criteria->addCondition("date = '$date'");
 //            }
-//            else if($userid!="") {
-//                $users = User::model()->findAll(array(
-//                    "condition"=>"userID = $userid"
-//                    )
-//                );
+//            
+//            if ($time != "") {
+//                $criteria->addCondition("time = '$time'");
 //            }
-//            else if($username!="") {
-//                $users = User::model()->findAll(array(
-//                    "condition"=>"username = '$username'"
-//                    )
-//                );
-//            }
-//            else {
-//                $users = User::model()->findAll();
-//            }
-				$criteria = new CDbCriteria();
-				$count=Sale::model()->count($criteria);
-				$pages=new CPagination($count);
-				$pages->pageSize=10;
-				$pages->applyLimit($criteria);
-				$sales = Sale::model()->findAll($criteria);
+            
+            if ($outletname != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname'");
+            }
+            
+            if ($retailername != "") {
+                $criteria->addCondition("Retailer_Name = '$retailername'");
+            }
+            
+            if ($userid != "") {
+                $criteria->addCondition("New_user_id = '$userid'");
+            }
+            
+            if ($transactiontype != "") {
+                $criteria->addCondition("Transaction_Type = '$transactiontype'");
+            }
 
-		$this->render('admin',array(
-			'sales'=>$sales,
-			'pages' => $pages
-		));
+            
+            $count=Sale::model()->count($criteria);
+            $pages=new CPagination($count);
+            $pages->pageSize=10;
+            $pages->applyLimit($criteria);
+            $sales = Sale::model()->findAll($criteria);
+
+            $this->render('admin',array(
+                    'sales'=>$sales,
+                    'pages' => $pages
+            ));
 	}
 
 	/**

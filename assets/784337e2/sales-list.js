@@ -8,12 +8,7 @@ $(document).ready(function() {
     var transactionTypeParam = getParameterByName('transactiontype');
     
     $("#filterBySaleId").val(saleIdParam);
-    $("#filterByDate").val(dateParam);
-    $("#filterByTime").val(timeParam);
-    $("#filterByRetailerName").val(retailerNameParam);
-    $("#filterByOutletName").val(outletNameParam);
-    $("#filterByUserId").val(userIdParam);
-    $("#filterByTransactionType").val(transactionTypeParam);
+    
     
     initButtons();
 });
@@ -41,9 +36,8 @@ function initButtons() {
         console.log(saleId);
         location.href = salesViewReqUrl + "&id=" + saleId;
     });
-}
-
-function getParameterByName(name, url) {
+    
+    function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -52,6 +46,7 @@ function getParameterByName(name, url) {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
+}
 
 
 
