@@ -47,24 +47,42 @@ $this->menu=array(
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
                 <option></option>
-                <option value="1">Sunday</option>
-                <option value="2">Monday</option>
-                <option value="3">Tuesday</option>
-                <option value="4">Wednesday</option>
-                <option value="5">Thursday</option>
-                <option value="6">Friday</option>
-                <option value="7">Saturday</option>
+                <option value="0">Monday</option>
+                <option value="1">Tuesday</option>
+                <option value="2">Wednesday</option>
+                <option value="3">Thursday</option>
+                <option value="4">Friday</option>
+                <option value="5">Saturday</option>
+                <option value="6">Sunday</option>
             </select>
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByWeekdayTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
                 <option></option>
-                <option value="1">Sunday</option>
-                <option value="2">Monday</option>
-                <option value="3">Tuesday</option>
-                <option value="4">Wednesday</option>
-                <option value="5">Thursday</option>
-                <option value="6">Friday</option>
-                <option value="7">Saturday</option>
+                <option value="0">Monday</option>
+                <option value="1">Tuesday</option>
+                <option value="2">Wednesday</option>
+                <option value="3">Thursday</option>
+                <option value="4">Friday</option>
+                <option value="5">Saturday</option>
+                <option value="6">Sunday</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
+                <option>Select years</option>
+<!--                <option value="0">Monday</option>
+                <option value="1">Tuesday</option>
+                <option value="2">Wednesday</option>
+                <option value="3">Thursday</option>
+                <option value="4">Friday</option>
+                <option value="5">Saturday</option>
+                <option value="6">Sunday</option>-->
+            </select>
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
+                <option>Select months</option>
             </select>
         </div>
         
