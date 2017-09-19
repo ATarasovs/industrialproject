@@ -56,6 +56,11 @@ Yii::app()->clientScript->registerScriptFile(
 	?>
 	</li>
 	<li class="nav-item">
+	<?php 
+	echo CHtml::link('<i class="fa fa-file-text-o" aria-hidden="true"></i> Sales',array('/sales/sale/admin', 'view'=>'about'), array('class'=>'nav-link')); 
+	?>
+	</li>
+	<li class="nav-item">
 	<?php echo CHtml::link('<i class="fa fa-question-circle"></i> About',array('#'), array('class'=>'nav-link')); ?>
 	</li>
   <?php if (!Yii::app()->user->isGuest) { ?>
@@ -88,7 +93,7 @@ Yii::app()->clientScript->registerScriptFile(
 <br>
 <br>
 	
-<div class="container">
+<div class="container" style="width:90%;">
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,

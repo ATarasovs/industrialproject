@@ -42,34 +42,59 @@ $this->pageTitle=Yii::app()->name;
 </div>
 <br>
 <!-- FIRST AND SECOND CARDS WITH SUMMARY OF WEEKLY SALES DATA -->	
-<div class="container">
+
   <div class="row">
-    <div class="col-sm-6">
-		<div class="card">
+    <div class="col-md-5">
+		<div class="card"> <!-- FIRST CARD WITH DOUGHNUT -->
 			<h6 class="card-header">Quick View - Weekly Sales</h6>
 			<div class="card-block">
-				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
-				<canvas id="chart-area" width="400" height="400"/>
+			<div class="dropdown pull-right">
+  			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    			Weekly
+  			</button>
+  			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
+    					<a class="dropdown-item pull-right" href="#">Weekly data</a>
+    					<a class="dropdown-item pull-right" href="#">Monthly data</a>
+    					<a class="dropdown-item pull-right" href="#">Yearly data</a>
+  				</div>
+				</div>
+				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:0; margin-right:auto; display:table;">
+					<canvas id="myDoughnutChart" width="500" height="450"/>
+				</div>
+				<hr>
+				<h6>Quick views:</h6>
+				<div class="mmenu">
+					<input id="Shops" type="button" value="Shops" class="btn btn-primary"/>
+					<input id="Nightlife" type="button" value="Nightlife" class="btn btn-primary" />
+					<input id="Services" type="button" value="Services" class="btn btn-primary"/>
+					<input id="New" type="button" value="New" class="btn btn-success"/>
+					<span>
+						<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
+					</span>
 				</div>
 			</div>
 		</div>
 		</div>	
-    <div class="col-sm-6">
-		<div class="card">
+    <div class="col-md-7">
+		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
 			<h6 class="card-header">Quick View - YoYo Usage</h6>
 			<div class="card-block">
 				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
-				<canvas id="bar-chart-grouped" width="450" height="400"></canvas>
+					<canvas id="bar-chart-grouped" width="450" height="450"></canvas>
+				</div>
+				<hr>
+				<h6>Quick views:</h6>
+				<div class="mmenu">
+					<input id="Shops" type="button" value="Shops" class="btn btn-primary"/>
+					<input id="Nightlife" type="button" value="Nightlife" class="btn btn-primary" />
+					<input id="Services" type="button" value="Services" class="btn btn-primary"/>
+					<input id="New" type="button" value="New" class="btn btn-success"/>
+					<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
 				</div>
 			</div>
 		</div>
 		</div>
-	</div>
-	<div class="row">
-	<div class="col-sm-6">
-		
-</div>
-	</div>
+	
 </div>
 <br>
 <!-- THIRD CARD WITH DETAILED WEEKLY SALES DATA -->
@@ -79,72 +104,288 @@ $this->pageTitle=Yii::app()->name;
   </div>
   <div class="card-block">
     <h4 class="card-title">Sales Data</h4>
-		<input id="btn" type="button" value="Day" class="btn btn-primary" />
 		<input id="btn" type="button" value="Week" class="btn btn-primary" />
 		<input id="btn" type="button" value="Month" class="btn btn-primary" />
+		<br> <br>
+		<div id="canvas-holder-2" style="width:100%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
+		<canvas id="myChart" width="300" height="125"></canvas>
+				</div>
+		
 		<hr>
-		<br>
-
-		<canvas id="myChart" width="300" height="150"></canvas>
-		<!-- Function which handles button request -->
-		<script>
-		$(document).ready(function() {
-			$('#btn').click(function() {
-				myChart.data.datasets[0].data[2] = 555; //test chart animation
-				myChart.update();	
-
-
-				//$("#content").load("");			
-			});
-		}); 
-		</script>
-
+				<h6>Quick views:</h6>
+				<div class="mmenuLine pull-left">
+					<input id="ShopsLine" type="button" value="Shops" class="btn btn-primary"/>
+					<input id="NightlifeLine" type="button" value="Nightlife" class="btn btn-primary" />
+					<input id="ServicesLine" type="button" value="Services" class="btn btn-primary"/>
+					<input id="New" type="button" value="New" class="btn btn-success"/>
+				</div>
+					<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
   </div>
 </div>
 <br><br>
 
 
-<!-- LOAD DATA FOR FIRST CHART -->
+<!-- ############################### -->
+<!-- ###	Line Chart Scripts ### -->
+<!-- ############################### -->
+
+<!-- Init Line Graph -->
 <script>
-var doughnutData = {
- labels: [
-		 "Air Bar",
-		 "Mono",
-		 "Union Shop",
-		 "Floor 5",
-		 "Online"
- ],
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+	type: 'line',
+	data: {
+		labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+		datasets: [{ 
+			data: [0,0,0,0,0,0,0],
+			label: "Premier Shop",
+			borderColor: "#3e95cd",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "Ninewells Shop",
+			borderColor: "#8e5ea2",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "Mono",
+			borderColor: "#3cba9f",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "Library",
+			borderColor: "#ffe835",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "Liar Bar",
+			borderColor: "#2e50ff",
+			fill: false
+			},  { 
+			data: [0,0,0,0,0,0,0],
+			label: "Level 2 Reception",
+			borderColor: "#5ba921",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "College Shop",
+			borderColor: "#b87e7a",
+			fill: false
+			}, { 
+			data: [0,0,0,1,0,0,0],
+			label: "DUSA Marketplace",
+			borderColor: "#3fcaee",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "DJCAD Canteen",
+			borderColor: "#873de2",
+			fill: false
+			}, { 
+			data: [0,0,0,0,0,0,0],
+			label: "Food On Four",
+			borderColor: "#886302",
+			fill: false
+			}  
+	]
+	},
+	options: {
+		legend: {
+						position: 'top',
+				},
+		tooltips: { bodyFontSize: 15 },
+		elements: { point: { hitRadius: 10, hoverRadius: 5 } },
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero:true,
+					callback: function(value, index, values){
+						return '£' + value;
+					}
+				},
+				scaleLabel: {
+					display: true,
+					labelString: "Total Sales (£)",
+					fontColor: "green"
+				}
+			}],
+			xAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: "Day of the week",
+					fontColor: "blue"
+				}
+			}]
+		}
+	}
+});
+</script>
+
+<!-- Function which handles button request -->
+<script>
+		jQuery(document).ready(function() {
+			$('#btn').click(function() {
+
+				//Identifier for ajaxProcess function to load correct chartData
+				var a = "Week";
+
+				//Global varibale which stores 2d array of chart values
+				var chartData;
+
+				//AJAX call to siteController actionAjaxProcess
+				jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=site/AjaxProcess',
+                type: "POST",
+                data: {ajaxData: a},  
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+									//Assign Data to Chart
+									chartData = JSON.stringify(resp);
+
+											var counter = 0;
+											myChart.data.datasets.forEach((dataset) => {
+
+													dataset.data = resp[counter];
+													counter ++;
+
+											});
+									
+											myChart.update();
+									
+                    }
+                });
+				});
+			}); 
+		</script>
+
+
+<!-- Line Graph Quick View Buttons -->
+<script>
+$(document).ready(function() {
+	$('.mmenuLine').delegate(".btn", "click", function() {
+        var id = $(this).attr('id') // or this.id
+				alert(id);
+        if ( id == "ShopsLine" ) {
+
+					alert("MAtch");
+						//Reset();
+						myChart.getDatasetMeta(0).data[2].hidden = true;
+						myChart.getDatasetMeta(1).data[3].hidden = false;
+						//myChart.getDatasetMeta(0).data[4].hidden = !myChart.getDatasetMeta(0).data[4].hidden;
+						//myChart.getDatasetMeta(0).data[5].hidden = !myChart.getDatasetMeta(0).data[5].hidden;
+						//myChart.getDatasetMeta(0).data[7].hidden = !myChart.getDatasetMeta(0).data[7].hidden;
+						myChart.update();
+						alert("updated");
+
+        } else if ( id == "NightlifeLine"){
+
+						Reset();
+						myChart.getDatasetMeta(0).data[0].hidden = !myChart.getDatasetMeta(0).data[0].hidden;
+						myChart.getDatasetMeta(0).data[1].hidden = !myChart.getDatasetMeta(0).data[1].hidden;
+						myChart.getDatasetMeta(0).data[3].hidden = !myChart.getDatasetMeta(0).data[3].hidden;
+						myChart.getDatasetMeta(0).data[6].hidden = !myChart.getDatasetMeta(0).data[6].hidden;
+						myChart.getDatasetMeta(0).data[7].hidden = !myChart.getDatasetMeta(0).data[7].hidden;
+						myChart.update();
+
+
+				} else if ( id == "ServicesLine"){
+
+						Reset();
+						myChart.getDatasetMeta(0).data[0].hidden = !myChart.getDatasetMeta(0).data[0].hidden;
+						myChart.getDatasetMeta(0).data[1].hidden = !myChart.getDatasetMeta(0).data[1].hidden;
+						myChart.getDatasetMeta(0).data[2].hidden = !myChart.getDatasetMeta(0).data[2].hidden;
+						myChart.getDatasetMeta(0).data[4].hidden = !myChart.getDatasetMeta(0).data[4].hidden;
+						myChart.getDatasetMeta(0).data[5].hidden = !myChart.getDatasetMeta(0).data[5].hidden;
+						myChart.getDatasetMeta(0).data[6].hidden = !myChart.getDatasetMeta(0).data[6].hidden;
+						myChart.update();
+
+				} else if ( id == "ResetLine"){
+
+						Reset();
+
+				} 
+
+				function Reset(){
+
+					myChart.getDatasetMeta(0).data[0].hidden = false;
+					myChart.getDatasetMeta(0).data[1].hidden = false;
+					myChart.getDatasetMeta(0).data[2].hidden = false;
+					myChart.getDatasetMeta(0).data[3].hidden = false;
+					myChart.getDatasetMeta(0).data[4].hidden = false;
+					myChart.getDatasetMeta(0).data[5].hidden = false;
+					myChart.getDatasetMeta(0).data[6].hidden = false;
+					myChart.getDatasetMeta(0).data[7].hidden = false;
+
+					myChart.update();
+
+				} 
+    });
+
+
+});
+</script> 
+
+<!-- ############################### -->
+<!-- ###	Doughnut Chart Scripts ### -->
+<!-- ############################### -->
+
+<!-- Initalise Doughnut -->
+<script>
+ var ctx = document.getElementById("myDoughnutChart").getContext("2d");
+ var myDoughnutChart = new Chart(ctx, {
+		 type: 'doughnut',
+		 data: {
+ 			labels: [
+					"Premier Shop",
+					"Ninewells Shop",
+					"Mono",
+					"Library",
+					"Liar Bar",
+					"Level 2 Reception",
+					"College Shop",
+					"DUSA Marketpalce"
+			],
  datasets: [
 		 {
-				 data: [43, 45, 80, 89, 88],
+				 data: [909.69, 96.28, 4243.51, 61.13, 3409.11, 1644.50, 42.33, 9321.00],
 				 backgroundColor: [
-						 "#ec8316",
-						 "#AF23A5",
-						 "#66008C",
-						 "#568E14",
-						 "#00829B"
+						 "#e6194b",
+						 "#3cb44b",
+						 "#ffe119",
+						 "#0082c8",
+						 "#f58231",
+						 "#911eb4",
+						 "#46f0f0",
+						 "#f032e6"
 				 ],
 				 hoverBackgroundColor: [
-						 "#ff8300",
-						 "#9d3292",
-						 "#522e91",
-						 "#5d9632",
-						 "#0083a8"
+					"#e6194b",
+					"#3cb44b",
+					"#ffe119",
+					"#0082c8",
+					"#f58231",
+					"#911eb4",
+					"#46f0f0",
+					"#f032e6"
 				 ],
-				 borderWidth: 0.2
+				 borderWidth: 5,
+				 borderColor: "#ffffff"
+
 		 }]
-};
-
-jQuery(document).ready(function() {
- var ctx = document.getElementById("chart-area").getContext("2d");
-
- window.myDoughnutChart = new Chart(ctx, {
-		 type: 'doughnut',
-		 data: doughnutData,
+},
 		 options: {
 				 responsive: true,
 				 legend: {
-						position: 'bottom',
+						position: 'left',
 				},
 				 elements: {
 						 arc: {
@@ -161,56 +402,72 @@ jQuery(document).ready(function() {
 				 animateScale: true
 		 },
  });
-});
 </script>
 
+<!-- Dougnut Quick View Buttons -->
 <script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-	type: 'line',
-	data: {
-		labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-		datasets: [{ 
-			data: [86,114,106,76,134,111,200,221],
-			label: "Air-bar",
-			borderColor: "#3e95cd",
-			fill: false
-			}, { 
-			data: [0,350,0,0,405,809,0],
-			label: "Mono",
-			borderColor: "#8e5ea2",
-			fill: false
-			}, { 
-			data: [265,70,378,190,42,276,408,123,400,34],
-			label: "Union Shop",
-			borderColor: "#3cba9f",
-			fill: false
-			}, { 
-			data: [165,170,178,90,34,76,148,23,250,334],
-			label: "Floor 5",
-			borderColor: "#FF007F",
-			fill: false
-			}, { 
-			data: [265,170,128,144,422,76,138,103,100,134],
-			label: "Online",
-			borderColor: "#FFFF00",
-			fill: false
-			}
-	]
-	},
-	options: {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero:true
-				}
-			}]
-		}
-	}
+jQuery(document).ready(function() {
+	$('.mmenu').delegate(".btn", "click", function() {
+        var id = $(this).attr('id') // or this.id
+        if ( id == "Shops" ) {
+
+						Reset();
+						myDoughnutChart.getDatasetMeta(0).data[2].hidden = !myDoughnutChart.getDatasetMeta(0).data[2].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[3].hidden = !myDoughnutChart.getDatasetMeta(0).data[3].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[4].hidden = !myDoughnutChart.getDatasetMeta(0).data[4].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[5].hidden = !myDoughnutChart.getDatasetMeta(0).data[5].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[7].hidden = !myDoughnutChart.getDatasetMeta(0).data[7].hidden;
+						myDoughnutChart.update();
+
+        } else if ( id == "Nightlife"){
+
+						Reset();
+						myDoughnutChart.getDatasetMeta(0).data[0].hidden = !myDoughnutChart.getDatasetMeta(0).data[0].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[1].hidden = !myDoughnutChart.getDatasetMeta(0).data[1].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[3].hidden = !myDoughnutChart.getDatasetMeta(0).data[3].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[6].hidden = !myDoughnutChart.getDatasetMeta(0).data[6].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[7].hidden = !myDoughnutChart.getDatasetMeta(0).data[7].hidden;
+						myDoughnutChart.update();
+
+
+				} else if ( id == "Services"){
+
+						Reset();
+						myDoughnutChart.getDatasetMeta(0).data[0].hidden = !myDoughnutChart.getDatasetMeta(0).data[0].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[1].hidden = !myDoughnutChart.getDatasetMeta(0).data[1].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[2].hidden = !myDoughnutChart.getDatasetMeta(0).data[2].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[4].hidden = !myDoughnutChart.getDatasetMeta(0).data[4].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[5].hidden = !myDoughnutChart.getDatasetMeta(0).data[5].hidden;
+						myDoughnutChart.getDatasetMeta(0).data[6].hidden = !myDoughnutChart.getDatasetMeta(0).data[6].hidden;
+						myDoughnutChart.update();
+
+				} else if ( id == "Reset"){
+
+						Reset();
+
+				} 
+
+				function Reset(){
+
+					myDoughnutChart.getDatasetMeta(0).data[0].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[1].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[2].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[3].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[4].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[5].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[6].hidden = false;
+						myDoughnutChart.getDatasetMeta(0).data[7].hidden = false;
+
+						myDoughnutChart.update();
+
+				} 
+    });
+
+
 });
-</script>
+</script> 
 
-
+<!-- BAR CHART -->
 <script>
 var myBarChart = new Chart(document.getElementById("bar-chart-grouped"), {
     type: 'bar',
@@ -237,10 +494,8 @@ var myBarChart = new Chart(document.getElementById("bar-chart-grouped"), {
 });
 </script>
 
+<!-- End of Content -->
 <?php
 }
 ?>
-
-<br>
-<br>
 

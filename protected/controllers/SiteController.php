@@ -106,4 +106,51 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	/**
+	* 	Function which responds to test ajax request from index.php
+	*/
+	public function actionAjaxProcess(){
+
+		$a = $_POST['ajaxData'];
+		//process $a and get output $b
+
+		//Array of Sales Data from 14th-20th
+		$myArr = array(
+			0 => array( //Prem
+				31,	20,	10,	15,	98,	7,	80
+			),
+			1 => array( //Ninewells Shop
+				15,	53,	19,	32,	28,	13,	80
+			),
+			2 => array( //Mono
+				10,	10,	22,	30,	6,	300,	450
+			),
+			3 => array( //Library
+				19,	17.50, 14,	14,	50,	2,	80
+			),
+			4 => array( //Liar Bar
+				10,	20,	88,	0,	64,	100,	490
+			),
+			5 => array( //Level 2 Reception
+				10,	20,	0,	0,	50,	170,	80
+			),
+			6 => array( //College Shop
+				10,	20,	102, 40, 288, 0, 80
+			),
+			7 => array( //Dusa Marketplace
+				10,	0,	126,	40,	0,	0,	80
+			),
+			8 => array( //DJCAD Canteen
+				10,	0,	0,	40,	50,	70,	80
+			),
+			9 => array( // Food on Four
+				10,	0,	0,	40,	50,	15,	80
+			),
+		);
+
+		// output some JSON instead of the usual text/html
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($myArr, JSON_FORCE_OBJECT);
+	}
 }
