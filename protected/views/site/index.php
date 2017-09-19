@@ -190,6 +190,8 @@ var myChart = new Chart(ctx, {
 	]
 	},
 	options: {
+		maintainAspectRatio: true,
+		responsive: true,
 		legend: {
 						position: 'top',
 				},
@@ -384,8 +386,9 @@ $(document).ready(function() {
 },
 		 options: {
 				 responsive: true,
+				 maintainAspectRatio: true,
 				 legend: {
-						position: 'left',
+						position: 'top',
 				},
 				 elements: {
 						 arc: {
