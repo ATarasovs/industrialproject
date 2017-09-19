@@ -26,6 +26,7 @@ return array(
 		'bootstrap.behaviors.TbWidget',
                 'application.modules.users.models.*',
                 'application.modules.sales.models.*',
+                'application.modules.dashboards.models.*',
 	),
 
 	'modules'=>array(
@@ -39,6 +40,7 @@ return array(
 		),
                 'users',
                 'sales',
+                'dashboards',
 	),
 
 	// application components
