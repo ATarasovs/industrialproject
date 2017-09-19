@@ -19,21 +19,53 @@ $this->menu=array(
 <h1>List of Sales</h1>
     <br/>
     <div class="form-group col-md-5">
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+<!--        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <input id="filterBySaleId" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Filter by Sale ID">
-        </div>
+        </div>-->
 
 
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            
             <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByDate" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by date">
+            <input id="filterByDateFrom" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="From">
+            
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByDateTo" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="To">
+       
         </div>
 
 
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTime" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Filter by time">
+            <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
+        </div>
+
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
+                <option></option>
+                <option value="1">Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+            </select>
+            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+            <select id="filterByWeekdayTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
+                <option></option>
+                <option value="1">Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+            </select>
         </div>
         
         <div id="hidden" class="hide">
@@ -67,7 +99,7 @@ $this->menu=array(
    
 <table id="sales" class="table">
     <thead class="thead-inverse">
-        <th><?php echo Sale::model()->getAttributeLabel('sales_id') ?></th>
+        <th class="hide"><?php echo Sale::model()->getAttributeLabel('sales_id') ?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Date_Time') ?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Retailer_Name')?></th>
         <th><?php echo Sale::model()->getAttributeLabel('Outlet_Name')?></th>
@@ -81,7 +113,7 @@ $this->menu=array(
     <tbody>
         <?php foreach($sales as $sale) { ?>
         <tr class="table-info">
-            <td class="id"><?php echo $sale->sales_id; ?></td>
+            <td class="id hide"><?php echo $sale->sales_id; ?></td>
             <td class="datetime"><?php echo $sale->Date_Time; ?></td>
             <td class="retailername"><?php echo $sale->Retailer_Name; ?></td>
             <td class="outletname"><?php echo $sale->Outlet_Name; ?></td>

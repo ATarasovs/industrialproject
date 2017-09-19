@@ -2,8 +2,7 @@ $(document).ready(function() {
 //    var saleIdParam = getParameterByName('saleid');
     var dateFromParam = getParameterByName('datefrom');
     var dateToParam = getParameterByName('dateto');
-    var timeFromParam = getParameterByName('timefrom');
-    var timeToParam = getParameterByName('timeto');
+    var timeParam = getParameterByName('time');
     var retailerNameParam = getParameterByName('retailer');
     var outletNameParam = getParameterByName('outlet');
     var userIdParam = getParameterByName('userid');
@@ -12,8 +11,7 @@ $(document).ready(function() {
 //    $("#filterBySaleId").val(saleIdParam);
     $("#filterByDateFrom").val(dateFromParam);
     $("#filterByDateTo").val(dateToParam);
-    $("#filterByTimeFrom").val(timeFromParam);
-    $("#filterByTimeTo").val(timeToParam);
+    $("#filterByTime").val(timeParam);
     $("#filterByRetailerName").val(retailerNameParam);
     $("#filterByOutletName").val(outletNameParam);
     $("#filterByUserId").val(userIdParam);
@@ -65,18 +63,13 @@ function search() {
 //    var saleId = $("#filterBySaleId").val();
     var dateFrom = $("#filterByDateFrom").val();
     var dateTo = $("#filterByDateTo").val();
-    var timeFrom = $("#filterByTimeFrom").val();
-    var timeTo = $("#filterByTimeTo").val();
-    var weekdayFrom = $("#filterByWeekdayFrom").val();
-    var weekdayTo = $("#filterByWeekdayTo").val();
+    var time = $("#filterByTime").val();
     var retailerName = $("#filterByRetailerName").val();
     var outletName = $("#filterByOutletName").val();
     var userId = $("#filterByUserId").val();
     var transactionType = $("#filterByTransactionType").val();        
-    
-//    console.log(weekdayFrom);
-//    console.log(weekdayTo);
-    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo  + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType;
+
+    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&time=" + time + "&retailer=" + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType;
    
 }
 

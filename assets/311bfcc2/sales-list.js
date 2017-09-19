@@ -67,16 +67,12 @@ function search() {
     var dateTo = $("#filterByDateTo").val();
     var timeFrom = $("#filterByTimeFrom").val();
     var timeTo = $("#filterByTimeTo").val();
-    var weekdayFrom = $("#filterByWeekdayFrom").val();
-    var weekdayTo = $("#filterByWeekdayTo").val();
     var retailerName = $("#filterByRetailerName").val();
     var outletName = $("#filterByOutletName").val();
     var userId = $("#filterByUserId").val();
     var transactionType = $("#filterByTransactionType").val();        
-    
-//    console.log(weekdayFrom);
-//    console.log(weekdayTo);
-    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo  + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType;
+
+    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&retailer=" + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType;
    
 }
 

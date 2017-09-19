@@ -135,25 +135,28 @@ class SaleController extends Controller
 	{
             $criteria = new CDbCriteria();
             
-            $saleid = Yii::app()->request->getParam('saleid');
-//            $date = Yii::app()->request->getParam('date');
-//            $time = Yii::app()->request->getParam('time');
+            $datefrom = Yii::app()->request->getParam('datefrom');
+            $dateto = Yii::app()->request->getParam('dateto');
+            $timefrom = Yii::app()->request->getParam('timefrom');
+            $timeto = Yii::app()->request->getParam('timeto');
+            $weekdayfrom = Yii::app()->request->getParam('weekdayfrom');
+            $weekdayto = Yii::app()->request->getParam('weekdayto');
             $outletname = Yii::app()->request->getParam('outlet');
             $retailername = Yii::app()->request->getParam('retailer');
             $userid = Yii::app()->request->getParam('userid');
             $transactiontype = Yii::app()->request->getParam('transactiontype');
             
-            if ($saleid != "") {
-               $criteria->addCondition("sales_id = $saleid"); 
+            if ($datefrom != "" && $dateto !="") {
+                $criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
             }
             
-//            if ($date != "") {
-//                $criteria->addCondition("date = '$date'");
-//            }
-//            
-//            if ($time != "") {
-//                $criteria->addCondition("time = '$time'");
-//            }
+            if ($timefrom != "" && $timeto !="") {
+                $criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+            }
+            
+            if ($weekdayfrom != "" && $weekdayto !="") {
+                $criteria->addCondition("DAYOFWEEK(Date_Time) >= '$weekdayfrom' and DAYOFWEEK(Date_Time) <= '$weekdayto'");
+            }
             
             if ($outletname != "") {
                 $criteria->addCondition("Outlet_Name = '$outletname'");
@@ -170,8 +173,8 @@ class SaleController extends Controller
             if ($transactiontype != "") {
                 $criteria->addCondition("Transaction_Type = '$transactiontype'");
             }
-
             
+            $criteria->order = 'Date_Time DESC';
             $count=Sale::model()->count($criteria);
             $pages=new CPagination($count);
             $pages->pageSize=10;
