@@ -163,7 +163,11 @@ class SaleController extends Controller
             }
             
             if ($weekdayfrom != "" && $weekdayto !="") {
+            	if ($weekdayfrom < $weekdayto){
                 $criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
+                } elseif ($weekdayfrom > $weekdayto){
+            		$criteria->addCondition("WEEKDAY(Date_Time) NOT BETWEEN  '$weekdayto' AND '$weekdayfrom'");
+            	}
             }
             
             if ($outletname != "") {
