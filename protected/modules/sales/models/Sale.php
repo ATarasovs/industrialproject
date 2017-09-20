@@ -37,7 +37,7 @@ class Sale extends CActiveRecord
 			array('Date_Time, Retailer_Ref, Outlet_Ref, Retailer_Name, Outlet_Name, New_user_id, Transaction_Type, Cash_Spent, Discount_Amount, Total_Amount', 'required'),
 			array('Retailer_Ref, Outlet_Ref', 'numerical', 'integerOnly'=>true),
 			array('Retailer_Name, Outlet_Name', 'length', 'max'=>45),
-			array('New_User_ID', 'length', 'max'=>9),
+			array('New_user_id', 'length', 'max'=>9),
 			array('Transaction_Type', 'length', 'max'=>25),
 			array('Cash_Spent, Discount_Amount, Total_Amount', 'length', 'max'=>5),
 			// The following rule is used by search().
