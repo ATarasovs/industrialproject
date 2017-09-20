@@ -29,7 +29,7 @@ $this->menu=array(
             <legend>Import CSV/Excel file</legend>
             <div class="control-group">
                 <div class="control-label">
-                    <label><?php echo $newformat ?></label>
+                    <!--<label><?php // echo $newformat ?></label>-->
                     <!--<label><?php // echo $oldformat ?></label>-->
                 </div>
                 <div class="controls form-group">

@@ -167,9 +167,9 @@ class SaleController extends Controller
                     continue;
                 }
                 $sales = new Sale();
-                $sales->Date_Time = "13.10.2017  01:28:00";
-                $exceldate = $rowData[0][0];
-                $unixdate = ($exceldate - 25569) * 86400;
+//                $sales->Date_Time = "13.10.2017  01:28:00";
+//                $exceldate = $rowData[0][0];
+//                $unixdate = ($exceldate - 25569) * 86400;
                 
 //                $date = $dateparts[2] + "-" + $dateparts[1] + "-" + $dateparts[0];
 //                $datetime = $date + " " + $datetimeparts[1];
