@@ -22,6 +22,30 @@ $this->menu=array(
 
 <h1>List of Sales</h1>
     <br/>
+    <div class="col-md-3 hidden-phone"></div>
+<div class="col-md-6" id="form-login">
+    <form class="well" action="index.php?r=sales/sale/importexcel" method="post" name="upload_excel" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Import CSV/Excel file</legend>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $newformat ?></label>
+                    <!--<label><?php // echo $oldformat ?></label>-->
+                </div>
+                <div class="controls form-group">
+                    <input type="file" name="file" id="file" class="input-large form-control">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                <button type="submit" id="submit" name="Import" class="btn btn-success btn-flat btn-lg pull-right button-loading" data-loading-text="Loading...">Upload</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="col-md-3 hidden-phone"></div>
     <div class="form-group col-md-5">
 <!--        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
@@ -191,6 +215,5 @@ $this->menu=array(
             date_input_from.datepicker(options);
             })
         </script>
-        <!-- -->
 
 

@@ -1,7 +1,13 @@
 <?php
+    Yii::import('application.vendor.*');
+    require_once "PHPExcel/PHPExcel.php";
+    require_once "PHPExcel/PHPExcel/Autoloader.php";
+    Yii::registerAutoloader(array('PHPExcel_Autoloader','Load'), true);
+
 
 class SaleController extends Controller
 {
+    
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -32,7 +38,7 @@ class SaleController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','upload','importexcel'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -54,67 +60,6 @@ class SaleController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Sale;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Sale']))
-		{
-			$model->attributes=$_POST['Sale'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->saleID));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Sale']))
-		{
-			$model->attributes=$_POST['Sale'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->saleID));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -198,6 +143,95 @@ class SaleController extends Controller
                     'pages' => $pages
             ));
 	}
+        
+        public function actionImportexcel() {
+           
+            $inputFile = 'uploads/testbook.xls';
+            try {
+                $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
+                $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+                $objPhpExcel = $objReader->load($inputFile);
+                
+            } 
+            catch (Exception $ex) {
+                die ("die");
+            }
+            
+            $sheet = $objPhpExcel->getSheet(0);
+            $highestRow = $sheet->getHighestRow();
+            $highestColoumn = $sheet->getHighestColumn();
+            
+            for($row = 1; $row <= $highestRow; $row++) {
+                $rowData = $sheet->rangeToArray('A'.$row.':'.$highestColoumn.$row,NULL,TRUE,FALSE);
+                if($row == 1) {
+                    continue;
+                }
+                $sales = new Sale();
+                $sales->Date_Time = "13.10.2017  01:28:00";
+                $exceldate = $rowData[0][0];
+                $unixdate = ($exceldate - 25569) * 86400;
+                
+//                $date = $dateparts[2] + "-" + $dateparts[1] + "-" + $dateparts[0];
+//                $datetime = $date + " " + $datetimeparts[1];
+//                $newformat = date('Y-m-d H:i:s',$rowData[0][0]);
+//                $oldformat = $rowData[0][0];
+//                $sales->Date_Time = $newformat;
+//                $sales->Retailer_Ref = $rowData[0][1];
+//                $sales->Outlet_Ref = $rowData[0][2];
+//                $sales->Retailer_Name = $rowData[0][3];
+//                $sales->Outlet_Name = $rowData[0][4];
+//                $sales->New_user_id = $rowData[0][5];
+//                $sales->Transaction_Type = $rowData[0][6];
+//                $sales->Cash_Spent = $rowData[0][7];
+//                $sales->Discount_Amount = $rowData[0][8];
+//                $sales->Total_Amount = $rowData[0][9];
+//                $sales->save();
+            }
+            
+            $criteria = new CDbCriteria();
+            
+            $criteria->order = 'Date_Time DESC';
+            $count=Sale::model()->count($criteria);
+            $pages=new CPagination($count);
+            $pages->pageSize=10;
+            $pages->applyLimit($criteria);
+            $sales = Sale::model()->findAll($criteria);
+
+            $this->render('admin',array(
+                    'sales'=>$sales,
+                    'pages' => $pages,
+                    'newformat' => $unixdate,
+//                    'oldformat' => $oldformat,
+            ));
+            
+        }
+        
+//        public function actionUpload() {
+//           
+//            $objPHPExcel = new PHPExcel();
+//            $objPHPExcel->setActiveSheetIndex(0)
+//                        ->setCellValue('A1', 'Hello')
+//                        ->setCellValue('B2', 'world!')
+//                        ->setCellValue('C1', 'Hello')
+//                        ->setCellValue('D2', 'world!');
+//
+//            $objPHPExcel->getActiveSheet()->setTitle('Simple');
+//
+//            $objPHPExcel->setActiveSheetIndex(0);
+//
+//            ob_end_clean();
+//            ob_start();
+//
+//            header('Content-Type: application/vnd.ms-excel');
+//            header('Content-Disposition: attachment;filename="test.xls"');
+//            header('Cache-Control: max-age=0');
+//            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+//            $objWriter->save('php://output');
+//            
+//            $this->render('upload',array(
+//                
+//            ));
+//        }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

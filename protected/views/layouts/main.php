@@ -57,7 +57,7 @@ Yii::app()->clientScript->registerScriptFile(
 	</li>
 	<li class="nav-item">
 	<?php 
-	echo CHtml::link('<i class="fa fa-file-text-o" aria-hidden="true"></i> Sales',array('/sales/sale/admin', 'view'=>'about'), array('class'=>'nav-link')); 
+	echo CHtml::link('<i class="fa fa-file-text-o" aria-hidden="true"></i> Sales',array('/sales/sale/admin'), array('class'=>'nav-link')); 
 	?>
 	</li>
 	<li class="nav-item">
@@ -73,7 +73,7 @@ Yii::app()->clientScript->registerScriptFile(
 	  </div>
 	</li>
 	<li class="nav-item">
-	<?php echo CHtml::link('<i class="fa fa-cloud-upload"></i> Upload',array('#'), array('class'=>'nav-link disabled')); ?>
+	<?php echo CHtml::link('<i class="fa fa-cloud-upload"></i> Upload',array('/sales/sale/uploadpage'), array('class'=>'nav-link')); ?>
 	</li>
 	</ul>
 	<?php echo CHtml::link('<i class="fa fa-sign-out"></i> Logout',array('/site/logout'), array('class'=>'btn btn-outline-danger my-2 my-sm-0')); ?>
