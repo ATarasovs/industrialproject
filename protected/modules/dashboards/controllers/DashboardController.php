@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -147,14 +147,6 @@ class DashboardController extends Controller
                $criteria->addCondition("sales_id = $saleid"); 
             }
             
-//            if ($date != "") {
-//                $criteria->addCondition("date = '$date'");
-//            }
-//            
-//            if ($time != "") {
-//                $criteria->addCondition("time = '$time'");
-//            }
-            
             if ($outletname != "") {
                 $criteria->addCondition("Outlet_Name = '$outletname'");
             }
@@ -176,12 +168,203 @@ class DashboardController extends Controller
             $pages=new CPagination($count);
             $pages->pageSize=10;
             $pages->applyLimit($criteria);
-            $dashboards = Dashboard::model()->findAll($criteria);
+			//$dashboards = Dashboard::model()->findAll($criteria);
+			
+			//add returned rows into a 2d array, read to pass into chart data
+
+			$url= Yii::app()->request->getParam('id');
+
 
             $this->render('admin',array(
-                    'dashboards'=>$dashboards,
-                    'pages' => $pages
+					//'dashboards'=>$dashboards, //return array of sales data
+					'URL'=>$url
             ));
+	}
+
+
+	/**
+	*  Retrieves previous week from given date and parses
+	*	into a 2d array for loading into line chart
+	*/
+	public function actionTestCall(){
+
+		$nWeeks = $_POST['ajaxData'];
+
+		$weeklydata = $this->loadSumData($nWeeks);
+
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($weeklydata, JSON_FORCE_OBJECT);
+
+	}
+
+	public function actionLoadLineChartData()
+	{
+		$nWeeks = $_POST['ajaxData'];
+
+		//$linedata =[];
+
+		$lineData = $this->loadLineChartData($nWeeks);
+
+		
+		
+		//// output some JSON instead of the usual text/html
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($lineData, JSON_FORCE_OBJECT);
+
+	}
+
+	public function loadSumData($nWeeks)
+	{
+		
+		
+
+		$arrOutlets = Dashboard::model()->outletsArray();
+
+		$date = date('Y-m-d H:i:s',  strtotime('-'.$nWeeks.'week'));
+
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('Date_Time > "'.$date.'" ');
+
+		$search_results = Dashboard::model()->findAll($criteria);
+
+		$arrMonthlySumData =[]; 
+
+		$arrOutlets = Dashboard::model()->outletsArray();
+		
+				foreach($arrOutlets as $outlet){
+
+					$total = 0;
+		
+					foreach($search_results as $rec){
+
+						if($rec->Outlet_Name == $outlet)
+						{
+							$total = $total + $rec->Total_Amount;
+						}
+					}
+					//Every record searched for outlet
+					$arrMonthlySumData[] = $total;
+		
+				}
+
+		return $arrMonthlySumData;
+
+	}
+
+	public function loadLineChartData($nDays)
+	{
+
+		
+		$arrOutlets = Dashboard::model()->outletsArray();
+		
+		$nDays = 40;
+		
+		$date = date('Y-m-d H:i:s',  strtotime('-'.$nDays.'days'));
+		//Get N number of dates before given date
+		
+		$dates = [];
+		for($i=0; $i<7; $i++)
+		{
+			$dayDate = date('Y-m-d', strtotime('-'.$i.' day', strtotime($date)));
+			
+			$dates[] = $dayDate;
+			
+			
+		}
+
+		$dateto = $dates[0];
+		$length = count($dates); 
+		$datefrom = $dates[$length-1];
+
+		//return $datefrom;
+		//return $weekdayfrom;
+
+		$criteria = new CDbCriteria();
+
+		if ($datefrom != "" && $dateto !="") {
+			if ($datefrom != $dateto){
+					$criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
+			} elseif ($datefrom = $dateto) {
+					$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
+			}
+		}
+		
+
+
+
+			
+		//return $dates;
+		//$criteria->addCondition('Date_Time > "'.$date.'" ');
+		$search_results = Dashboard::model()->findAll($criteria);
+		
+
+		
+		$lineChartDataArr =[];
+		foreach($arrOutlets as $outlet)
+		{
+			$outletTotals = [];
+			foreach($dates as $cdate)
+			{
+				$dayTotal = 0;
+				
+				
+				foreach($search_results as $rec)
+				{
+					
+					if(($rec->Outlet_Name == $outlet))//&&($rec->Date_Time == $date)) //
+					{
+						
+						$d1 = new DateTime( $cdate );
+						$d1->format('Y-m-d');
+						
+						$d2 = new DateTime( $rec->Date_Time );
+						$d2->format('Y-m-d');
+						
+						$d3 = new DateTime( $cdate );
+						$d3 = $d3->modify( '+1 days' );
+						$d3->format('Y-m-d');
+						
+						
+						if(($d2 > $d1) && ($d2 < $d3) )
+						{
+							$dayTotal = $dayTotal + $rec->Total_Amount;
+							//return $datefrom;
+
+						}
+					}
+				}
+				$outletTotals[] = $dayTotal;
+				//unset($outletTotals);
+			}
+			$lineChartDataArr[] = $outletTotals;
+		}
+
+		return $lineChartDataArr;
+
+	}
+
+	/**
+	*  Retrieves previous week from given date and parses
+	*	into a 2d array for loading into line chart
+	*/
+	function actionGetLastNDates($nDays)
+	{
+		
+
+		//If Date is used in table
+		//$date = date("Y-m-d");
+
+		if($nDays == null){
+			return;
+		}
+
+		//$date = new CDbExpression("NOW()");
+
+		
+
+
+
+
 	}
 
 	/**
