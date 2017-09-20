@@ -72,9 +72,14 @@ class SAXbeta {
         return $recordsCon;
     }
     
+    /**
+     * Writes records to files the SAX program can use
+     * 
+     * @param array[][] $records data to save (segment first)
+     */
     public function writeToFiles($records) {
         for ($i=0; $i<count($records); $i++) {
-            $file = fopen($i, "w");
+            $file = fopen(dirname(__FILE__).'/'.$i, "w");
             
             for ($j=0; $j<count($records[$i]); $j++) {
                 fwrite($file, $records[$i][$j]);
@@ -85,10 +90,23 @@ class SAXbeta {
         }
     }
     
-    public function runSAX() {
+    /**
+     * Runs the SAX program through command line
+     * 
+     * @param int $count amount of files to go through
+     * @param int $window window size - should be the same as the length of individual records
+     * @param int $paa word size - how many symbols to split the data into
+     */
+    public function runSAX($count, $window, $paa) {
+        for ($i=0; $i<$count; $i++) {
+            exec("java -jar ".dirname(__FILE__)."/vendor/SAX-master/target/jmotif-sax-1.1.3-SNAPSHOT-jar-with-dependencies.jar -d ".dirname(__FILE__)."/".$i." -o ".dirname(__FILE__)."/".$i."out -w ".$window." 1 -a 5 -p ".$paa);
+        }
         
     }
     
+    /**
+     * 
+     */
     public function readSAXResults() {
         /*
         $finished = false;
