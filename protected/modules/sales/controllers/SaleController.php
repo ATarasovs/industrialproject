@@ -147,11 +147,19 @@ class SaleController extends Controller
             $transactiontype = Yii::app()->request->getParam('transactiontype');
             
             if ($datefrom != "" && $dateto !="") {
-                $criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
+            	if ($datefrom != $dateto){
+                		$criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
+            	} elseif ($datefrom = $dateto) {
+            			$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
+            	}
             }
             
             if ($timefrom != "" && $timeto !="") {
-                $criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+            	if($timefrom < $timeto){
+                	$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+            	} elseif ($timefrom > $timeto){
+            		$criteria->addCondition("TIME(Date_Time) NOT BETWEEN  '$timeto' AND '$timefrom'");
+            	}
             }
             
             if ($weekdayfrom != "" && $weekdayto !="") {
