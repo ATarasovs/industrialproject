@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInite2896308b3c6e1d602aabad526388ee3
 {
+    public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
@@ -17,7 +21,20 @@ class ComposerStaticInite2896308b3c6e1d602aabad526388ee3
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\Console\\' => 26,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'PhpAmqpLib\\' => 11,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'D' => 
         array (
@@ -37,9 +54,37 @@ class ComposerStaticInite2896308b3c6e1d602aabad526388ee3
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/videlalvaro/php-amqplib/PhpAmqpLib',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -52,11 +97,90 @@ class ComposerStaticInite2896308b3c6e1d602aabad526388ee3
     );
 
     public static $prefixesPsr0 = array (
+        'W' => 
+        array (
+            'WebDriver' => 
+            array (
+                0 => __DIR__ . '/..' . '/instaclick/php-webdriver/lib',
+            ),
+        ),
+        'S' => 
+        array (
+            'Symfony\\Component\\Process\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/process',
+            ),
+            'Symfony\\Component\\Finder\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/finder',
+            ),
+            'Symfony\\Component\\DomCrawler\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+            ),
+            'Symfony\\Component\\CssSelector' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/css-selector',
+            ),
+            'Symfony\\Component\\BrowserKit\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/browser-kit',
+            ),
+            'Selenium' => 
+            array (
+                0 => __DIR__ . '/..' . '/alexandresalome/php-selenium/src',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+        ),
+        'G' => 
+        array (
+            'Guzzle\\Stream' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/stream',
+            ),
+            'Guzzle\\Parser' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/parser',
+            ),
+            'Guzzle\\Http' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/http',
+            ),
+            'Guzzle\\Common' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/common',
+            ),
+            'Goutte' => 
+            array (
+                0 => __DIR__ . '/..' . '/fabpot/goutte',
+            ),
+        ),
+        'C' => 
+        array (
+            'Codeception' => 
+            array (
+                0 => __DIR__ . '/..' . '/codeception/codeception/src',
+            ),
+        ),
+        'B' => 
+        array (
+            'Behat\\Mink\\Driver' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/mink-zombie-driver/src',
+                1 => __DIR__ . '/..' . '/behat/mink-selenium2-driver/src',
+                2 => __DIR__ . '/..' . '/behat/mink-selenium-driver/src',
+                3 => __DIR__ . '/..' . '/behat/mink-browserkit-driver/src',
+                4 => __DIR__ . '/..' . '/behat/mink-goutte-driver/src',
+            ),
+            'Behat\\Mink' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/mink/src',
             ),
         ),
     );
