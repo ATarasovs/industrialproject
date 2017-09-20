@@ -1,5 +1,9 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
+<!-- Date Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 <?php
     Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.sales.assets.js').'\sales-list.js'), CClientScript::POS_HEAD);
 
@@ -27,13 +31,17 @@ $this->menu=array(
 
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByDateFrom" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="From">
-            
-            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-            <input id="filterByDateTo" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="To">
+            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></i></div>
+            <!--<input id="filterByDateFrom" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="From">-->
+            <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date: From" type="text"/>
+
+            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            <!--<input id="filterByDateTo" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="To">-->
+            <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/>
        
         </div>
+
+        
 
 
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -166,5 +174,23 @@ $this->menu=array(
     var salesListReqUrl = '<?php print Yii::app()->createUrl('sales/sale/admin') ?>';	
     var salesViewReqUrl = '<?php print Yii::app()->createUrl('sales/sale/view') ?>';
 </script>
+
+<!-- Date Picker -->
+<script>
+            $(document).ready(function(){
+            var date_input_to=$('input[name="dateFrom"]'); //our date input has the name "date"
+            var date_input_from=$('input[name="dateTo"]'); //our date input has the name "dateTo"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            var options={
+                format: 'yyyy/mm/dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input_to.datepicker(options);
+            date_input_from.datepicker(options);
+            })
+        </script>
+        <!-- -->
 
 
