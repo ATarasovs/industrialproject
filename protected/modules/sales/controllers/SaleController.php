@@ -100,19 +100,28 @@ class SaleController extends Controller
             }
             
             if ($timefrom != "" && $timeto !="") {
-            	if($timefrom < $timeto){
-                	$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
-            	} elseif ($timefrom > $timeto){
-            		$criteria->addCondition("TIME(Date_Time) NOT BETWEEN  '$timeto' AND '$timefrom'");
+
+            	if($timefrom != $timeto){
+	            	if($timefrom < $timeto){
+	                	$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+	            	} elseif ($timefrom > $timeto){
+	            		$criteria->addCondition("TIME(Date_Time) NOT BETWEEN  '$timeto' AND '$timefrom'");
+	            	}
+            	} else {
+            		$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
             	}
             }
             
             if ($weekdayfrom != "" && $weekdayto !="") {
-            	if ($weekdayfrom < $weekdayto){
-                $criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
-                } elseif ($weekdayfrom > $weekdayto){
-            		$criteria->addCondition("WEEKDAY(Date_Time) NOT BETWEEN  '$weekdayto' AND '$weekdayfrom'");
-            	}
+            	if ($weekdayfrom != $weekdayto){
+	            	if ($weekdayfrom < $weekdayto){
+	                $criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
+	                } elseif ($weekdayfrom > $weekdayto){
+	            		$criteria->addCondition("WEEKDAY(Date_Time) NOT BETWEEN  '$weekdayto' AND '$weekdayfrom'");
+	            	}
+	            } else {
+	            	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
+	            }
             }
             
             if ($outletname != "") {
