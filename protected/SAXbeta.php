@@ -9,25 +9,27 @@
 /**
  * Description of SAXbeta
  *
- * @author jimi
+ * @author jimi westerholm
  */
 class SAXbeta {
     
-    public $recordsHourly = array(
-            array (),
-            array()
-            );
     
     /**
      * Make new array of hourly spending for SAX to work with. Can also be each X hours per value, see segLength for options
+     * Assumes payments only, since although redemptions and reversals could be handled, treating them as the same kinds of data is not reasonable
      * 
      * @param startDT - the Date_Time object for the beginning of the time period
      * @param days - the number of days the time period covers
      * @param records - the data for the time period, arranged records[student][sale]
      * @param segLength - the number of hours per segment (should be 1, 2, 3, 4, 6, 8, 12 or 24)
      */
-    public function getHourly($startDT, $days, $records, $segLength) {
+    public function getSegmentedData($startDT, $days, $records, $segLength) {
         for ($i=0; $i<$records->count(); $i++) {
+            $recordsCon = array(
+            array (),
+            array()
+            );
+            
             $hour2 = 0;
             $record = 0;
             $counter = 0;
@@ -49,10 +51,10 @@ class SAXbeta {
                 */
                 
                 if ($dif == 0) {
-                    $record += $records[i][j];
+                    $record += $records[i][j].getTotal_Amount();
                 } else {
                     for ($k=0; $k<$dif; $k++) {
-                        $recordsHourly[i][counter] = $record;
+                        $recordsCon[i][counter] = $record;
                         $counter++;
                         //$hour2 = $counter % 24;
                         
@@ -63,11 +65,46 @@ class SAXbeta {
             
             //Fill any values at the end
             for ($counter;$counter<$segments; $counter++) {
-                $recordsHourly[i][counter] = 0;
+                $recordsCon[i][counter] = 0;
             }
             
         }
-        return $recordsHourly;
+        return $recordsCon;
     }
     
+    public function writeToFiles($records) {
+        for ($i=0; $i<count($records); $i++) {
+            $file = fopen($i, "w");
+            
+            for ($j=0; $j<count($records[$i]); $j++) {
+                fwrite($file, $records[$i][$j]);
+                fwrite($file, "\n");
+            }
+            
+            fclose($file);
+        }
+    }
+    
+    public function runSAX() {
+        
+    }
+    
+    public function readSAXResults() {
+        /*
+        $finished = false;
+        while (!$finished) {
+            try {
+                
+            } catch (Exception $ex) {
+
+            }
+            
+            for ($j=0; $j<$records[i]->count(); $j++) {
+                //Sanitise input, 
+            }
+            
+            fclose($file);
+        }*/
+    }
+
 }
