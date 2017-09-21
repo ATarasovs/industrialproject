@@ -1,3 +1,5 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
 <?php
@@ -47,8 +49,8 @@ $this->pageTitle=Yii::app()->name;
 
 	?>
 	<div class="card text-center">
-  <div class="card-header">
-    Quick Links
+  <div class="card-header bg-primary" style="background: #153465!important;">
+    <h4> <p class="text-white"> Quick Links </p> </h4>
   </div>
   <div class="card-block">
     <h4 class="card-title">DUSA Analytics Dashboard</h4>
@@ -57,7 +59,7 @@ $this->pageTitle=Yii::app()->name;
 		<a href="#" class="btn btn-primary">Monthly Sales View</a>
 		<a href="#" class="btn btn-primary">Calendar View</a>
   </div>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted" style="background: #153465!important;">
     -
   </div>
 </div>
@@ -67,7 +69,7 @@ $this->pageTitle=Yii::app()->name;
   <div class="row">
     <div class="col-md-6">
 		<div class="card"> <!-- FIRST CARD WITH DOUGHNUT -->
-			<h6 class="card-header">Quick View - Weekly Sales</h6>
+			<h5 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"> Quick View - Weekly Sales</p></h5>
 			<div class="card-block">
 			<div class="dropdown pull-right">
   			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,7 +82,7 @@ $this->pageTitle=Yii::app()->name;
   				</div>
 				</div>
 				<br>
-				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:0; margin-right:auto; display:table;">
+				<div id="canvas-holder-2" style="width:30%; direction:ltr; margin-left:0; margin-right:auto; display:table;">
 					<canvas id="myDoughnutChart" width="750" height="550"/>
 				</div>
 				<hr>
@@ -99,7 +101,7 @@ $this->pageTitle=Yii::app()->name;
 		</div>	
     <div class="col-md-6">
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
-			<h6 class="card-header">Quick View - YoYo Usage</h6>
+			<h6 class="card-header  bg-primary" style="background: #153465!important;">Quick View - YoYo Usage</h6>
 			<div class="card-block">
 			<div class="dropdown pull-right">
   			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -132,13 +134,24 @@ $this->pageTitle=Yii::app()->name;
 <br>
 <!-- THIRD CARD WITH DETAILED WEEKLY SALES DATA -->
 <div class="card text-center">
-  <div class="card-header">
-    Weekly Sales Data
+  <div class="card-header bg-primary" style="background: #153465!important;">
+    <h4><p class="text-white">Weekly Sales Data</p> </h4>
   </div>
   <div class="card-block">
-    <h4 class="card-title">Sales Data</h4>
-		<input id="btn" type="button" value="Week" class="btn btn-primary" />
-		<input id="btn" type="button" value="Month" class="btn btn-primary" />
+
+  	<div class="dropdown pull-right">
+  <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date: From" type="text"/>
+  		<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	Select Data
+  		</button>
+  		<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
+		  	<a class="dropdown-item pull-right" onClick="LoadLineChartData(1);" >Daily data</a>
+    		<a class="dropdown-item pull-right" onClick="LoadLineChartData(7);" >Weekly data</a>
+    		<a class="dropdown-item pull-right" onClick="LoadLineChartData(30);" >Monthly data</a>
+    		<a class="dropdown-item pull-right" onClick="LoadLineChartData(0);" >Quarterly data</a>
+  		</div>
+	</div>
+	<br>
 		<br> <br>
 		<div id="canvas-holder-2" style="width:100%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
 		<canvas id="myChart" width="300" height="125"></canvas>
@@ -293,56 +306,7 @@ var myChart = new Chart(ctx, {
 </script>
 
 <!-- Function which handles WEEK / MONTH data request -->
-<script>
-		jQuery(document).ready(function() {
-			$('#btn').click(function() {
 
-
-                //console.log(<?php ##print_r($this->$weeklydata) ?> );
-                //console.log("TT:"+ <?php ##print_r($this->outletsArr) ?>);
-                console.log()
-
-				//Identifier for ajaxProcess function to load correct chartData
-				var a = 1;
-
-				//Global varibale which stores 2d array of chart values
-				var chartData;
-
-				//AJAX call to siteController actionAjaxProcess
-				jQuery.ajax({
-                // The url must be appropriate for your configuration;
-                // this works with the default config of 1.1.11
-                url: 'index.php?r=dashboards/dashboard/LoadLineChartData',
-                type: "POST",
-                data: {ajaxData: a},  
-                error: function(xhr,tStatus,e){
-                    if(!xhr){
-                        alert(" We have an error ");
-                        alert(tStatus+"   "+e.message);
-                    }else{
-                        alert("else: "+e.message); // the great unknown
-                    }
-                    },
-                success: function(resp){
-									//Assign Data to Chart
-						chartData = JSON.stringify(resp);
-
-						alert("WTF v2");
-						console.log(resp);
-						var counter = 0;
-						myChart.data.datasets.forEach((dataset) => {
-							dataset.data = resp[counter];
-							counter ++;
-
-						});
-
-						myChart.update();
-									
-                    }
-                });
-				});
-			}); 
-		</script>
 
 
 <!-- Line Graph Quick View Buttons -->
@@ -560,6 +524,101 @@ function LoadDougnutData(length)
                     }
                 });
 
+};
+
+
+function LoadLineChartData(length)
+{
+	//Change drop-down text
+	if(length == 1)
+	{
+		$(".btn.btn-secondary.dropdown-toggle").text("Weekly"); 
+	} else if (length == 4)
+	{
+		$(".btn.btn-secondary.dropdown-toggle").text("Monthly"); 
+	} else if (length == 12)
+	{
+		$(".btn.btn-secondary.dropdown-toggle").text("Quarterly"); 
+	}
+
+
+	if(length==1)
+	{
+		//Prepare chart axis and labels for 1 day
+
+	} else if (length==7)
+	{
+		//Prepare chart axis and labels for 1 week
+
+	} else if (length==30)
+	{
+		//Prepare chart axis and labels for 1 month
+
+	} 
+
+	//If date froom != null, pass that in also
+	var date = $('#filterByDateFrom').val()
+
+	
+	//Identifier for ajaxProcess function to load correct chartData
+	var period = length;
+
+	//Global varibale which stores 2d array of chart values
+	var chartData;
+
+	//AJAX call to siteController actionAjaxProcess
+	jQuery.ajax({
+	// The url must be appropriate for your configuration;
+	// this works with the default config of 1.1.11
+	url: 'index.php?r=dashboards/dashboard/LoadLineChartData',
+	type: "POST",
+	data: {Period: period, DateFrom: date},  
+	error: function(xhr,tStatus,e){
+				if(!xhr){
+					alert(" We have an error ");
+					alert(tStatus+"   "+e.message);
+				}else{
+						alert("else: "+e.message); // the great unknown
+				}
+			},
+			success: function(resp){
+								//Assign Data to Chart
+			chartData = JSON.stringify(resp);
+
+			//alert(Object.keys(resp[0]).length); 
+
+
+
+			if(Object.keys(resp[0]).length == 7)
+			{
+				//Load Weekly Chart Data
+				var weekLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+				myChart.config.data.labels = weekLabels;
+				var counter = 0;
+				myChart.data.datasets.forEach((dataset) => {
+					dataset.data = resp[counter];
+					counter ++;
+				});
+				myChart.update();
+				
+			} else if(Object.keys(resp[0]).length == 30)
+			{
+				var monthLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+				myChart.config.data.labels = monthLabels;
+				var counter = 0;
+				myChart.data.datasets.forEach((dataset) => {
+					dataset.data = resp[counter];
+					counter ++;
+				});
+				myChart.update();
+
+			}
+
+			console.log(resp);
+								
+			}
+	});
+
 }
 
  
@@ -651,9 +710,28 @@ var myBarChart = new Chart(document.getElementById("bar-chart-grouped"), {
 });
 </script>
 
+<!-- Date Picker -->
+<script>
+            $(document).ready(function(){
+            var date_input_to=$('input[name="dateFrom"]'); //our date input has the name "date"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            var options={
+                format: 'yyyy/mm/dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input_to.datepicker(options);
+            date_input_from.datepicker(options);
+            })
+        </script>
+
 <!-- End of Content -->
 <?php
 }
 ?> 
+
+
+
 
 

@@ -199,14 +199,11 @@ class DashboardController extends Controller
 
 	public function actionLoadLineChartData()
 	{
-		$nWeeks = $_POST['ajaxData'];
+		$nWeeks = $_POST['Period'];
+		$dateFrom = $_POST['DateFrom'];
 
-		//$linedata =[];
+		$lineData = $this->loadLineChartData($nWeeks, $dateFrom);
 
-		$lineData = $this->loadLineChartData($nWeeks);
-
-		
-		
 		//// output some JSON instead of the usual text/html
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($lineData, JSON_FORCE_OBJECT);
@@ -215,9 +212,6 @@ class DashboardController extends Controller
 
 	public function loadSumData($nWeeks)
 	{
-		
-		
-
 		$arrOutlets = Dashboard::model()->outletsArray();
 
 		$date = date('Y-m-d H:i:s',  strtotime('-'.$nWeeks.'week'));
@@ -251,26 +245,29 @@ class DashboardController extends Controller
 
 	}
 
-	public function loadLineChartData($nDays)
+	public function loadLineChartData($nDays, $dateFrom)
 	{
+		//if DateFrom == null
+		//DateFrom = today
 
-		
 		$arrOutlets = Dashboard::model()->outletsArray();
 		
-		$nDays = 40;
+		//$nDays = 40; //Temp
 		
 		$date = date('Y-m-d H:i:s',  strtotime('-'.$nDays.'days'));
+
+		$date = $dateFrom;
 		//Get N number of dates before given date
 		
 		$dates = [];
-		for($i=0; $i<7; $i++)
+		for($i=0; $i<$nDays; $i++)
 		{
 			$dayDate = date('Y-m-d', strtotime('-'.$i.' day', strtotime($date)));
 			
 			$dates[] = $dayDate;
 			
-			
 		}
+
 
 		$dateto = $dates[0];
 		$length = count($dates); 
@@ -288,16 +285,8 @@ class DashboardController extends Controller
 					$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
 			}
 		}
-		
 
-
-
-			
-		//return $dates;
-		//$criteria->addCondition('Date_Time > "'.$date.'" ');
 		$search_results = Dashboard::model()->findAll($criteria);
-		
-
 		
 		$lineChartDataArr =[];
 		foreach($arrOutlets as $outlet)
