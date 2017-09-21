@@ -93,14 +93,23 @@ class SaleController extends Controller
             
             if ($datefrom != "" && $dateto !="") {
             	if ($datefrom != $dateto){
+            		if($datefrom < $dateto){
                 		$criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
+            		} elseif ($datefrom > $dateto){
+            			$criteria->addCondition("DATE(Date_Time) >= '$dateto' and DATE(Date_Time) <= '$datefrom'");
+            		}
             	} elseif ($datefrom = $dateto) {
             			$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
             	}
-            }
+              }  //else{
+             // 	if ($datefrom != "" && $dateto = ""){
+             // 		$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
+             // 	} elseif ($datefrom = "" && $dateto != ""){
+            	// $criteria->addCondition("DATE(Date_Time) = '$dateto'");
+             // }
             
+             // } 
             if ($timefrom != "" && $timeto !="") {
-
             	if($timefrom != $timeto){
 	            	if($timefrom < $timeto){
 	                	$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
@@ -110,7 +119,11 @@ class SaleController extends Controller
             	} else {
             		$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
             	}
-            }
+            }  //elseif ($timefrom != "" && $timeto = ""){
+            // 	$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+            // } elseif ($timefrom = "" && $timeto != ""){
+            // 	$criteria->addCondition("TIME(Date_Time) = '$timeto'");
+            // }
             
             if ($weekdayfrom != "" && $weekdayto !="") {
             	if ($weekdayfrom != $weekdayto){
@@ -122,7 +135,11 @@ class SaleController extends Controller
 	            } else {
 	            	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
 	            }
-            }
+             }  //elseif ($weekdayfrom != "" && $weekdayto = ""){
+            // 	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
+            // } elseif ($weekdayfrom = "" && $weekdayto != ""){
+            // 	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayto'");
+            // }
             
             if ($outletname != "") {
                 $criteria->addCondition("Outlet_Name = '$outletname'");
