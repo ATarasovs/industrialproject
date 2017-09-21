@@ -27,6 +27,7 @@ return array(
                 'application.modules.users.models.*',
                 'application.modules.sales.models.*',
                 'application.modules.dashboards.models.*',
+                'application.modules.uploadfiles.models.*',
 	),
 
 	'modules'=>array(
@@ -41,6 +42,7 @@ return array(
                 'users',
                 'sales',
                 'dashboards',
+                'uploadfiles',
 	),
 
 	// application components

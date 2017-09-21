@@ -73,7 +73,7 @@ Yii::app()->clientScript->registerScriptFile(
 	  </div>
 	</li>
 	<li class="nav-item">
-	<?php echo CHtml::link('<i class="fa fa-cloud-upload"></i> Upload',array('/sales/sale/uploadpage'), array('class'=>'nav-link')); ?>
+	<?php echo CHtml::link('<i class="fa fa-cloud-upload"></i> Upload',array('/uploadfiles/uploadfile/create'), array('class'=>'nav-link')); ?>
 	</li>
 	</ul>
 	<?php echo CHtml::link('<i class="fa fa-sign-out"></i> Logout',array('/site/logout'), array('class'=>'btn btn-outline-danger my-2 my-sm-0')); ?>

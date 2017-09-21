@@ -146,7 +146,8 @@ class SaleController extends Controller
         
         public function actionImportexcel() {
            
-            $inputFile = 'uploads/testbook.xls';
+            $path=Yii::getPathOfAlias('webroot').'/uploads/testbook.xls';
+            $inputFile = $path;
             try {
                 $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
                 $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
@@ -166,72 +167,27 @@ class SaleController extends Controller
                 if($row == 1) {
                     continue;
                 }
-                $sales = new Sale();
-//                $sales->Date_Time = "13.10.2017  01:28:00";
-//                $exceldate = $rowData[0][0];
-//                $unixdate = ($exceldate - 25569) * 86400;
                 
-//                $date = $dateparts[2] + "-" + $dateparts[1] + "-" + $dateparts[0];
-//                $datetime = $date + " " + $datetimeparts[1];
-//                $newformat = date('Y-m-d H:i:s',$rowData[0][0]);
-//                $oldformat = $rowData[0][0];
-//                $sales->Date_Time = $newformat;
-//                $sales->Retailer_Ref = $rowData[0][1];
-//                $sales->Outlet_Ref = $rowData[0][2];
-//                $sales->Retailer_Name = $rowData[0][3];
-//                $sales->Outlet_Name = $rowData[0][4];
-//                $sales->New_user_id = $rowData[0][5];
-//                $sales->Transaction_Type = $rowData[0][6];
-//                $sales->Cash_Spent = $rowData[0][7];
-//                $sales->Discount_Amount = $rowData[0][8];
-//                $sales->Total_Amount = $rowData[0][9];
-//                $sales->save();
-            }
-            
-            $criteria = new CDbCriteria();
-            
-            $criteria->order = 'Date_Time DESC';
-            $count=Sale::model()->count($criteria);
-            $pages=new CPagination($count);
-            $pages->pageSize=10;
-            $pages->applyLimit($criteria);
-            $sales = Sale::model()->findAll($criteria);
+                $sales = new Sale();
 
-            $this->render('admin',array(
-                    'sales'=>$sales,
-                    'pages' => $pages,
-                    'newformat' => $unixdate,
-//                    'oldformat' => $oldformat,
-            ));
+                $date = date("Y-m-d H:i:s", PHPExcel_Shared_Date::ExcelToPHP($rowData[0][0]));
+                
+                $sales->Date_Time = $date;
+                $sales->Retailer_Ref = $rowData[0][1];
+                $sales->Outlet_Ref = $rowData[0][2];
+                $sales->Retailer_Name = $rowData[0][3];
+                $sales->Outlet_Name = $rowData[0][4];
+                $sales->New_user_id = $rowData[0][5];
+                $sales->Transaction_Type = $rowData[0][6];
+                $sales->Cash_Spent = $rowData[0][7];
+                $sales->Discount_Amount = $rowData[0][8];
+                $sales->Total_Amount = $rowData[0][9];
+                $sales->save();
+            }
+
+            $this->redirect('index.php?r=sales/sale/admin');
             
         }
-        
-//        public function actionUpload() {
-//           
-//            $objPHPExcel = new PHPExcel();
-//            $objPHPExcel->setActiveSheetIndex(0)
-//                        ->setCellValue('A1', 'Hello')
-//                        ->setCellValue('B2', 'world!')
-//                        ->setCellValue('C1', 'Hello')
-//                        ->setCellValue('D2', 'world!');
-//
-//            $objPHPExcel->getActiveSheet()->setTitle('Simple');
-//
-//            $objPHPExcel->setActiveSheetIndex(0);
-//
-//            ob_end_clean();
-//            ob_start();
-//
-//            header('Content-Type: application/vnd.ms-excel');
-//            header('Content-Disposition: attachment;filename="test.xls"');
-//            header('Cache-Control: max-age=0');
-//            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-//            $objWriter->save('php://output');
-//            
-//            $this->render('upload',array(
-//                
-//            ));
-//        }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
