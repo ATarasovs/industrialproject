@@ -37,8 +37,8 @@ class SAXbeta {
             $dt2 = $startDT;
             
             
-            for ($j=0; $j<$records[i]->count(); $j++) {
-                $dt = $records[i][j]->getDate_Time();
+            for ($j=0; $j<$records[$i]->count(); $j++) {
+                $dt = $records[$i][$j]->getDate_Time();
                 $dif = $dt->diff->$dt2->hours;
                 
                 
@@ -51,10 +51,10 @@ class SAXbeta {
                 */
                 
                 if ($dif == 0) {
-                    $record += $records[i][j].getTotal_Amount();
+                    $record += $records[$i][$j]->getTotal_Amount();
                 } else {
                     for ($k=0; $k<$dif; $k++) {
-                        $recordsCon[i][counter] = $record;
+                        $recordsCon[$i][$counter] = $record;
                         $counter++;
                         //$hour2 = $counter % 24;
                         
@@ -65,7 +65,7 @@ class SAXbeta {
             
             //Fill any values at the end
             for ($counter;$counter<$segments; $counter++) {
-                $recordsCon[i][counter] = 0;
+                $recordsCon[$i][$counter] = 0;
             }
             
         }
@@ -79,7 +79,7 @@ class SAXbeta {
      */
     public function writeToFiles($records) {
         for ($i=0; $i<count($records); $i++) {
-            $file = fopen(dirname(__FILE__).'/'.$i, "w");
+            $file = fopen(dirname(__FILE__).'/'.$i, "w") or die ("Failed to write to file");
             
             for ($j=0; $j<count($records[$i]); $j++) {
                 fwrite($file, $records[$i][$j]);
@@ -93,7 +93,7 @@ class SAXbeta {
     /**
      * Runs the SAX program through command line
      * 
-     * @param int $count amount of files to go through
+     * @param int $count number of files to go through
      * @param int $window window size - should be the same as the length of individual records
      * @param int $paa word size - how many symbols to split the data into
      */
@@ -104,25 +104,17 @@ class SAXbeta {
         
     }
     
-    /**
-     * 
-     */
-    public function readSAXResults() {
-        /*
-        $finished = false;
-        while (!$finished) {
-            try {
-                
-            } catch (Exception $ex) {
-
-            }
-            
-            for ($j=0; $j<$records[i]->count(); $j++) {
-                //Sanitise input, 
-            }
-            
+    
+    public function readSAXResults($count) {
+        $return = array();
+        for ($i=0; $i<$count; $i++) {
+            $file = fopen($i."out", "r") or die ("Failed to open file");
+            $return[$i] = fgets($file);
             fclose($file);
-        }*/
+        }
+        
+        return $return;
+    
     }
 
 }
