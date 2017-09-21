@@ -3,6 +3,7 @@
 /**
  * This is the model class for table "sale".
  *
+ *
  * The followings are the available columns in table 'sale':
  * @property integer $saleID
  * @property string $Date_Time
@@ -55,6 +56,33 @@ class Dashboard extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 		);
+	}
+
+	/**
+	*	note: this only returns SALES outlets
+	*/
+	public function outletsArray()
+	{
+		return array(
+			"DUSA The Union - Marketplace",
+			"DUSA The Union Online",
+			"Online Dundee University Students Association",
+			"Premier Shop",
+			"DJCAD Cantina",
+			"Library",
+			"Ninewells Shop",
+			"DOJ Catering",
+			"College Shop",
+			"Mono",
+			"Liar Bar",
+			"Air Bar",
+			"Remote Campus Shop",
+			"Level 2, Reception",
+			"Floor Five",
+			"Dental Café",
+			"Food on Four",
+		);
+
 	}
 
 	/**

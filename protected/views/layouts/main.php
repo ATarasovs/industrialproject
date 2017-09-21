@@ -40,7 +40,7 @@ Yii::app()->clientScript->registerScriptFile(
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
 
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary" style="background: #153465!important;">
 <div class="container">
 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
@@ -50,9 +50,9 @@ Yii::app()->clientScript->registerScriptFile(
 
 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
   <ul class="navbar-nav mr-auto">
-	<li class="nav-item active">
+	<li class="nav-item">
 	<?php 
-	echo CHtml::link('<i class="fa fa-line-chart"></i> Dashboard',array('/site/index', 'view'=>'about'), array('class'=>'nav-link')); 
+	echo CHtml::link('<i class="fa fa-line-chart"></i> Dashboard',array('/dashboards/dashboard/admin', 'view'=>'about'), array('class'=>'nav-link')); 
 	?>
 	</li>
 	<li class="nav-item">
@@ -87,6 +87,16 @@ Yii::app()->clientScript->registerScriptFile(
 	}
 ?>
 </div>
+
+<script>
+ $(window).load(function(){
+      var url = window.location.href;
+      $('nav li').find('.active').removeClass('active');
+      $('nav li a').filter(function(){
+          return this.href == url;
+      }).parent().addClass('active');
+  });
+</script>
 
 </div>
 </nav>
