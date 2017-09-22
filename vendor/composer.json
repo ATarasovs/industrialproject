@@ -4,6 +4,7 @@
                 "phpunit/phpunit-selenium": ">=1.3.0",
                 "phpunit/dbunit": ">=1.2",
                 "phpunit/phpunit-story": "*",
-                "codeception/codeception": "*"
+                "codeception/codeception": "*",
+                "facebook/webdriver": "*"
         }
 }

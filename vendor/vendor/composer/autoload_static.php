@@ -36,6 +36,10 @@ class ComposerStaticInite2896308b3c6e1d602aabad526388ee3
         array (
             'Monolog\\' => 8,
         ),
+        'F' => 
+        array (
+            'Facebook\\WebDriver\\' => 19,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -85,6 +89,10 @@ class ComposerStaticInite2896308b3c6e1d602aabad526388ee3
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Facebook\\WebDriver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/webdriver/lib',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

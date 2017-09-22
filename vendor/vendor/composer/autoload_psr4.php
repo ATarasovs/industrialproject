@@ -16,6 +16,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'PhpAmqpLib\\' => array($vendorDir . '/videlalvaro/php-amqplib/PhpAmqpLib'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Facebook\\WebDriver\\' => array($vendorDir . '/facebook/webdriver/lib'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );

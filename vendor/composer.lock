@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "974a9db643495921e744d1bac0705799",
+    "content-hash": "856f669c25d7a7b33745dece71be9354",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -589,6 +589,53 @@
                 "scraper"
             ],
             "time": "2014-10-09T15:52:51+00:00"
+        },
+        {
+            "name": "facebook/webdriver",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-webdriver.git",
+                "reference": "af21de3ae5306a8ca0bcc02a19735dadc43e83f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/af21de3ae5306a8ca0bcc02a19735dadc43e83f3",
+                "reference": "af21de3ae5306a8ca0bcc02a19735dadc43e83f3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.5 || ~7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "php-mock/php-mock-phpunit": "^1.1",
+                "phpunit/phpunit": "4.6.* || ~5.0",
+                "squizlabs/php_codesniffer": "^2.6"
+            },
+            "suggest": {
+                "phpdocumentor/phpdocumentor": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\WebDriver\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "A PHP client for WebDriver",
+            "homepage": "https://github.com/facebook/php-webdriver",
+            "keywords": [
+                "facebook",
+                "php",
+                "selenium",
+                "webdriver"
+            ],
+            "time": "2016-10-14T15:16:51+00:00"
         },
         {
             "name": "guzzle/common",
@@ -3054,16 +3101,16 @@
         },
         {
             "name": "videlalvaro/php-amqplib",
-            "version": "v2.6.3",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-amqplib/php-amqplib.git",
-                "reference": "fa2f0d4410a11008cb36b379177291be7ee9e4f6"
+                "reference": "f48748546e398d846134c594dfca9070c4c3b356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/fa2f0d4410a11008cb36b379177291be7ee9e4f6",
-                "reference": "fa2f0d4410a11008cb36b379177291be7ee9e4f6",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/f48748546e398d846134c594dfca9070c4c3b356",
+                "reference": "f48748546e398d846134c594dfca9070c4c3b356",
                 "shasum": ""
             },
             "require": {
@@ -3121,7 +3168,7 @@
                 "rabbitmq"
             ],
             "abandoned": "php-amqplib/php-amqplib",
-            "time": "2016-04-11T14:30:01+00:00"
+            "time": "2017-08-03T22:06:21+00:00"
         },
         {
             "name": "webmozart/assert",
