@@ -1,13 +1,4 @@
 <?php
-if(Yii::app()->user->hasFlash('success')) { ?>
-    <div class="info">
-        <?php echo Yii::app()->user->getFlash('success'); ?> <br/>
-        Are you sure you want to add this data to database?<br/>
-        <button id="yesBtn">Yes</button>
-        <button id="noBtn">No</button>
-    </div>
-<?php } else { ?>
-<?php
 $form = $this->beginWidget(
     'CActiveForm',
     array(
@@ -23,7 +14,6 @@ echo $form->error($model, 'file');
 // ...
 echo CHtml::submitButton('Submit');
 $this->endWidget();
-}
 ?>
 
 <script>

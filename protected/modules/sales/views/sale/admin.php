@@ -20,12 +20,15 @@ $this->menu=array(
 );
 ?>
 
+<?php
+if(Yii::app()->user->hasFlash('success')) { ?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('success'); ?> <br/>
+    </div>
+<?php } ?>
+
 <h1>List of Sales</h1>
     <br/>
-    <button id="import">
-        import
-    </button>
-    <br><br>
     <div class="form-group col-md-5">
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             
@@ -172,7 +175,6 @@ $this->menu=array(
 <script>
     var salesListReqUrl = '<?php print Yii::app()->createUrl('sales/sale/admin') ?>';	
     var salesViewReqUrl = '<?php print Yii::app()->createUrl('sales/sale/view') ?>';
-    var salesImportReqUrl = '<?php print Yii::app()->createUrl('sales/sale/importexcel') ?>';
 </script>
 
 <!-- Date Picker -->

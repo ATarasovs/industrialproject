@@ -170,49 +170,61 @@ class SaleController extends Controller
             ));
 	}
         
-        public function actionImportexcel() {
-           
-            $path=Yii::getPathOfAlias('webroot').'/uploads/testbook.xls';
-            $inputFile = $path;
-            try {
-                $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
-                $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
-                $objPhpExcel = $objReader->load($inputFile);
-                
-            } 
-            catch (Exception $ex) {
-                die ("die");
-            }
-            
-            $sheet = $objPhpExcel->getSheet(0);
-            $highestRow = $sheet->getHighestRow();
-            $highestColoumn = $sheet->getHighestColumn();
-            
-            for($row = 1; $row <= $highestRow; $row++) {
-                $rowData = $sheet->rangeToArray('A'.$row.':'.$highestColoumn.$row,NULL,TRUE,FALSE);
-                if($row == 1) {
-                    continue;
+        public function actionUpload()
+        {
+            $model=new Uploadfile;
+            if(isset($_POST['Uploadfile']))
+            {
+                $model->attributes=$_POST['Uploadfile'];
+                $model->file=CUploadedFile::getInstance($model,'file');
+                if($model->save())
+                {
+                    $path=Yii::getPathOfAlias('webroot').'/uploads/testbook.xls';
+                    $model->file->saveAs($path);
+                    
+                    $path=Yii::getPathOfAlias('webroot').'/uploads/testbook.xls';
+                    $inputFile = $path;
+                    try {
+                        $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
+                        $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+                        $objPhpExcel = $objReader->load($inputFile);
+
+                    } 
+                    catch (Exception $ex) {
+                        die ("die");
+                    }
+
+                    $sheet = $objPhpExcel->getSheet(0);
+                    $highestRow = $sheet->getHighestRow();
+                    $highestColoumn = $sheet->getHighestColumn();
+
+                    for($row = 1; $row <= $highestRow; $row++) {
+                        $rowData = $sheet->rangeToArray('A'.$row.':'.$highestColoumn.$row,NULL,TRUE,FALSE);
+                        if($row == 1) {
+                            continue;
+                        }
+
+                        $sales = new Sale();
+
+                        $date = date("Y-m-d H:i:s", PHPExcel_Shared_Date::ExcelToPHP($rowData[0][0]));
+
+                        $sales->Date_Time = $date;
+                        $sales->Retailer_Ref = $rowData[0][1];
+                        $sales->Outlet_Ref = $rowData[0][2];
+                        $sales->Retailer_Name = $rowData[0][3];
+                        $sales->Outlet_Name = $rowData[0][4];
+                        $sales->New_user_id = $rowData[0][5];
+                        $sales->Transaction_Type = $rowData[0][6];
+                        $sales->Cash_Spent = $rowData[0][7];
+                        $sales->Discount_Amount = $rowData[0][8];
+                        $sales->Total_Amount = $rowData[0][9];
+                        $sales->save();
+                    }
+                    Yii::app()->user->setFlash('success', "Excel sheet was successfully uploaded!");
+                    $this->redirect('index.php?r=sales/sale/admin');
                 }
-                
-                $sales = new Sale();
-
-                $date = date("Y-m-d H:i:s", PHPExcel_Shared_Date::ExcelToPHP($rowData[0][0]));
-                
-                $sales->Date_Time = $date;
-                $sales->Retailer_Ref = $rowData[0][1];
-                $sales->Outlet_Ref = $rowData[0][2];
-                $sales->Retailer_Name = $rowData[0][3];
-                $sales->Outlet_Name = $rowData[0][4];
-                $sales->New_user_id = $rowData[0][5];
-                $sales->Transaction_Type = $rowData[0][6];
-                $sales->Cash_Spent = $rowData[0][7];
-                $sales->Discount_Amount = $rowData[0][8];
-                $sales->Total_Amount = $rowData[0][9];
-                $sales->save();
             }
-
-            $this->redirect('index.php?r=sales/sale/admin');
-            
+            $this->render('upload', array('model'=>$model));
         }
 
 	/**
