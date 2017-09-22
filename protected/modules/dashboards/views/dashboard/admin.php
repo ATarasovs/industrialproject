@@ -1,7 +1,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
-<script src="https://unpkg.com/flatpickr"></script>
+
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
 <?php
@@ -105,28 +104,10 @@ $this->pageTitle=Yii::app()->name;
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
 		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar View</p></h4>
 			<div class="card-block">
-			<div class="dropdown pull-left">
-    			Weekly
-  			</button>
-  			<div class="dropdown-menu pull-left" aria-labelledby="dropdownMenuButton">
-    					<a class="dropdown-item pull-right" href="#">Weekly data</a>
-    					<a class="dropdown-item pull-right" href="#">Monthly data</a>
-    					<a class="dropdown-item pull-right" href="#">Yearly data</a>
-  				</div>
-				</div>
-				<br>
-  			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
-					<canvas id="bar-chart-grouped" width="500" height="450"></canvas>
-				</div>
-				<hr>
-				<h6>Quick views:</h6>
-				<div class="mmenu">
-					<input id="Shops" type="button" value="Shops" class="btn btn-primary"/>
-					<input id="Nightlife" type="button" value="Nightlife" class="btn btn-primary" />
-					<input id="Services" type="button" value="Services" class="btn btn-primary"/>
-					<input id="New" type="button" value="New" class="btn btn-success"/>
-					<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
+
+				<!-- CALENDAR GOES HERE -->
+
 				</div>
 			</div>
 		</div>
@@ -141,63 +122,59 @@ $this->pageTitle=Yii::app()->name;
   </div>
   <div class="card-block">
   <div id="noFiltersDiv" style="display:inline;" class="pull-left">
-		<div class="dropdown pull-right"> &nbsp;
-			<button class="btn btn-secondary dropdown-toggle pull-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			Select data from
-			</button>
-			<div class="dropdown-menu pull-left" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item pull-left" onClick="LoadLineChartData(1);" >Today</a>
-				<a class="dropdown-item pull-left" onClick="LoadLineChartData(7);" >This week</a>
-				<a class="dropdown-item pull-left" onClick="LoadLineChartData(30);" >This month</a>
-				<a class="dropdown-item pull-left" onClick="LoadLineChartData(0);" >Quarterly </a>
-			</div>
+		<button name="answer" class="btn btn-primary pull-left" id="filtersButton" onclick="showDiv()"><i class="fa fa-filter" aria-hidden="true"></i> Show Advanced Filters </button> &nbsp; &nbsp;
 		</div>
-		<button name="answer" class="btn btn-primary pull-left" id="filtersButton" onclick="showDiv()"><i class="fa fa-filter" aria-hidden="true"></i> Show Filters </button> &nbsp; &nbsp;
+  <div class="form-inline">
+		<input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date: From" type="text"/>&nbsp;
+		<input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/> &nbsp;
+		<button class="btn btn-success" id="applyFilters" type="submit" value="Apply" onClick="LoadLineChartData(7)">Apply</button> &nbsp;
 	</div>
 	<!-- FILTERS HIDDEN DIV -->
 	<div id="filtersDiv"  style="display:none;" class="pull-left" >
 	<div class="form-inline">
+	<br><br>
 		<button type="button" name="answer" class="btn btn-danger pull-right" id="filtersButton" onclick="hideDiv()"><i class="fa fa-minus-square" aria-hidden="true"></i> Hide Filters</button>&nbsp; 
-		<input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date: From" type="text"/>&nbsp;
-		<input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/> &nbsp;
 
+		<!-- Time to/from -->
+		<input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time: From">&nbsp;
+		<input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time: To">&nbsp;
 
 		<!-- FROM/TO WEEKDAY -->
 		<div class="dropdown pull-right"> &nbsp;
-			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button class="btn btn-secondary dropdown-toggle weekdayFromL pull-right" type="button" id="filterByWeekdayFrom" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			Weekday: From
 			</button>
 			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item pull-right" onClick="" >Monday</a>
-				<a class="dropdown-item pull-right" onClick="" >Tuesday</a>
-				<a class="dropdown-item pull-right" onClick="" >Wednesday</a>
-				<a class="dropdown-item pull-right" onClick="" >Thursday</a>
-				<a class="dropdown-item pull-right" onClick="" >Friday</a>
-				<a class="dropdown-item pull-right" onClick="" >Saturday</a>
-				<a class="dropdown-item pull-right" onClick="" >Sunday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(1)" >Monday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(2)" >Tuesday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(3)" >Wednesday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(4)" >Thursday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(5)" >Friday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(6)" >Saturday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(7)" >Sunday</a>
 
 			</div>
 		</div>
 
 		<div class="dropdown pull-right"> &nbsp;
-			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+			<button class="btn btn-secondary dropdown-toggle weekdayToL pull-right" type="button" id="filterByWeekdayTo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
 			Weekday: To
 			</button>
 			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
-			<a class="dropdown-item pull-right" onClick="" >Monday</a>
-			<a class="dropdown-item pull-right" onClick="" >Tuesday</a>
-			<a class="dropdown-item pull-right" onClick="" >Wednesday</a>
-			<a class="dropdown-item pull-right" onClick="" >Thursday</a>
-			<a class="dropdown-item pull-right" onClick="" >Friday</a>
-			<a class="dropdown-item pull-right" onClick="" >Saturday</a>
-			<a class="dropdown-item pull-right" onClick="" >Sunday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(1)" >Monday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(2)" >Tuesday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(3)" >Wednesday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(4)" >Thursday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(5)" >Friday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(6)" >Saturday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(7)" >Sunday</a>
 			</div>
 		</div>
 		&nbsp;
-		<button class="btn btn-success" id="applyFilters" type="submit" value="Apply" onClick="LoadLineChartData(7)">Apply</button> &nbsp;
 
 	</div>
 
+		
 	</div><!-- END OF FILTERS DIV -->
 	<br><br><br><br>
 		<div id="canvas-holder-2" style="width:100%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
@@ -243,6 +220,42 @@ var ctx = document.getElementById("myChart").getContext('2d');
 
 flatpickr("#filterByDateFrom", {});
 flatpickr("#filterByDateTo", {});
+	flatpickr("#filterByTimeFrom", {
+                enableTime: true,
+                noCalendar: true,
+
+                enableSeconds: false, // disabled by default
+
+                time_24hr: false, // AM/PM time picker is used by default
+
+                // default format
+                dateFormat: "H:i", 
+
+                // initial values for time. don't use these to preload a date
+                defaultHour: 12,
+                defaultMinute: 0
+
+                // Preload time with defaultDate instead:
+                // defaultDate: "3:30"
+            });
+            flatpickr("#filterByTimeTo", {
+                enableTime: true,
+                noCalendar: true,
+
+                enableSeconds: false, // disabled by default
+
+                time_24hr: false, // AM/PM time picker is used by default
+
+                // default format
+                dateFormat: "H:i", 
+
+                // initial values for time. don't use these to preload a date
+                defaultHour: 12,
+                defaultMinute: 0
+
+                // Preload time with defaultDate instead:
+                // defaultDate: "3:30"
+            });
 
 var myChart = new Chart(ctx, {
 	type: 'line',
@@ -593,6 +606,74 @@ function LoadDougnutData(length)
 };
 
 
+function weekdayDropdownTo(val)
+{
+	if(val == 1)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Monday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Monday"); 
+	} else if (val == 2)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Tuesday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Tuesday"); 
+	} else if (val == 3)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Wednesday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Wednesday"); 
+	} else if (val == 4)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Thursday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Thursday"); 
+	} else if (val == 5)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Friday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Friday"); 
+	} else if (val == 6)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Saturday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Saturday"); 
+	} else if (val == 7)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Sunday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Sunday"); 
+	}
+
+}
+
+function weekdayDropdownFrom(val)
+{
+	if(val == 1)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Monday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Monday"); 
+	} else if (val == 2)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Tuesday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Tuesday"); 
+	} else if (val == 3)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Wednesday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Wednesday"); 
+	} else if (val == 4)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Thursday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Thursday"); 
+	} else if (val == 5)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Friday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Friday"); 
+	} else if (val == 6)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Saturday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Saturday"); 
+	} else if (val == 7)
+	{
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Sunday");
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Sunday"); 
+	}
+
+}
+
 function LoadLineChartData(length)
 {
 	//Change drop-down text
@@ -614,19 +695,14 @@ function LoadLineChartData(length)
 	var date = $('#filterByDateFrom').val();
 	var dateTo = $('#filterByDateTo').val();
 
-	console.log(date);
-	
-	if(date == ""){
-		date = "null";
-	
-	}
+	var timeFrom = $('#filterByTimeFrom').val();
+	var timeTo = $('#filterByTimeTo').val();
 
-	if(dateTo == ""){
-		dateTo = "null"
-	}
+	var weekdayFrom = $('#filterByWeekdayFrom').val();
+	var weekdayTo = $('#filterByWeekdayTo').val();
 
+	console.log(weekdayFrom, weekdayTo)
 
-	
 	//Identifier for ajaxProcess function to load correct chartData
 	var period = length;
 
@@ -639,7 +715,7 @@ function LoadLineChartData(length)
 	// this works with the default config of 1.1.11
 	url: 'index.php?r=dashboards/dashboard/LoadLineChartData',
 	type: "POST",
-	data: {Period: period, DateFrom: date, DateTo: dateTo},  
+	data: {Period: period, DateFrom: date, DateTo: dateTo, TimeFrom: timeFrom, TimeTo: timeTo, WeekdayFrom: weekdayFrom, WeekdayTo: weekdayTo},  
 	error: function(xhr,tStatus,e){
 				if(!xhr){
 					alert(" We have an error ");
@@ -649,25 +725,17 @@ function LoadLineChartData(length)
 				}
 			},
 			success: function(resp){
+				
+				if(resp==""){
+					document.getElementById('applyFilters').innerHTML ='Apply';
+				return;
+				}
+				
+
 								//Assign Data to Chart
 			chartData = JSON.stringify(resp);
 	
 			console.log(resp);
-			
-
-			//alert(Object.keys(resp[0]).length); 
-
-			if(Object.keys(resp[1]).length == 621)
-			{
-				
-				
-			} else if(Object.keys(resp[1]).length == 313)
-			{
-				
-
-
-			} else {
-
 				//Generate labels based on custom dataset length
 
 				//Array for weekday axis labels
@@ -698,7 +766,7 @@ function LoadLineChartData(length)
 
 				}
 
-				var from = resp[0].split("-");
+				var from = resp[0][0].split("-");
 				var date = new Date(from[0], (from[1]-1), from[2]);
 
 				var customLabelSet = [];
@@ -706,6 +774,9 @@ function LoadLineChartData(length)
 				//Load Axis labels
 				for(var i =1; i<Object.keys(resp[1]).length+1; i++)
 				{
+					var from = resp[0][i-1].split("-");
+					var date = new Date(from[0], (from[1]-1), from[2]);
+
 					customLabelSet[i-1] = weekday[date.getDay()] + " " + date.getDate() + getPrefix(date.getDate());
 					date.setDate(date.getDate()+1); 
 
@@ -722,9 +793,7 @@ function LoadLineChartData(length)
 				myChart.update();
 				
 				document.getElementById('applyFilters').innerHTML ='Apply';
-
-			}
-
+			
 								
 			}
 	});

@@ -163,13 +163,17 @@ class DashboardController extends Controller
 		$nWeeks = $_POST['Period'];
 		$dateFrom = $_POST['DateFrom'];
 		$dateTo = $_POST['DateTo'];
+		$timeFrom = $_POST['TimeFrom'];
+		$timeTo = $_POST['TimeTo'];
+		$weekdayFrom = $_POST['WeekdayFrom'];
+		$weekdayTo = $_POST['WeekdayTo'];
 
-		if($dateTo == "null" || $dateFrom == "null"){
+		if($dateTo == "" || $dateFrom == ""){
 			//LOAD DATA FROM CURRENT WEEK
-
+			return "";
 		}
 
-		$lineData = $this->loadLineChartData($nWeeks, $dateFrom, $dateTo);
+		$lineData = $this->loadLineChartData($nWeeks, $dateFrom, $dateTo, $timeFrom, $timeTo, $weekdayFrom, $weekdayTo);
 
 		//// output some JSON instead of the usual text/html
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -212,29 +216,27 @@ class DashboardController extends Controller
 
 	}
 
-	public function loadLineChartData($nDays, $dateFrom, $dateTo)
+	public function loadLineChartData($nDays, $dateFrom, $dateTo, $timefrom, $timeto, $weekdayfrom, $weekdayto)
 	{
-		if($dateFrom == "null"){
+		if($dateFrom == ""){
 			
 		} else {
 			
 			$d1 = new DateTime( $dateFrom );
 			$d2 = new DateTime( $dateTo );
 	
-			//return 5;
-	
 			$diff=date_diff($d1, $d2);
 			$nDays = ($diff->days);
 	
 			$arrOutlets = Dashboard::model()->outletsArray();
 			
-			
 			$date = date('Y-m-d H:i:s',  strtotime('-'.$nDays.'days'));
 	
 			$date = $dateTo;
-			//Get N number of dates before given date
 		}
-		//DateFrom = today
+
+		//GET WEEKDAYS FROM TWO DAYS
+
 
 		
 		$dates = [];
@@ -249,32 +251,157 @@ class DashboardController extends Controller
 		
 		$dates[] = date('Y-m-d', strtotime($dateFrom));
 
-		//return $dates;
-
 		$dateto = $dates[0];
 		$length = count($dates); 
 		$datefrom = $dates[$length-1];
 
-		//return $datefrom;
-		//return $weekdayfrom;
 
 		$criteria = new CDbCriteria();
 
 		if ($datefrom != "" && $dateto !="") {
 			if ($datefrom != $dateto){
+				if($datefrom < $dateto){
 					$criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
+				} elseif ($datefrom > $dateto){
+					$criteria->addCondition("DATE(Date_Time) >= '$dateto' and DATE(Date_Time) <= '$datefrom'");
+				}
 			} elseif ($datefrom = $dateto) {
 					$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
 			}
+		  }  else{
+			  if ($datefrom != ""){
+				  $criteria->addCondition("DATE(Date_Time) = '$datefrom'");
+			  } elseif ( $dateto != ""){
+				 $criteria->addCondition("DATE(Date_Time) = '$dateto'");
+			  }            
+		 }
+
+		if ($timefrom != "" && $timeto !="") {
+			if($timefrom != $timeto){
+				if($timefrom < $timeto){
+					$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+				} elseif ($timefrom > $timeto){
+					$criteria->addCondition("TIME(Date_Time) NOT BETWEEN  '$timeto' AND '$timefrom'");
+				}
+			} else {
+				$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+			}
+		} elseif ($timefrom != ""){
+			 $criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+		} elseif ($timeto != ""){
+			 $criteria->addCondition("TIME(Date_Time) = '$timeto'");
 		}
+
+		if ($weekdayfrom != "" && $weekdayto !="") {
+			if ($weekdayfrom != $weekdayto){
+				if ($weekdayfrom < $weekdayto){
+				$criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
+				} elseif ($weekdayfrom > $weekdayto){
+					$criteria->addCondition("WEEKDAY(Date_Time) NOT BETWEEN  '$weekdayto' AND '$weekdayfrom'");
+				}
+			} else {
+				$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
+			}
+		 }  elseif ($weekdayfrom != ""){
+			 $criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
+		 } elseif ($weekdayto != ""){
+			 $criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayto'");
+		 }
+
+
+		 if($weekdayfrom != "" && $weekdayto != "")
+		 {
+
+			 $weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+			 $intWeekdays = [0,1,2,3,4,5,6];
+	 
+	 
+			 $dates2 = $dates;
+			 $dates3 = [];			
+	 
+			 //CONVERT DATES INTO WEEKDAYS
+			 foreach($dates2 as $date)
+			 {
+				 //$timestamp = strtotime($date);
+				 $dateres = date("l", strtotime($date));
+				 $dates3[] = $dateres;
+			 }
+	 
+			 $dates3 = array_reverse($dates3); //DATES 3 IS AN ARRAY FO EVERY DATE AS A WEEKDAY
+	 
+	 
+			 //GET STARTDATE and ENDDATE fo two given dates and convert to DAY string
+			 $sd;
+			 for($i = 0; $i < 7; $i++){
+				 if($weekdayfrom == $weekdays[$i])
+				 {
+					 $sd = $intWeekdays[$i];
+	 
+				 }
+			 }
+	 
+			 $ed;
+			 for($i = 0; $i < 7; $i++){
+				 if($weekdayto == $weekdays[$i]){
+					 $ed = $intWeekdays[$i];
+	 
+				 }
+			 }
+	 
+			 //loop through dates and find window of dates
+			 $days = [];
+			 $days[] = $weekdays[$sd];
+			 do{
+				 $sd++;
+				 if($sd > 6){ //keep wihtin bounds of weekday array
+					 $sd = 0;
+				 } 
+				 if($sd == $ed){
+					 $days[] = $weekdays[$ed];		//COMPLETE RE-THINK THIS CODE
+				 } else {
+					 $days[] = $weekdays[$sd];
+				 }
+				 
+				 
+			 } while ($sd != $ed);
+	 
+			 
+			 $dates = array_reverse($dates);
+			 //return [$days, $dates3, $dates];
+	 
+	 
+			 //Convert LOOP THROUGH DATES 3 (EVERY DATE AS A DAY) AND IF IT DOESNT MATCH ANY OF DAYS, THEN REMOVE 
+			 $delArr = [];
+	 
+			 for($i =0; $i < count($dates3); $i++)
+			 {
+				 $matchFlag = false;
+				 for($o = 0; $o < count($days); $o++)
+				 {
+					 if($dates3[$i] == $days[$o])
+					 {
+						 $matchFlag = true;
+					 }
+				 }
+	 
+				 if($matchFlag == false){
+					 unset($dates[$i]);
+				 }
+				 
+			 }
+	 
+			 $dates = array_values($dates);
+			} else {
+				
+				$dates = array_reverse($dates);
+		}
+
 
 		$search_results = Dashboard::model()->findAll($criteria);
 		
 		$lineChartDataArr =[];
 
-		//$dd = date('d' , $datefrom);
-		//return($dd);
-		$lineChartDataArr[] = $datefrom;
+		$lineChartDataArr[] = $dates;
 
 		foreach($arrOutlets as $outlet)
 		{
