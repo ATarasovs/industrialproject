@@ -53,14 +53,11 @@ function getParameterByName(name, url) {
 function search() {
     var userId = $("#filterByUserId").val();
     var userName = $("#filterByUserName").val();
-    var id = parseInt(userId);
-    
-    if (Number.isInteger(id)) {
-        location.href = usersManageListReqUrl + "&userid=" + id + "&username=" + userName;
-    }
-    else {
+    if (!Number.isInteger(userId) )
+        location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
+    else
+        console.log(userId);
         alert("User ID must be a number!");
-    }
 }
 
 

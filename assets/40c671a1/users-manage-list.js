@@ -54,9 +54,8 @@ function search() {
     var userId = $("#filterByUserId").val();
     var userName = $("#filterByUserName").val();
     var id = parseInt(userId);
-    
     if (Number.isInteger(id)) {
-        location.href = usersManageListReqUrl + "&userid=" + id + "&username=" + userName;
+        location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
     }
     else {
         alert("User ID must be a number!");

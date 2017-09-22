@@ -1,7 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
 <?php
-    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pagination.css');
     Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.users.assets.js').'\users-manage-list.js'), CClientScript::POS_HEAD);
 
 /* @var $this UserController */
@@ -14,22 +13,22 @@ $this->breadcrumbs=array(
 
 <h1>Manage Users</h1>
     <br>
-    <div class="form-inline">
-    <label class="sr-only" for="inlineFormInput">Name</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-        <input id="filterByUserId" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Filter by user ID">
+    <div class="form-group col-md-5">
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
+        </div>
+        <br/>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="filterByUserName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user name">
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
+        <button id="unsetFiltersBtn" class="btn btn-primary">Unset Filters</button>
     </div>
 
-    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-        <input id="filterByUserName" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter by user name">
-    </div>
-
-    <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
-    <button id="unsetFiltersBtn" class="btn btn-primary">Unset Filters</button>
-    </div>
 <table id="users" class="table">
     <thead class="thead-inverse">
         <th><?php echo User::model()->getAttributeLabel('userID') ?></th>

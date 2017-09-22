@@ -12,7 +12,9 @@ $(document).ready(function() {
 
 function initButtons() {
     $( "#searchBtn" ).click(function() {
-        search();  
+        var userId = $("#filterByUserId").val();
+        var userName = $("#filterByUserName").val();
+        location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
     });
     
     $( "#unsetFiltersBtn" ).click(function() {
@@ -53,17 +55,8 @@ function getParameterByName(name, url) {
 function search() {
     var userId = $("#filterByUserId").val();
     var userName = $("#filterByUserName").val();
-    var id = parseInt(userId);
-    
-    if (Number.isInteger(id)) {
-        location.href = usersManageListReqUrl + "&userid=" + id + "&username=" + userName;
-    }
-    else {
-        alert("User ID must be a number!");
-    }
+    location.href = usersManageListReqUrl + "&userid=" + userId + "&username=" + userName;
 }
-
-
 
 
 
