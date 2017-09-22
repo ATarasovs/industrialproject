@@ -98,17 +98,24 @@ class SAXbeta {
      * @param int $paa word size - how many symbols to split the data into
      */
     public function runSAX($count, $window, $paa) {
+        $return = array(
+            array(),
+            array()
+        );
+        
         for ($i=0; $i<$count; $i++) {
-            exec("java -jar ".dirname(__FILE__)."/vendor/SAX-master/target/jmotif-sax-1.1.3-SNAPSHOT-jar-with-dependencies.jar -d ".dirname(__FILE__)."/".$i." -o ".dirname(__FILE__)."/".$i."out -w ".$window." 1 -a 5 -p ".$paa);
+            //exec("java -jar ".dirname(__FILE__)."/vendor/SAX-master/target/jmotif-sax-1.1.3-SNAPSHOT-jar-with-dependencies.jar -d ".dirname(__FILE__)."/".$i." -o ".dirname(__FILE__)."/".$i."out -w ".$window." 1 -a 5 -p ".$paa);
+            exec("java -jar ".dirname(__FILE__)."/../vendor/vendor/SAX-master/target/jmotif-sax-1.1.3-SNAPSHOT-jar-with-dependencies.jar -d ".dirname(__FILE__)."/".$i." -o ".dirname(__FILE__)."/".$i."out -w ".$window." 1 -a 20 -p ".$paa, $return[$i]);
         }
         
+        return $return;
     }
     
     
     public function readSAXResults($count) {
         $return = array();
         for ($i=0; $i<$count; $i++) {
-            $file = fopen($i."out", "r") or die ("Failed to open file");
+            $file = fopen(dirname(__FILE__)."/".$i."out", "r") or die ("Failed to open file");
             $return[$i] = fgets($file);
             fclose($file);
         }
