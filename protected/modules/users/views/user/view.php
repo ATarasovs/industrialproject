@@ -3,8 +3,8 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Users'=>array('admin'),
-	$model->userID,
+	'Manage users'=>array('admin'),
+	'View',
 );
 ?>
 

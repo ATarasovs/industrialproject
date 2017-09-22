@@ -53,7 +53,7 @@ Yii::app()->clientScript->registerScriptFile(
   <ul class="navbar-nav mr-auto">
 	<li class="nav-item">
 	<?php 
-	echo CHtml::link('<i class="fa fa-line-chart"></i> Dashboard',array('/dashboards/dashboard/admin', 'view'=>'about'), array('class'=>'nav-link')); 
+	echo CHtml::link('<i class="fa fa-line-chart"></i> Dashboard',array('/dashboards/dashboard/admin'), array('class'=>'nav-link')); 
 	?>
 	</li>
 	<li class="nav-item">
@@ -68,7 +68,6 @@ Yii::app()->clientScript->registerScriptFile(
 	<li class="nav-item dropdown">
 	<a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Manage Users </a>
 	  <div class="dropdown-menu" aria-labelledby="dropdown01">
-		<?php echo CHtml::link('<i class="fa fa-eye"></i> View Users',array('/users/user'), array('class'=>'dropdown-item')); ?>
 		<?php echo CHtml::link('<i class="fa fa-plus-circle"></i> Create User',array('/users/user/create'), array('class'=>'dropdown-item')); ?>
 		<?php echo CHtml::link('<i class="fa fa-user-times"></i> Manage Users',array('/users/user/admin'), array('class'=>'dropdown-item')); ?>
 	  </div>

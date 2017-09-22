@@ -3,12 +3,11 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Users'=>array('admin'),
-	$model->userID=>array('view','id'=>$model->userID),
+	'Manage users'=>array('admin'),
 	'Update',
 );
 ?>
 
-<h1>Update User <?php echo $model->userID; ?></h1>
+<h1>Update user: <?php echo $model->username; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

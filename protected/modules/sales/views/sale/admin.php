@@ -11,16 +11,9 @@
 /* @var $model Sale */
 
 $this->breadcrumbs=array(
-	'Sales'=>array('index'),
-	'List',
+	'Sales list',
 );
 
-$this->menu=array(
-	array('label'=>'List Sales', 'url'=>array('index')),
-);
-?>
-
-<?php
 if(Yii::app()->user->hasFlash('success')) { ?>
     <div class="info">
         <?php echo Yii::app()->user->getFlash('success'); ?> <br/>
