@@ -26,12 +26,10 @@ if(Yii::app()->user->hasFlash('success')) { ?>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             
             <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></i></div>
-            <!--<input id="filterByDateFrom" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="From">-->
-            <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date: From" type="text"/>
+            <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date from:" type="text"/>
 
             <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-            <!--<input id="filterByDateTo" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="To">-->
-            <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/> 
+            <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date to:" type="text"/> 
        
         </div>
         <br>
@@ -41,15 +39,16 @@ if(Yii::app()->user->hasFlash('success')) { ?>
 
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From"> 
+            <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time from:"> 
+            
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
+            <input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time to:">
         </div>
         <br>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
-                <option></option>
+            <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Weekday from">
+                <option value="">Weekday from:</option>
                 <option value="0">Monday</option>
                 <option value="1">Tuesday</option>
                 <option value="2">Wednesday</option>
@@ -59,8 +58,8 @@ if(Yii::app()->user->hasFlash('success')) { ?>
                 <option value="6">Sunday</option>
             </select>
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByWeekdayTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
-                <option></option>
+            <select id="filterByWeekdayTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Weekday to">
+                <option value="">Weekday to:</option>
                 <option value="0">Monday</option>
                 <option value="1">Tuesday</option>
                 <option value="2">Wednesday</option>
@@ -74,7 +73,7 @@ if(Yii::app()->user->hasFlash('success')) { ?>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
-                <option>Select years</option> 
+                <option>Select year</option> 
 <!--                <option value="0">Monday</option>
                 <option value="1">Tuesday</option>
                 <option value="2">Wednesday</option>
@@ -85,7 +84,7 @@ if(Yii::app()->user->hasFlash('success')) { ?>
             </select>
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
-                <option>Select months</option> 
+                <option>Select month</option> 
             </select>
         </div>
         <br>
