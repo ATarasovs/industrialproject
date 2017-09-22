@@ -28,7 +28,7 @@
 	<div class="row align-items-center">
 	<div class="col-6">
 		<?php echo $form->labelEx($model,'password', array('class'=>'form-signin-heading')); ?>
-		<?php echo $form->passwordField($model,'password',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->passwordField($model,'password',array('class'=>'form-control', 'id'=>'password', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'password'); ?>
 		</div>
 	</div>
@@ -82,6 +82,8 @@
 <?php $this->endWidget(); ?>
 	</div>
 
-</div><!-- form -->
-
-</div>
+<script>
+    $(document).ready(function() {
+        $("#password").val("");
+    });
+</script>

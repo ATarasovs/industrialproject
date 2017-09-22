@@ -3,16 +3,8 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Users'=>array('index'),
+	'Users'=>array('admin'),
 	$model->userID,
-);
-
-$this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->userID)),
-	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->userID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
 );
 ?>
 
@@ -68,3 +60,21 @@ $this->menu=array(
         </tr>
     </tbody>
 </table>
+
+<button id="backBtn">Back to list</button>
+
+<script>
+    var usersListReqUrl = '<?php print Yii::app()->createUrl('users/user/admin') ?>';	
+    
+    $(document).ready(function() {
+        initButtons();
+    });
+    
+    function initButtons() {
+        $( "#backBtn" ).click(function() {
+            location.href = usersListReqUrl;
+        });
+     }
+    
+    
+</script>

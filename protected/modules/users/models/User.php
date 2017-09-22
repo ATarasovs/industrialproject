@@ -28,7 +28,8 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
                         array('username', 'unique','className'=>'User','attributeName'=>'username','message'=>"Username already exists"),
-			array('username, password, salt, forename, surname, email, position, phone', 'required'),
+                        array('email', 'unique','className'=>'User','attributeName'=>'email','message'=>"Email already exists"),
+			array('username, password, salt, forename, surname, email', 'required'),
 			array('username, password, salt', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

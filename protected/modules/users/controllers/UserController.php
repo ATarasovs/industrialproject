@@ -149,7 +149,7 @@ class UserController extends Controller
             
             $count=User::model()->count($criteria);
             $pages=new CPagination($count);
-            $pages->pageSize=3;
+            $pages->pageSize=10;
             $pages->applyLimit($criteria);
             $users = User::model()->findAll($criteria);
 
