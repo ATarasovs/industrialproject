@@ -133,45 +133,6 @@ class DashboardController extends Controller
 	 */
 	public function actionAdmin()
 	{
-            $criteria = new CDbCriteria();
-            
-            $saleid = Yii::app()->request->getParam('saleid');
-//            $date = Yii::app()->request->getParam('date');
-//            $time = Yii::app()->request->getParam('time');
-            $outletname = Yii::app()->request->getParam('outlet');
-            $retailername = Yii::app()->request->getParam('retailer');
-            $userid = Yii::app()->request->getParam('userid');
-            $transactiontype = Yii::app()->request->getParam('transactiontype');
-            
-            if ($saleid != "") {
-               $criteria->addCondition("sales_id = $saleid"); 
-            }
-            
-            if ($outletname != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname'");
-            }
-            
-            if ($retailername != "") {
-                $criteria->addCondition("Retailer_Name = '$retailername'");
-            }
-            
-            if ($userid != "") {
-                $criteria->addCondition("New_user_id = '$userid'");
-            }
-            
-            if ($transactiontype != "") {
-                $criteria->addCondition("Transaction_Type = '$transactiontype'");
-            }
-
-            
-            $count=Dashboard::model()->count($criteria);
-            $pages=new CPagination($count);
-            $pages->pageSize=10;
-            $pages->applyLimit($criteria);
-			//$dashboards = Dashboard::model()->findAll($criteria);
-			
-			//add returned rows into a 2d array, read to pass into chart data
-
 			$url= Yii::app()->request->getParam('id');
 
 
@@ -201,8 +162,14 @@ class DashboardController extends Controller
 	{
 		$nWeeks = $_POST['Period'];
 		$dateFrom = $_POST['DateFrom'];
+		$dateTo = $_POST['DateTo'];
 
-		$lineData = $this->loadLineChartData($nWeeks, $dateFrom);
+		if($dateTo == "null" || $dateFrom == "null"){
+			//LOAD DATA FROM CURRENT WEEK
+
+		}
+
+		$lineData = $this->loadLineChartData($nWeeks, $dateFrom, $dateTo);
 
 		//// output some JSON instead of the usual text/html
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -245,29 +212,44 @@ class DashboardController extends Controller
 
 	}
 
-	public function loadLineChartData($nDays, $dateFrom)
+	public function loadLineChartData($nDays, $dateFrom, $dateTo)
 	{
-		//if DateFrom == null
+		if($dateFrom == "null"){
+			
+		} else {
+			
+			$d1 = new DateTime( $dateFrom );
+			$d2 = new DateTime( $dateTo );
+	
+			//return 5;
+	
+			$diff=date_diff($d1, $d2);
+			$nDays = ($diff->days);
+	
+			$arrOutlets = Dashboard::model()->outletsArray();
+			
+			
+			$date = date('Y-m-d H:i:s',  strtotime('-'.$nDays.'days'));
+	
+			$date = $dateTo;
+			//Get N number of dates before given date
+		}
 		//DateFrom = today
 
-		$arrOutlets = Dashboard::model()->outletsArray();
-		
-		//$nDays = 40; //Temp
-		
-		$date = date('Y-m-d H:i:s',  strtotime('-'.$nDays.'days'));
-
-		$date = $dateFrom;
-		//Get N number of dates before given date
 		
 		$dates = [];
+		
 		for($i=0; $i<$nDays; $i++)
 		{
-			$dayDate = date('Y-m-d', strtotime('-'.$i.' day', strtotime($date)));
 			
+			$dayDate = date('Y-m-d', strtotime('-'.$i.' day', strtotime($date)));
 			$dates[] = $dayDate;
 			
 		}
+		
+		$dates[] = date('Y-m-d', strtotime($dateFrom));
 
+		//return $dates;
 
 		$dateto = $dates[0];
 		$length = count($dates); 
@@ -289,6 +271,11 @@ class DashboardController extends Controller
 		$search_results = Dashboard::model()->findAll($criteria);
 		
 		$lineChartDataArr =[];
+
+		//$dd = date('d' , $datefrom);
+		//return($dd);
+		$lineChartDataArr[] = $datefrom;
+
 		foreach($arrOutlets as $outlet)
 		{
 			$outletTotals = [];
@@ -338,8 +325,6 @@ class DashboardController extends Controller
 	*/
 	function actionGetLastNDates($nDays)
 	{
-		
-
 		//If Date is used in table
 		//$date = date("Y-m-d");
 
@@ -348,10 +333,6 @@ class DashboardController extends Controller
 		}
 
 		//$date = new CDbExpression("NOW()");
-
-		
-
-
 
 
 	}

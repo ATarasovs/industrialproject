@@ -25,6 +25,7 @@ $this->menu=array(
     <button id="import">
         import
     </button>
+    <br><br>
     <div class="form-group col-md-5">
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             
@@ -34,20 +35,21 @@ $this->menu=array(
 
             <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
             <!--<input id="filterByDateTo" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="To">-->
-            <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/>
+            <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/> 
        
         </div>
+        <br>
 
         
 
 
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
+            <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From"> 
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
         </div>
-
+        <br>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
@@ -72,11 +74,11 @@ $this->menu=array(
                 <option value="6">Sunday</option>
             </select>
         </div>
-
+        <br>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
-                <option>Select years</option>
+                <option>Select years</option> 
 <!--                <option value="0">Monday</option>
                 <option value="1">Tuesday</option>
                 <option value="2">Wednesday</option>
@@ -87,10 +89,10 @@ $this->menu=array(
             </select>
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
             <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
-                <option>Select months</option>
+                <option>Select months</option> 
             </select>
         </div>
-        
+        <br>
         <div id="hidden" class="hide">
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
@@ -176,17 +178,45 @@ $this->menu=array(
 <!-- Date Picker -->
 <script>
             $(document).ready(function(){
-            var date_input_to=$('input[name="dateFrom"]'); //our date input has the name "date"
-            var date_input_from=$('input[name="dateTo"]'); //our date input has the name "dateTo"
-            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-            var options={
-                format: 'yyyy/mm/dd',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-            };
-            date_input_to.datepicker(options);
-            date_input_from.datepicker(options);
+            flatpickr("#filterByDateFrom", {});
+            flatpickr("#filterByDateTo", {});
+
+            flatpickr("#filterByTimeFrom", {
+                enableTime: true,
+                noCalendar: true,
+
+                enableSeconds: false, // disabled by default
+
+                time_24hr: false, // AM/PM time picker is used by default
+
+                // default format
+                dateFormat: "H:i", 
+
+                // initial values for time. don't use these to preload a date
+                defaultHour: 12,
+                defaultMinute: 0
+
+                // Preload time with defaultDate instead:
+                // defaultDate: "3:30"
+            });
+            flatpickr("#filterByTimeTo", {
+                enableTime: true,
+                noCalendar: true,
+
+                enableSeconds: false, // disabled by default
+
+                time_24hr: false, // AM/PM time picker is used by default
+
+                // default format
+                dateFormat: "H:i", 
+
+                // initial values for time. don't use these to preload a date
+                defaultHour: 12,
+                defaultMinute: 0
+
+                // Preload time with defaultDate instead:
+                // defaultDate: "3:30"
+            });
             })
         </script>
 
