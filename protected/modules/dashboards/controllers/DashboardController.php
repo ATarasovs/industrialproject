@@ -168,12 +168,19 @@ class DashboardController extends Controller
 		$weekdayFrom = $_POST['WeekdayFrom'];
 		$weekdayTo = $_POST['WeekdayTo'];
 
-		if($dateTo == "" || $dateFrom == ""){
+		if($dateTo == "" && $dateFrom == ""){
 			//LOAD DATA FROM CURRENT WEEK
 			return "";
 		}
 
-		$lineData = $this->loadLineChartData($nWeeks, $dateFrom, $dateTo, $timeFrom, $timeTo, $weekdayFrom, $weekdayTo);
+		if(($dateFrom != "" && $dateTo== "") || ($dateFrom == $dateTo) )
+		{
+			$lineData = $this->loadDailyLineChartData($dateFrom, $timeTo, $timeFrom);
+		} else
+		{
+			$lineData = $this->loadLineChartData($nWeeks, $dateFrom, $dateTo, $timeFrom, $timeTo, $weekdayFrom, $weekdayTo);
+		}
+
 
 		//// output some JSON instead of the usual text/html
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -213,6 +220,96 @@ class DashboardController extends Controller
 				}
 
 		return $arrMonthlySumData;
+
+	}
+
+	public function loadDailyLineChartData($date, $timefrom, $timeto)
+	{
+
+		$criteria = new CDbCriteria();
+
+		if($date != "")
+		{
+			$criteria->addCondition("DATE(Date_Time) = '$date'");
+		}
+
+		if ($timefrom != "" && $timeto !="") {
+			if($timefrom != $timeto){
+				if($timefrom < $timeto){
+					$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+				} elseif ($timefrom > $timeto){
+					$criteria->addCondition("TIME(Date_Time) NOT BETWEEN  '$timeto' AND '$timefrom'");
+				}
+			} else {
+				$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+			}
+		} elseif ($timefrom != ""){
+			 $criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+		} elseif ($timeto != ""){
+			 $criteria->addCondition("TIME(Date_Time) = '$timeto'");
+		}
+
+		$search_results = Dashboard::model()->findAll($criteria);
+
+		$arrOutlets = Dashboard::model()->outletsArray();
+		
+		$lineChartDataArr =[];
+
+		$lineChartDataArr[] = $date;
+
+		$date = date('Y-m-d H:i:s', strtotime($date));
+
+		
+
+		foreach($arrOutlets as $outlet)
+		{
+			$outletTotals = [];
+			for($i=0; $i<24; $i++) //FOR EACH HOUR AS HOUR
+			{
+				$hourTotal = 0;
+				
+				foreach($search_results as $rec)
+				{
+
+					//return[$rec->Outlet_Name, $outlet];
+					
+					if($rec->Outlet_Name == $outlet)//&&($rec->Date_Time == $date)) //
+					{
+
+						$d1 = date('Y-m-d H:i:s', strtotime($rec->Date_Time));
+
+						$d2 = date("Y-m-d H:i:s", strtotime('+'.($i+1).' hours', strtotime($date))); 
+
+						$d3 = date("Y-m-d H:i:s", strtotime('+'.$i.' hours', strtotime($date)));
+						
+						//if($d2 > $d3){
+
+							//return[$d1,$d2,$d3];
+						//}
+						
+
+						if(($d1 >= $d3) && $d1 <= $d2){
+
+							//return[$d1,$d2,$d3,$rec->Total_Amount];
+							$hourTotal = $hourTotal + $rec->Total_Amount;
+						}
+
+					}
+				}
+				$outletTotals[] = $hourTotal;
+				//unset($outletTotals);
+			}
+			//return $outletTotals;
+			$lineChartDataArr[] = $outletTotals;
+		}
+
+		return $lineChartDataArr;
+
+
+		
+
+
+
 
 	}
 
@@ -359,9 +456,6 @@ class DashboardController extends Controller
 			 }
 			 
 			 $dates = array_reverse($dates);
-			 //return [$days, $dates3, $dates];
-	 
-			 //return [$days,$dates3];
 	 
 			 //Convert LOOP THROUGH DATES 3 (EVERY DATE AS A DAY) AND IF IT DOESNT MATCH ANY OF DAYS, THEN REMOVE 
 			 $delArr = [];

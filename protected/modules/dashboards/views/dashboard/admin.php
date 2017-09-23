@@ -719,17 +719,37 @@ function LoadLineChartData(length)
 				}
 			},
 			success: function(resp){
+
+
 				
 				if(resp==""){
 					document.getElementById('applyFilters').innerHTML ='Apply';
-				return;
+					return;
+				}
+
+				if(resp[0].length == 10)
+				{
+					//Load Chart Data
+					var customlblset = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00" , "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+
+					var counter = 1;
+					myChart.data.datasets.forEach((dataset) => {
+						dataset.data = resp[counter];
+						counter ++;
+					});
+
+					myChart.config.data.labels = customlblset;
+					myChart.update();
+					document.getElementById('applyFilters').innerHTML ='Apply';
+					return;
+					
 				}
 				
 
-								//Assign Data to Chart
-			chartData = JSON.stringify(resp);
+				//Assign Data to Chart
+				chartData = JSON.stringify(resp);
 	
-			console.log(resp);
+				console.log(resp);
 				//Generate labels based on custom dataset length
 
 				//Array for weekday axis labels
