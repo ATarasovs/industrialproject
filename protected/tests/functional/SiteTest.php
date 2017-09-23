@@ -10,27 +10,17 @@ class SiteTest extends WebTestCase
     
         protected function setUp() {
             parent::setUp();
-            $host = 'http://localhost:4444/wd/hub';
-            $capabilities = DesiredCapabilities::microsoftEdge();
+            $host = 'http://localhost:5555/wd/hub';
+            $capabilities = DesiredCapabilities::firefox();
             $driver = RemoteWebDriver::create($host, $capabilities, 5000);
+            $driver->get("http://localhost/industrialproject/index.php");
         }
         
         public function testIndex()
 	{
-            $driver->get("http://localhost");
-            // adding cookie
-            // close the Firefox
-//            $driver->quit();
-               // $host = 'http://localhost:4444/wd/hub'; // this is the default
-//$capabilities = DesiredCapabilities::firefox();
-//                $driver = RemoteWebDriver::create($host, $capabilities, 5000);
-// navigate to 'http://www.seleniumhq.org/'
-//                $driver->get('http://www.seleniumhq.org/');
-                // adding cookie
-//                $driver->manage()->deleteAllCookies();
-
-//		$this->open('');
-//		$this->assertTextPresent('Welcome');
+            $this->open('');
+            $this->assertTextPresent('Login');
+            $driver->quit();
 	}
 /*
 	public function testContact()
