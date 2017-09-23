@@ -293,6 +293,7 @@ class DashboardController extends Controller
 		}
 
 		if ($weekdayfrom != "" && $weekdayto !="") {
+			
 			if ($weekdayfrom != $weekdayto){
 				if ($weekdayfrom < $weekdayto){
 				$criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
@@ -322,53 +323,45 @@ class DashboardController extends Controller
 			 //CONVERT DATES INTO WEEKDAYS
 			 foreach($dates2 as $date)
 			 {
-				 //$timestamp = strtotime($date);
-				 $dateres = date("l", strtotime($date));
-				 $dates3[] = $dateres;
+				 $timestamp = strtotime($date);
+				 $dateres = idate('w', $timestamp);	//Get day of week as int
+				 $dates3[] = ($dateres-1);
 			 }
 	 
 			 $dates3 = array_reverse($dates3); //DATES 3 IS AN ARRAY FO EVERY DATE AS A WEEKDAY
-	 
-	 
-			 //GET STARTDATE and ENDDATE fo two given dates and convert to DAY string
-			 $sd;
-			 for($i = 0; $i < 7; $i++){
-				 if($weekdayfrom == $weekdays[$i])
-				 {
-					 $sd = $intWeekdays[$i];
-	 
-				 }
-			 }
-	 
-			 $ed;
-			 for($i = 0; $i < 7; $i++){
-				 if($weekdayto == $weekdays[$i]){
-					 $ed = $intWeekdays[$i];
-	 
-				 }
-			 }
+
+			 $sd = intval($weekdayfrom);
+			 $ed = intval($weekdayto);
+			 $days = [];
 	 
 			 //loop through dates and find window of dates
-			 $days = [];
-			 $days[] = $weekdays[$sd];
-			 do{
-				 $sd++;
-				 if($sd > 6){ //keep wihtin bounds of weekday array
-					 $sd = 0;
-				 } 
-				 if($sd == $ed){
-					 $days[] = $weekdays[$ed];		//COMPLETE RE-THINK THIS CODE
-				 } else {
-					 $days[] = $weekdays[$sd];
-				 }
-				 
-				 
-			 } while ($sd != $ed);
-	 
+
+			 if($sd == $ed)
+			 {
+				 $days[] = $sd;
+
+			 } else
+			 {
+
+				 $days[] = $sd;
+				 do{
+					 $sd++;
+					 if($sd > 6){ //keep wihtin bounds of weekday array
+						 $sd = 0;
+					 } 
+					 if($sd == $ed){
+						 $days[] = $ed;		//COMPLETE RE-THINK THIS CODE
+					 } else {
+						 $days[] = $sd;
+					 }
+					 
+				 } while ($sd != $ed);
+			 }
 			 
 			 $dates = array_reverse($dates);
 			 //return [$days, $dates3, $dates];
 	 
+			 //return [$days,$dates3];
 	 
 			 //Convert LOOP THROUGH DATES 3 (EVERY DATE AS A DAY) AND IF IT DOESNT MATCH ANY OF DAYS, THEN REMOVE 
 			 $delArr = [];
@@ -396,6 +389,8 @@ class DashboardController extends Controller
 				$dates = array_reverse($dates);
 		}
 
+		//return $dates;
+
 
 		$search_results = Dashboard::model()->findAll($criteria);
 		
@@ -417,23 +412,23 @@ class DashboardController extends Controller
 					if(($rec->Outlet_Name == $outlet))//&&($rec->Date_Time == $date)) //
 					{
 						
-						$d1 = new DateTime( $cdate );
-						$d1->format('Y-m-d');
-						
-						$d2 = new DateTime( $rec->Date_Time );
-						$d2->format('Y-m-d');
-						
-						$d3 = new DateTime( $cdate );
-						$d3 = $d3->modify( '+1 days' );
-						$d3->format('Y-m-d');
-						
-						
-						if(($d2 > $d1) && ($d2 < $d3) )
-						{
+
+						$d1 = date('Y-m-d', strtotime($cdate));
+						$d2 = date('Y-m-d', strtotime($rec->Date_Time));
+
+						if($d1 == $d2){
+
 							$dayTotal = $dayTotal + $rec->Total_Amount;
+						}
+
+						
+						
+						//if(($d2 > $d1) && ($d2 < $d3) )
+						//{
+						//	$dayTotal = $dayTotal + $rec->Total_Amount;
 							//return $datefrom;
 
-						}
+						//}
 					}
 				}
 				$outletTotals[] = $dayTotal;

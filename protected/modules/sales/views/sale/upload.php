@@ -8,7 +8,9 @@ $form = $this->beginWidget(
     )
 );
 // ...
-echo $form->labelEx($model, 'file');
+echo "<h1>";
+echo $form->labelEx($model, 'file', array('class'=>'badge badge-primary') );
+echo "</h1>";
 echo $form->fileField($model, 'file');
 echo $form->error($model, 'file');
 // ...
