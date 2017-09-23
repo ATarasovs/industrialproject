@@ -145,13 +145,13 @@ $this->pageTitle=Yii::app()->name;
 			Weekday: From
 			</button>
 			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(1)" >Monday</a>
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(2)" >Tuesday</a>
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(3)" >Wednesday</a>
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(4)" >Thursday</a>
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(5)" >Friday</a>
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(6)" >Saturday</a>
-				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(7)" >Sunday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(0)" >Monday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(1)" >Tuesday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(2)" >Wednesday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(3)" >Thursday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(4)" >Friday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(5)" >Saturday</a>
+				<a class="dropdown-item pull-right" onClick="weekdayDropdownFrom(6)" >Sunday</a>
 
 			</div>
 		</div>
@@ -161,13 +161,13 @@ $this->pageTitle=Yii::app()->name;
 			Weekday: To
 			</button>
 			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(1)" >Monday</a>
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(2)" >Tuesday</a>
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(3)" >Wednesday</a>
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(4)" >Thursday</a>
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(5)" >Friday</a>
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(6)" >Saturday</a>
-			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(7)" >Sunday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(0)" >Monday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(1)" >Tuesday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(2)" >Wednesday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(3)" >Thursday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(4)" >Friday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(5)" >Saturday</a>
+			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(6)" >Sunday</a>
 			</div>
 		</div>
 		&nbsp;
@@ -594,12 +594,6 @@ function LoadDougnutData(length)
 						myDoughnutChart.data.datasets[0].data =resp;
 						myDoughnutChart.update();
 
-						//localStorage.setItem("WeeklyChartData", JSON.stringify(resp));
-						//var timeStamp = new Date().getTime();
-						//localStorage.setItem("WeeklyChartData-TS", timeStamp);
-
-						
-									
                     }
                 });
 
@@ -608,68 +602,68 @@ function LoadDougnutData(length)
 
 function weekdayDropdownTo(val)
 {
-	if(val == 1)
+	if(val == 0)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Monday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Monday"); 
-	} else if (val == 2)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(0); 
+	} else if (val == 1)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Tuesday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Tuesday"); 
-	} else if (val == 3)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(1); 
+	} else if (val == 2)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Wednesday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Wednesday"); 
-	} else if (val == 4)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(2); 
+	} else if (val == 3)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Thursday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Thursday"); 
-	} else if (val == 5)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(3); 
+	} else if (val == 4)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Friday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Friday"); 
-	} else if (val == 6)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(4); 
+	} else if (val == 5)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Saturday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Saturday"); 
-	} else if (val == 7)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(5); 
+	} else if (val == 6)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").text("Sunday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val("Sunday"); 
+		$(".btn.btn-secondary.dropdown-toggle.weekdayToL").val(6); 
 	}
 
 }
 
 function weekdayDropdownFrom(val)
 {
-	if(val == 1)
+	if(val == 0)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Monday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Monday"); 
-	} else if (val == 2)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(0); 
+	} else if (val == 1)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Tuesday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Tuesday"); 
-	} else if (val == 3)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(1); 
+	} else if (val == 2)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Wednesday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Wednesday"); 
-	} else if (val == 4)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(2); 
+	} else if (val == 3)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Thursday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Thursday"); 
-	} else if (val == 5)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(3); 
+	} else if (val == 4)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Friday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Friday"); 
-	} else if (val == 6)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(4); 
+	} else if (val == 5)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Saturday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Saturday"); 
-	} else if (val == 7)
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(5); 
+	} else if (val == 6)
 	{
 		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").text("Sunday");
-		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val("Sunday"); 
+		$(".btn.btn-secondary.dropdown-toggle.weekdayFromL").val(6); 
 	}
 
 }
