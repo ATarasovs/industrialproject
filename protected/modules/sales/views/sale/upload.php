@@ -1,22 +1,31 @@
-<?php
-$form = $this->beginWidget(
-    'CActiveForm',
-    array(
-        'id' => 'upload-form',
-        'enableAjaxValidation' => false,
-        'htmlOptions' => array('enctype' => 'multipart/form-data'),
-    )
-);
-// ...
-echo "<h1>";
-echo $form->labelEx($model, 'file', array('class'=>'badge badge-primary') );
-echo "</h1>";
-echo $form->fileField($model, 'file');
-echo $form->error($model, 'file');
-// ...
-echo CHtml::submitButton('Submit');
-$this->endWidget();
-?>
+<div class="jumbotron">
+  <h2 class="display-3">File Upload</h2>
+  <p class="lead">Adding data to the system is easy.</p>
+  <hr class="my-4">
+  <p>To add new data to the system, simple attach the xlsm file below and click submit!</p>
+  <p class="lead">
+  <br><br>
+    <?php
+    $form = $this->beginWidget(
+        'CActiveForm',
+        array(
+            'id' => 'upload-form',
+            'enableAjaxValidation' => false,
+            'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        )
+    );
+    // ..
+    echo $form->fileField($model, 'file');
+    echo $form->error($model, 'file');
+    // ...
+    echo CHtml::submitButton('Upload', array('class'=>'btn btn-primary'));
+    $this->endWidget();
+    ?>
+
+  </p>
+</div>
+
+
 
 <script>
     var importExcelReqUrl = '<?php print Yii::app()->createUrl('sales/sale/importexcel') ?>';

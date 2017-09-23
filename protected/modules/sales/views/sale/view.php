@@ -65,7 +65,7 @@ $this->breadcrumbs=array(
     </tbody>
 </table>
 
-<button id="backBtn">Back to list</button>
+<button id="backBtn" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back to list</button>
 
 <script>
     var salesListReqUrl = '<?php print Yii::app()->createUrl('sales/sale/admin') ?>';	

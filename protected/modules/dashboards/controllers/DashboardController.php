@@ -233,6 +233,7 @@ class DashboardController extends Controller
 			$criteria->addCondition("DATE(Date_Time) = '$date'");
 		}
 
+
 		if ($timefrom != "" && $timeto !="") {
 			if($timefrom != $timeto){
 				if($timefrom < $timeto){

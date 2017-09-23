@@ -68,7 +68,8 @@ $this->pageTitle=Yii::app()->name;
 <!-- FIRST AND SECOND CARDS WITH SUMMARY OF WEEKLY SALES DATA -->	
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
+  <br>
 		<div class="card"> <!-- FIRST CARD WITH DOUGHNUT -->
 			<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-pie-chart" aria-hidden="true"></i> Sales Summary Data</p></h4>
 			<div class="card-block">
@@ -83,9 +84,7 @@ $this->pageTitle=Yii::app()->name;
   				</div>
 				</div>
 				<br>
-				<div id="canvas-holder-2" style="width:30%; direction:ltr; margin-left:0; margin-right:auto; display:table;">
 					<canvas id="myDoughnutChart" width="750" height="550"/>
-				</div>
 				<hr>
 				<h6>Quick views:</h6>
 				<div class="mmenu">
@@ -100,7 +99,8 @@ $this->pageTitle=Yii::app()->name;
 			</div>
 		</div>
 		</div>	
-    <div class="col-md-6">
+    <div class="col-sm-5">
+	<br>
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
 		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar View</p></h4>
 			<div class="card-block">
@@ -136,8 +136,8 @@ $this->pageTitle=Yii::app()->name;
 		<button type="button" name="answer" class="btn btn-danger pull-right" id="filtersButton" onclick="hideDiv()"><i class="fa fa-minus-square" aria-hidden="true"></i> Hide Filters</button>&nbsp; 
 
 		<!-- Time to/from -->
-		<input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time: From">&nbsp;
-		<input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time: To">&nbsp;
+		<input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time: From">&nbsp;
+		<input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time: To">&nbsp;
 
 		<!-- FROM/TO WEEKDAY -->
 		<div class="dropdown pull-right"> &nbsp;
@@ -177,9 +177,7 @@ $this->pageTitle=Yii::app()->name;
 		
 	</div><!-- END OF FILTERS DIV -->
 	<br><br><br><br>
-		<div id="canvas-holder-2" style="width:100%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
 		<canvas id="myChart" width="300" height="100"></canvas>
-				</div>
 		
 		<hr>
 				<h6>Quick views:</h6>
@@ -353,6 +351,10 @@ var myChart = new Chart(ctx, {
 		maintainAspectRatio: true,
 		responsive: true,
 		legend: {
+					labels:{
+						fontSize: 16,
+
+					},
 						position: 'top',
 				},
 		tooltips: { bodyFontSize: 15 },
@@ -533,7 +535,7 @@ $(document).ready(function() {
 				 responsive: true,
 				 maintainAspectRatio: true,
 				 legend: {
-						position: 'left',
+						position: 'top',
 				},
 				 elements: {
 						 arc: {

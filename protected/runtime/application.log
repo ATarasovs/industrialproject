@@ -444,3 +444,25 @@ Stack trace:
 REQUEST_URI=/industrialproject/index.php?r=dashboards/dashboard/admin
 HTTP_REFERER=http://localhost/industrialproject/index.php?r=site/login
 ---
+2017/09/23 19:06:57 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "index". in C:\xampp\htdocs\industrialproject\framework\web\CController.php:486
+Stack trace:
+#0 C:\xampp\htdocs\industrialproject\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('users/user/')
+#3 C:\xampp\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\industrialproject\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/industrialproject/index.php?r=users/user/
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=users/user/update&id=1
+---
+2017/09/23 20:24:59 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "index". in C:\xampp\htdocs\industrialproject\framework\web\CController.php:486
+Stack trace:
+#0 C:\xampp\htdocs\industrialproject\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/')
+#3 C:\xampp\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\industrialproject\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/sale/
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/sale/upload
+---

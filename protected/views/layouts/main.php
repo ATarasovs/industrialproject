@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScriptFile(
   <span class="navbar-toggler-icon"></span>
 </button>
 
-<a class="navbar-brand" href="#"><i class="fa fa-pie-chart fa-1x"></i> Dusa Analytics</a>
+<a class="navbar-brand" href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> Dusa Analytics</a>
 
 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
   <ul class="navbar-nav mr-auto">
