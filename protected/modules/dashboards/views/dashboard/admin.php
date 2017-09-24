@@ -228,7 +228,18 @@ function hideDiv(){
 <script>
 function AddItemQuickView(val)
 {
-	window.lineView[window.lineView.length] = val;
+	//if lineview doesnt contain val
+
+	if($.inArray(val, window.lineView) == -1)
+	{
+		window.lineView[window.lineView.length] = val;
+	} else 
+	{
+		window.lineView.splice( $.inArray(val, window.lineView), 1 );
+
+	}
+
+	//else remove val
 };
 
 function CreateQuickView()
@@ -237,6 +248,12 @@ function CreateQuickView()
 
 	views[views.length] = document.getElementById('quickViewName').value;
 	views[views.length] = window.lineView;
+
+	if(window.lineView.length < 1)
+	{
+		alert("No filters selected");
+		return;
+	}
 		
 	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
 
@@ -319,6 +336,7 @@ window.onload = function CreateQuickViewButtonsOnLoad()
 	}
 
 	document.getElementById('userCreatedViews').innerHTML = "";
+
 
 	for(var i=0; i<allQuickViews.length; i++)
 	{
