@@ -75,6 +75,7 @@ class SaleController extends Controller
             $timeto = Yii::app()->request->getParam('timeto');
             $weekdayfrom = Yii::app()->request->getParam('weekdayfrom');
             $weekdayto = Yii::app()->request->getParam('weekdayto');
+            $month = Yii::app()->request->getParam('month');
             $outletname = Yii::app()->request->getParam('outlet');
             $retailername = Yii::app()->request->getParam('retailer');
             $userid = Yii::app()->request->getParam('userid');
@@ -128,6 +129,11 @@ class SaleController extends Controller
              	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
              } elseif ($weekdayto != ""){
              	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayto'");
+
+             }
+
+             if($month != ""){
+             	 $criteria->addCondition("Month(Date_Time) = '$month'");
              }
             
             if ($outletname != "") {
