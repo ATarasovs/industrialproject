@@ -1,9 +1,15 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
+
+<script>
+
+var quickViews = JSON.parse(localStorage.getItem("quickViews"));
+var lineView = [];
+</script>
+
 <?php
+	$hasQuickview = false;
     Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.sales.assets.js').'\sales-list.js'), CClientScript::POS_HEAD);
 
 //$this->breadcrumbs=array(
@@ -69,36 +75,37 @@ $this->pageTitle=Yii::app()->name;
 
   <div class="row">
     <div class="col-md-7">
-  <br>
+  	<br>
 		<div class="card"> <!-- FIRST CARD WITH DOUGHNUT -->
 			<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-pie-chart" aria-hidden="true"></i> Sales Summary Data</p></h4>
 			<div class="card-block">
-			<div class="dropdown pull-right">
-  			<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    		Select Data
-  			</button>
-  			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
-    					<a class="dropdown-item pull-right" onClick="LoadDougnutData(1);" >Weekly data</a>
-    					<a class="dropdown-item pull-right" onClick="LoadDougnutData(4);" >Monthly data</a>
-    					<a class="dropdown-item pull-right" onClick="LoadDougnutData(12);" >Quarterly data</a>
-  				</div>
+				<div class="dropdown pull-right">
+					<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Select Data
+					</button>
+					<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item pull-right" onClick="LoadDougnutData(1);" >Weekly data</a>
+								<a class="dropdown-item pull-right" onClick="LoadDougnutData(4);" >Monthly data</a>
+								<a class="dropdown-item pull-right" onClick="LoadDougnutData(12);" >Quarterly data</a>
+					</div>
 				</div>
+
 				<br>
-					<canvas id="myDoughnutChart" width="750" height="550"/>
+				<canvas id="myDoughnutChart" width="750" height="550"> </canvas>
 				<hr>
-				<h6>Quick views:</h6>
-				<div class="mmenu">
-					<input id="Shops" type="button" value="Shops" class="btn btn-primary"/>
-					<input id="Nightlife" type="button" value="Nightlife" class="btn btn-primary" />
-					<input id="Services" type="button" value="Services" class="btn btn-primary"/>
-					<input id="New" type="button" value="New" class="btn btn-success"/>
-					<span>
-						<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
-					</span>
-				</div>
+					<h6>Quick views:</h6>
+						<div class="mmenu">
+							<input id="Shops" type="button" value="Shops" class="btn btn-primary"/>
+							<input id="Nightlife" type="button" value="Nightlife" class="btn btn-primary" />
+							<input id="Services" type="button" value="Services" class="btn btn-primary"/>
+							<input id="New" type="button" value="New" class="btn btn-success"/>
+							<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
+							</span>
+						</div>
+						<br>
 			</div>
 		</div>
-		</div>	
+	</div>	
     <div class="col-sm-5">
 	<br>
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
@@ -184,25 +191,172 @@ $this->pageTitle=Yii::app()->name;
 				<div class="mmenuLine pull-left">
 					<button id="ShopsLine" type="button" value="Shops" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Shops</button>
 					<button id="NightlifeLine" type="button" value="Nightlife" class="btn btn-primary"><i class="fa fa-glass" aria-hidden="true"></i> Nightlife</button>
+					<button id="Food" type="button" value="Food" class="btn btn-primary"><i class="fa fa-cutlery" aria-hidden="true"></i> Food</button>
 					<button id="ServicesLine" type="button" value="Services" class="btn btn-primary"><i class="fa fa-wrench" aria-hidden="true"></i> Services</button>
-					<button id="New" type="button" value="New" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> New</button> &nbsp;
+					<span id="userCreatedViews"> </span>
+					<span id="quickviewbutton" class="quickviews" style="display:inline;"><button id="New" value="New" class="btn btn-success" onclick="SetQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>New Quickview</button> &nbsp; </span>
 					<button id="ResetLine" type="button" value="Reset" class="btn btn-danger pull-right"> Reset</button>
+					<button id="clearUserViews" onclick="ClearUserViews()" class="btn btn-danger"> Clear User Created Views </button> &nbsp;
+						<div id="quickviews" class="quickviews" style="display:none;">
+						<br><br>
+							<input type="text" class="form-control" id="quickViewName"> </input>
+							<br>
+							<button id="New" value="New" class="btn btn-success" onclick="CreateQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>Create New</button> &nbsp;
+							<br> <br>
+						</div>
 				</div>
   </div>
 </div>
 <br><br>
 
-<!-- show filters script -->
+<!-- front end scripts  -->
 <script> 
 function showDiv() {
    document.getElementById('filtersDiv').style.display = "inline";
    document.getElementById('noFiltersDiv').style.display = "none";
    //document.getElementById('filtersButton').val("Hide advanced filters");
-}
+};
 
 function hideDiv(){
 	document.getElementById('filtersDiv').style.display = "none";
    document.getElementById('noFiltersDiv').style.display = "inline";
+
+};
+
+</script>
+
+<script>
+function AddItemQuickView(val)
+{
+	window.lineView[window.lineView.length] = val;
+};
+
+function CreateQuickView()
+{
+	var views = new Array();
+
+	views[views.length] = document.getElementById('quickViewName').value;
+	views[views.length] = window.lineView;
+		
+	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
+
+	if(allQuickViews === null)
+	{
+		allQuickViews = new Array();
+	}
+
+	allQuickViews[allQuickViews.length] = views;
+
+	console.log(allQuickViews);
+
+
+	localStorage.setItem("quickviews3", JSON.stringify(allQuickViews));
+
+	document.getElementById('quickviews').style.display = "none";
+
+	document.getElementById('quickviewbutton').style.display = "inline";
+
+	CreateQuickViewButtons();
+
+	return;
+
+}
+
+function SetQuickView()
+{
+	document.getElementById('quickviews').style.display = "inline";
+
+	document.getElementById('quickviewbutton').style.display = "none";
+
+};
+
+function CreateQuickViewButtons()
+{
+
+	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
+
+	if(localStorage.quickviews3 === undefined){
+		return;
+	}
+
+	if(allQuickViews === null)
+	{
+		allQuickViews = new Array();
+	}
+
+	document.getElementById('userCreatedViews').innerHTML = "";
+
+	for(var i=0; i<allQuickViews.length; i++)
+	{
+		var button = document.createElement("button");
+		button.className = "btn btn-primary"
+		button.innerHTML = allQuickViews[i][0];
+		button.value = allQuickViews[i][1];
+
+		var buttonLoc = document.getElementById('userCreatedViews');
+		buttonLoc.append(button);
+		buttonLoc.append(' ');
+
+		button.addEventListener ("click", function() {
+		ApplyViewButton(button.value);
+		});
+	}
+
+}
+
+window.onload = function CreateQuickViewButtonsOnLoad()
+{
+
+	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
+
+	if(localStorage.quickviews3 === undefined){
+		return;
+	}
+
+	if(allQuickViews === null)
+	{
+		allQuickViews = new Array();
+	}
+
+	document.getElementById('userCreatedViews').innerHTML = "";
+
+	for(var i=0; i<allQuickViews.length; i++)
+	{
+		var button = document.createElement("button");
+		button.className = "btn btn-primary"
+		button.innerHTML = allQuickViews[i][0];
+		button.value = allQuickViews[i][1];
+
+		var buttonLoc = document.getElementById('userCreatedViews');
+		buttonLoc.append(button);
+		buttonLoc.append(' ');
+
+		button.addEventListener ("click", function() {
+		ApplyViewButton(button.value);
+		});
+	}
+
+}
+
+function ApplyViewButton(values)
+{
+	var array = values.split(',');
+
+	for(var i=0; i<array.length; i++)
+	{
+		var arr = array[i];
+		myChart.data.datasets[arr].hidden = !myChart.data.datasets[arr].hidden;
+	}
+
+	myChart.update();
+
+}
+
+function ClearUserViews()
+{
+	alert("clear");
+	localStorage.removeItem("quickviews3");
+	document.getElementById('userCreatedViews').innerHTML = "";
 
 }
 </script>
@@ -351,13 +505,26 @@ var myChart = new Chart(ctx, {
 		maintainAspectRatio: true,
 		responsive: true,
 		legend: {
+					onClick: function (evt, item) {
+					AddItemQuickView(item.datasetIndex);
+					myChart.data.datasets[item.datasetIndex].hidden = !myChart.data.datasets[item.datasetIndex].hidden;
+					myChart.update();
+                },
 					labels:{
 						fontSize: 16,
 
 					},
 						position: 'top',
 				},
-		tooltips: { bodyFontSize: 15 },
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItems, data) {
+							return data.datasets[tooltipItems.datasetIndex].label +': ' + ' £' + tooltipItems.yLabel;
+						}
+					},
+					bodyFontSize: 15,
+
+			},
 		elements: { point: { hitRadius: 10, hoverRadius: 5 } },
 		scales: {
 			yAxes: [{
@@ -396,48 +563,76 @@ $(document).ready(function() {
         var id = $(this).attr('id') // or this.id
         if ( id == "ShopsLine" ) {
 
-					Reset();
-						myChart.data.datasets[2].hidden = true;
-						myChart.data.datasets[3].hidden = true;
-						myChart.data.datasets[4].hidden = true;
-						myChart.data.datasets[5].hidden = true;
-						myChart.data.datasets[7].hidden = true;
-						myChart.data.datasets[8].hidden = true;
-						myChart.data.datasets[9].hidden = true;
+						myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+						myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+						myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+						myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+						myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+						myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
+						myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+						myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+						myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+						myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+						myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
+						myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
+
 						myChart.update();
 
         } else if ( id == "NightlifeLine"){
 
 							
-						Reset();
-						myChart.data.datasets[0].hidden = true;
-						myChart.data.datasets[1].hidden = true;
-						myChart.data.datasets[3].hidden = true;
-						myChart.data.datasets[4].hidden = true;
-						myChart.data.datasets[6].hidden = true;
-						myChart.data.datasets[7].hidden = true;
-						myChart.data.datasets[8].hidden = true;
+			myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+			myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+			myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+			myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+			myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+			myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+			myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+			myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
+			myChart.data.datasets[11].hidden = !myChart.data.datasets[8].hidden;
+			myChart.data.datasets[14].hidden = !myChart.data.datasets[9].hidden;
+			myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
+			myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
 						myChart.update();
 
 
 				} else if ( id == "ServicesLine"){
 
-					Reset();
-					myChart.data.datasets[0].hidden = true;
-					myChart.data.datasets[1].hidden = true;
-					myChart.data.datasets[2].hidden = true;
-					myChart.data.datasets[4].hidden = true;
-					myChart.data.datasets[5].hidden = true;
-					myChart.data.datasets[6].hidden = true;
+					myChart.data.datasets[0].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[1].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[4].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[5].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[2].hidden;
 					myChart.update();
+
+				} else if (id == "Food")
+				{
+						myChart.data.datasets[0].hidden = !myChart.data.datasets[0].hidden;
+						myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+						myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+						myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+						myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+						myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+						myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+						myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+						myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+						myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+						myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+						myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
+						myChart.update();
 
 				} else if ( id == "ResetLine"){
 
 						Reset();
 
-				} 
+				}
 
 				function Reset(){
+
+					window.lineView.length = 0;
 
 					myChart.data.datasets.forEach((dataset) => {
 						
@@ -534,6 +729,12 @@ $(document).ready(function() {
 		 options: {
 				 responsive: true,
 				 maintainAspectRatio: true,
+				 tooltips: {
+					callbacks: {
+//						label: function(tooltipItems, data) {
+//						}
+					},
+				 },
 				 legend: {
 						position: 'top',
 				},
@@ -826,8 +1027,6 @@ jQuery(document).ready(function() {
         var id = $(this).attr('id') // or this.id
         if ( id == "Shops" ) {
 
-						Reset();
-
 						myDoughnutChart.getDatasetMeta(0).data[2].hidden = !myDoughnutChart.getDatasetMeta(0).data[2].hidden;
 						myDoughnutChart.getDatasetMeta(0).data[3].hidden = !myDoughnutChart.getDatasetMeta(0).data[3].hidden;
 						myDoughnutChart.getDatasetMeta(0).data[4].hidden = !myDoughnutChart.getDatasetMeta(0).data[4].hidden;
@@ -837,7 +1036,6 @@ jQuery(document).ready(function() {
 
         } else if ( id == "Nightlife"){
 
-						Reset();
 						myDoughnutChart.getDatasetMeta(0).data[0].hidden = !myDoughnutChart.getDatasetMeta(0).data[0].hidden;
 						myDoughnutChart.getDatasetMeta(0).data[1].hidden = !myDoughnutChart.getDatasetMeta(0).data[1].hidden;
 						myDoughnutChart.getDatasetMeta(0).data[3].hidden = !myDoughnutChart.getDatasetMeta(0).data[3].hidden;
@@ -848,7 +1046,6 @@ jQuery(document).ready(function() {
 
 				} else if ( id == "Services"){
 
-						Reset();
 						myDoughnutChart.getDatasetMeta(0).data[0].hidden = !myDoughnutChart.getDatasetMeta(0).data[0].hidden;
 						myDoughnutChart.getDatasetMeta(0).data[1].hidden = !myDoughnutChart.getDatasetMeta(0).data[1].hidden;
 						myDoughnutChart.getDatasetMeta(0).data[2].hidden = !myDoughnutChart.getDatasetMeta(0).data[2].hidden;
