@@ -72,18 +72,15 @@ if(Yii::app()->user->hasFlash('success')) { ?>
         <br>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="From">
-                <option>Select year</option> 
-<!--            <option value="0">Monday</option>
-                <option value="1">Tuesday</option>
-                <option value="2">Wednesday</option>
-                <option value="3">Thursday</option>
-                <option value="4">Friday</option>
-                <option value="5">Saturday</option>
-                <option value="6">Sunday</option>-->
+            <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Year">
+                <!-- These are hard coded at the moment. Will work on so that these values are generated from the data in the Database --> 
+                <option value="">Select year</option> 
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
             </select>
             <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="To">
+            <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Month">
                 <option value="">Select month</option>
                 <option value="1">Janurary</option>
                 <option value="2">February</option>

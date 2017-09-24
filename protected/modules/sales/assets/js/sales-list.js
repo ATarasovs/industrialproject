@@ -6,6 +6,7 @@ $(document).ready(function() {
     var timeToParam = getParameterByName('timeto');
     var weekdayFromParam = getParameterByName('weekdayfrom');
     var weekdayToParam = getParameterByName('weekdayto');
+	var yearParam = getParameterByName('year');
 	var monthParam = getParameterByName('month');
     var retailerNameParam = getParameterByName('retailer');
     var outletNameParam = getParameterByName('outlet');
@@ -19,6 +20,7 @@ $(document).ready(function() {
     $("#filterByTimeTo").val(timeToParam);
     $("#filterByWeekdayFrom").val(weekdayFromParam);
     $("#filterByWeekdayTo").val(weekdayToParam);
+	$("#filterByYear").val(yearParam); 
 	$("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
     $("#filterByOutletName").val(outletNameParam);
@@ -75,13 +77,14 @@ function search() {
     var timeTo = $("#filterByTimeTo").val();
     var weekdayFrom = $("#filterByWeekdayFrom").val();
     var weekdayTo = $("#filterByWeekdayTo").val();
-	var month = $("#filterByMonth").val(); 
+	var year = $("#filterByYear").val(); 
+	var month = $("#filterByMonth").val();
     var retailerName = $("#filterByRetailerName").val();
     var outletName = $("#filterByOutletName").val();
     var userId = $("#filterByUserId").val();
     var transactionType = $("#filterByTransactionType").val();        
     
-    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType;
+    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType;
    
 }
 

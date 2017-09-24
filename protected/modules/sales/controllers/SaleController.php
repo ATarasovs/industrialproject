@@ -75,12 +75,15 @@ class SaleController extends Controller
             $timeto = Yii::app()->request->getParam('timeto');
             $weekdayfrom = Yii::app()->request->getParam('weekdayfrom');
             $weekdayto = Yii::app()->request->getParam('weekdayto');
+            $year = Yii::app()->request->getParam('year');
             $month = Yii::app()->request->getParam('month');
             $outletname = Yii::app()->request->getParam('outlet');
             $retailername = Yii::app()->request->getParam('retailer');
             $userid = Yii::app()->request->getParam('userid');
             $transactiontype = Yii::app()->request->getParam('transactiontype');
-            
+
+
+            //Date Filtering
             if ($datefrom != "" && $dateto !="") {
             	if ($datefrom != $dateto){
             		if($datefrom < $dateto){
@@ -99,6 +102,7 @@ class SaleController extends Controller
               	}            
              }
 
+            //Time From Filtering
             if ($timefrom != "" && $timeto !="") {
             	if($timefrom != $timeto){
 	            	if($timefrom < $timeto){
@@ -115,6 +119,7 @@ class SaleController extends Controller
              	$criteria->addCondition("TIME(Date_Time) = '$timeto'");
             }
             
+            //Weekday Filtering
             if ($weekdayfrom != "" && $weekdayto !="") {
             	if ($weekdayfrom != $weekdayto){
 	            	if ($weekdayfrom < $weekdayto){
@@ -129,12 +134,18 @@ class SaleController extends Controller
              	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
              } elseif ($weekdayto != ""){
              	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayto'");
-
              }
 
+             //Year Filtering
+             if($year !=""){
+             	$criteria->addCondition("Year(Date_Time) = '$year'");
+             }
+
+             //Month Filtering
              if($month != ""){
              	 $criteria->addCondition("Month(Date_Time) = '$month'");
              }
+
             
             if ($outletname != "") {
                 $criteria->addCondition("Outlet_Name = '$outletname'");
