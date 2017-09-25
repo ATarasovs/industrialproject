@@ -101,23 +101,30 @@ if(Yii::app()->user->hasFlash('success')) { ?>
         <div id="hidden" class="hide">
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer name">
+                <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer" disabled="disabled">
             </div>
 
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">
+                <?php 
+                   echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name'));
+                ?>
+                <!--<input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">-->
             </div>
-
+            
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <?php 
+                   echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
+                ?>
+                    <!--<input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">-->
+            </div>
+            
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
                 <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
             </div>
 
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">
-            </div>
         </div>
     </div>
     
@@ -149,9 +156,9 @@ if(Yii::app()->user->hasFlash('success')) { ?>
             <td class="outletname"><?php echo $sale->Outlet_Name; ?></td>
             <td class="userid"><?php echo $sale->New_user_id; ?></td>
             <td class="transactiontype"><?php echo $sale->Transaction_Type; ?></td>
-            <td class="cashspent"><?php echo $sale->Cash_Spent; ?></td>
-            <td class="discountamount"><?php echo $sale->Discount_Amount; ?></td>
-            <td class="totalamount"><?php echo $sale->Total_Amount; ?></td>
+            <td class="cashspent"><?php echo "£" . substr($sale->Cash_Spent, 0, -2); ?></td>
+            <td class="cashspent"><?php echo "£" . substr($sale->Discount_Amount, 0, -2); ?></td>
+            <td class="cashspent"><?php echo "£" . substr($sale->Total_Amount, 0, -2); ?></td>
             <td>
                     <button class="viewBtn"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
             </td>

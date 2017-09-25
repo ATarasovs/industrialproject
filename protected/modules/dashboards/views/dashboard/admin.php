@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
 
 <script>
-
+//Local storage items
 var quickViews = JSON.parse(localStorage.getItem("quickViews"));
 var lineView = [];
 </script>
@@ -245,6 +245,9 @@ function ClearLineFilters()
 </script>
 
 <script>
+
+
+//Function for saving selected and deslected datasets
 function AddItemQuickView(val)
 {
 	//if lineview doesnt contain val
@@ -261,6 +264,9 @@ function AddItemQuickView(val)
 	//else remove val
 };
 
+//Function which generates string of selected chart data sets
+//quickviews3 = local storage key
+//lineView = global js array which stores selecte values
 function CreateQuickView()
 {
 	var views = new Array();
@@ -283,8 +289,6 @@ function CreateQuickView()
 
 	allQuickViews[allQuickViews.length] = views;
 
-	console.log(allQuickViews);
-
 
 	localStorage.setItem("quickviews3", JSON.stringify(allQuickViews));
 
@@ -298,6 +302,7 @@ function CreateQuickView()
 
 }
 
+//Function which shows/hides the quick view creator
 function SetQuickView()
 {
 	document.getElementById('quickviews').style.display = "inline";
@@ -306,6 +311,7 @@ function SetQuickView()
 
 };
 
+//Function which retrieves quickviews item and 
 function CreateQuickViewButtons()
 {
 
@@ -326,10 +332,10 @@ function CreateQuickViewButtons()
 	{
 		var button = document.createElement("button");
 		button.className = "btn btn-primary"
-		button.innerHTML = allQuickViews[i][0];
-		button.value = allQuickViews[i][1];
+		button.innerHTML = allQuickViews[i][0];		//assign button quick view name
+		button.value = allQuickViews[i][1];		//assign button selected/deselected item string
 
-		var buttonLoc = document.getElementById('userCreatedViews');
+		var buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
 		buttonLoc.append(button);
 		buttonLoc.append(' ');
 
@@ -340,17 +346,9 @@ function CreateQuickViewButtons()
 
 }
 
-window.onload = function InitCharts()
-{
 
-	alert("init");
-	//var today = new Date();
-	//var dd = today.getDate();
-	//var mm = today.getMonth()-1; //January is 0!
-	//LoadLineChartData(length, dd, mm);
-	
-};
 
+//Function which inits the dashboard 
 window.onload = function InitDashboard()
 {
 
@@ -388,8 +386,9 @@ window.onload = function InitDashboard()
 	{
 		var button = document.createElement("button");
 		button.className = "btn btn-primary"
-		button.innerHTML = allQuickViews[i][0];
-		button.value = allQuickViews[i][1];
+		button.innerHTML = allQuickViews[i][0]; //assign button quick view name
+		button.value = allQuickViews[i][1]; //assign button selected/deselected item string
+
 
 		var buttonLoc = document.getElementById('userCreatedViews');
 		buttonLoc.append(button);
@@ -402,6 +401,7 @@ window.onload = function InitDashboard()
 
 };
 
+//Function which takes string of selected chart items hides/shows them.
 function ApplyViewButton(values)
 {
 	var array = values.split(',');
@@ -416,6 +416,7 @@ function ApplyViewButton(values)
 
 }
 
+//Clears user stored views
 function ClearUserViews()
 {
 	alert("clear");
@@ -871,7 +872,7 @@ function LoadDougnutData(length)
 
 };
 
-
+//Function which converts weekday drop down to weekday int
 function weekdayDropdownTo(val)
 {
 	if(val == 0)
@@ -906,6 +907,8 @@ function weekdayDropdownTo(val)
 
 }
 
+
+//Function which converts weekday drop down to weekday int
 function weekdayDropdownFrom(val)
 {
 	if(val == 0)
@@ -1223,9 +1226,7 @@ function LoadAverageSpendData()
 	var currentMonth = new Date();
 	var previousMonth = new Date();
 
-	
-
-	currentMonth.setMonth(currentMonth.getMonth()-2);
+	currentMonth.setMonth(currentMonth.getMonth()-2);		//loads average spend from 2 and 3 months ago (as there is no current data)
 	previousMonth.setMonth(previousMonth.getMonth()-3);
 	
 	currentMonth = currentMonth.toISOString().split('T')[0];
