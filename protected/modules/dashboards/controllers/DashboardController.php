@@ -145,7 +145,7 @@ class DashboardController extends Controller
 
 	/**
 	*  Retrieves previous week from given date and parses
-	*	into a 2d array for loading into line chart
+	*	into a 2d array for loading into pie chart
 	*/
 	public function actionTestCall(){
 
@@ -155,6 +155,24 @@ class DashboardController extends Controller
 
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($weeklydata, JSON_FORCE_OBJECT);
+
+	}
+
+	//Add user created quickview to table 
+	public function actionSaveQuickView()
+	{
+		$SelectedArr = $_POST['Selected'];
+		$UserID = $_POST['UID'];
+		$WeekdayFrom = $_POST['WeekdayFrom'];
+		$WeekdayTo = $_POST['WeekdayTo'];
+
+		//Connect TO DB and ADD RECORD
+
+	}
+
+	//Get user created view for account
+	public function actionRetrieveQuickViews()
+	{
 
 	}
 
@@ -280,21 +298,20 @@ class DashboardController extends Controller
 
 		
 
-		foreach($arrOutlets as $outlet)
+		foreach($arrOutlets as $outlet) //for each outlet
 		{
 			$outletTotals = [];
 			for($i=0; $i<24; $i++) //FOR EACH HOUR AS HOUR
 			{
 				$hourTotal = 0;
 				
-				foreach($search_results as $rec)
+				foreach($search_results as $rec) //search all results
 				{
-
-					//return[$rec->Outlet_Name, $outlet];
 					
-					if($rec->Outlet_Name == $outlet)//&&($rec->Date_Time == $date)) //
+					if($rec->Outlet_Name == $outlet) //if record matches current outlet being searched for
 					{
 
+						//Convert dates into a comparable formamt
 						$d1 = date('Y-m-d H:i:s', strtotime($rec->Date_Time));
 
 						$d2 = date("Y-m-d H:i:s", strtotime('+'.($i+1).' hours', strtotime($date))); 
@@ -303,17 +320,14 @@ class DashboardController extends Controller
 
 						if(($d1 >= $d3) && $d1 <= $d2){
 
-							//return[$d1,$d2,$d3,$rec->Total_Amount];
-							$hourTotal = $hourTotal + $rec->Total_Amount;
+							$hourTotal = $hourTotal + $rec->Total_Amount; //if within date range, add total
 						}
 
 					}
 				}
-				$outletTotals[] = $hourTotal;
-				//unset($outletTotals);
+				$outletTotals[] = $hourTotal; //add hour total for outlet being searched
 			}
-			//return $outletTotals;
-			$lineChartDataArr[] = $outletTotals;
+			$lineChartDataArr[] = $outletTotals; //add hours for all outlets 
 		}
 
 		return $lineChartDataArr;
@@ -329,7 +343,7 @@ class DashboardController extends Controller
 			$d1 = new DateTime( $dateFrom );
 			$d2 = new DateTime( $dateTo );
 	
-			$diff=date_diff($d1, $d2);
+			$diff=date_diff($d1, $d2); 		//Get difference between two days
 			$nDays = ($diff->days);
 	
 			$arrOutlets = Dashboard::model()->outletsArray();
@@ -340,26 +354,23 @@ class DashboardController extends Controller
 		}
 
 		//GET WEEKDAYS FROM TWO DAYS
-
-
-		
 		$dates = [];
 		
 		for($i=0; $i<$nDays; $i++)
 		{
 			
-			$dayDate = date('Y-m-d', strtotime('-'.$i.' day', strtotime($date)));
+			$dayDate = date('Y-m-d', strtotime('-'.$i.' day', strtotime($date)));  //
 			$dates[] = $dayDate;
 			
 		}
 		
 		$dates[] = date('Y-m-d', strtotime($dateFrom));
 
-		$dateto = $dates[0];
+		$dateto = $dates[0];			//Date from to first date in array
 		$length = count($dates); 
-		$datefrom = $dates[$length-1];
+		$datefrom = $dates[$length-1]; //Date to in from last in array
 
-
+		//Apply criteria 
 		$criteria = new CDbCriteria();
 
 		if ($datefrom != "" && $dateto !="") {
@@ -433,14 +444,13 @@ class DashboardController extends Controller
 				 $dates3[] = ($dateres-1);
 			 }
 	 
-			 $dates3 = array_reverse($dates3); //DATES 3 IS AN ARRAY FO EVERY DATE AS A WEEKDAY
+			 $dates3 = array_reverse($dates3); //DATES 3 IS AN ARRAY OF EVERY DATE AS INT WEEKDAY
 
-			 $sd = intval($weekdayfrom);
-			 $ed = intval($weekdayto);
+			 $sd = intval($weekdayfrom); //Start date int 
+			 $ed = intval($weekdayto); //End date int
 			 $days = [];
 	 
 			 //loop through dates and find window of dates
-
 			 if($sd == $ed)
 			 {
 				 $days[] = $sd;
@@ -455,7 +465,7 @@ class DashboardController extends Controller
 						$sd = 0;
 					} 
 					if($sd == $ed){
-						$days[] = $ed;		//COMPLETE RE-THINK THIS CODE
+						$days[] = $ed;		
 					} else {
 						$days[] = $sd;
 					}
@@ -463,14 +473,11 @@ class DashboardController extends Controller
 				 } while ($sd != $ed);
 			 }
 
-			 //return $dates3;
-
 			 $dates = array_reverse($dates);
 	 
-			 //Convert LOOP THROUGH DATES 3 (EVERY DATE AS A DAY) AND IF IT DOESNT MATCH ANY OF DAYS, THEN REMOVE 
+			 //Convert LOOP THROUGH EVERY DATE AS A DAY AND IF IT DOESNT MATCH SET 
+			 //OF WEEKDAYS BETWEEN TO/FROM THEN DELETE
 			 $delArr = [];
-
-			 //return $days;
 	 
 			 for($i =0; $i < count($dates3); $i++)
 			 {
@@ -509,40 +516,32 @@ class DashboardController extends Controller
 
 		$lineChartDataArr[] = $dates;
 
-		foreach($arrOutlets as $outlet)
+		foreach($arrOutlets as $outlet) //for every outlet
 		{
 			$outletTotals = [];
-			foreach($dates as $cdate)
+			foreach($dates as $cdate) //for eeach date supplied
 			{
 				$dayTotal = 0;
 				
 				
-				foreach($search_results as $rec)
+				foreach($search_results as $rec) //search all returned records
 				{
 					
-					if(($rec->Outlet_Name == $outlet))//&&($rec->Date_Time == $date)) //
+					if(($rec->Outlet_Name == $outlet))//if outletname of record = current outlet being search for
 					{
 						
 
 						$d1 = date('Y-m-d', strtotime($cdate));
-						$d2 = date('Y-m-d', strtotime($rec->Date_Time));
+						$d2 = date('Y-m-d', strtotime($rec->Date_Time)); //convert dates into comparable format
 
 						if($d1 == $d2){
 
 							$dayTotal = $dayTotal + $rec->Total_Amount;
 						}
 
-						
-						
-						//if(($d2 > $d1) && ($d2 < $d3) )
-						//{
-						//	$dayTotal = $dayTotal + $rec->Total_Amount;
-							//return $datefrom;
-
-						//}
 					}
 				}
-				$outletTotals[] = $dayTotal;
+				$outletTotals[] = $dayTotal; //Add days tototal
 				//unset($outletTotals);
 			}
 			$lineChartDataArr[] = $outletTotals;
@@ -552,6 +551,7 @@ class DashboardController extends Controller
 
 	}
 
+	//Load average speend bar chart data
 	function loadAverageSpend($month)
 	{
 		$arrOutlets = Dashboard::model()->outletsArray();
@@ -564,7 +564,7 @@ class DashboardController extends Controller
 		
 		$arrOutlets = Dashboard::model()->outletsArray();
 
-		unset($arrOutlets[0]);
+		unset($arrOutlets[0]); //remove dusa market place for now as it skews graph data 
 
 		$arrOutlets = array_values($arrOutlets);
 		
@@ -575,7 +575,7 @@ class DashboardController extends Controller
 		foreach($arrOutlets as $outlet)
 		{
 			$outletTotals = [];
-			$dingTotal = [];
+			$dingTotal = []; //ding used to store number of records used to calculate average
 
 			$hourTotal = 0;
 			$dings = 0;
@@ -598,6 +598,7 @@ class DashboardController extends Controller
 			$lineChartDataArr2[] = $dings;
 		}
 
+		//Calculate the averages for each total based on total/number of records which make up total
 		$avg = 0;
 		$averages = [];
 		for($i = 0; $i<16; $i++)
@@ -611,33 +612,13 @@ class DashboardController extends Controller
 			} else
 			{
 				$avg = $lineChartDataArr[$i]/$lineChartDataArr2[$i];
-				$avg = round($avg,2);
+				$avg = round($avg,2); //Round to two places for £ output in chart
 				$averages[] = $avg;
 			}
 			
 		}
 
 		return $averages;
-
-
-
-	}
-
-	/**
-	*  Retrieves previous week from given date and parses
-	*	into a 2d array for loading into line chart
-	*/
-	function actionGetLastNDates($nDays)
-	{
-		//If Date is used in table
-		//$date = date("Y-m-d");
-
-		if($nDays == null){
-			return;
-		}
-
-		//$date = new CDbExpression("NOW()");
-
 
 	}
 
