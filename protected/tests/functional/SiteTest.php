@@ -7,20 +7,41 @@ require_once($variable);
 
 class SiteTest extends WebTestCase
 {
-    
-        protected function setUp() {
-            parent::setUp();
+        protected static $driver;
+        
+        public static function setUpBeforeClass() {
             $host = 'http://localhost:5555/wd/hub';
             $capabilities = DesiredCapabilities::firefox();
-            $driver = RemoteWebDriver::create($host, $capabilities, 5000);
-            $driver->get("http://localhost/industrialproject/index.php");
+            self::$driver = RemoteWebDriver::create($host, $capabilities, 5000);
+            echo "\nsetUpBeforeClass\n";
+            /*$driver->get("http://localhost/industrialproject/index.php");
+            $driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
+            echo "Loaded";
+            //$this->testLoggingIn();
+            //$this->tearDown();*/
         }
         
-        public function testIndex()
+        protected function setUp() {
+            //parent::setUp();
+            $this->setBrowserUrl("http://localhost/industrialproject/index.php");
+        }
+
+        public function testLoggingIn()
 	{
-            $this->open('');
-            $this->assertTextPresent('Login');
-            $driver->quit();
+            SiteTest::$driver->get("http://localhost/industrialproject/index.php");
+            SiteTest::$driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
+            echo "Loaded";
+            
+            $lgUser = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username'));
+            $lgPass = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password'));
+            $lgUser->sendKeys("admin");
+            $lgPass->sendKeys("admin");
+            
+            SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
+            
+            SiteTest::$driver->wait(10)->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains('My Web Application'));
+            
+            $this->assertEquals('My Web Application', SiteTest::$driver->getTitle());
 	}
 /*
 	public function testContact()
@@ -59,4 +80,9 @@ class SiteTest extends WebTestCase
 		$this->clickAndWait('link=Logout (demo)');
 		$this->assertTextPresent('Login');
 	}*/
+        
+        public static function tearDownAfterClass() {
+            self::$driver->quit();
+            echo "\ntearDownAfterClass\n";
+        }
 }

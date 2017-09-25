@@ -123,5 +123,9 @@ class SAXbeta {
         return $return;
     
     }
+    
+    public function minDist($saxArray) {
+        
+    }
 
 }
