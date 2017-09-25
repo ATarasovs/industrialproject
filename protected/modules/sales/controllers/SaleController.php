@@ -169,10 +169,17 @@ class SaleController extends Controller
             $pages->pageSize=10;
             $pages->applyLimit($criteria);
             $sales = Sale::model()->findAll($criteria);
+            
+            
+            
+            $outletsArray = CHtml::listData(Outlet::model()->findAll(), 'outletName', 'outletName');
+            $transactionsArray = CHtml::listData(Payment::model()->findAll(), 'transactionType', 'transactionType');
 
             $this->render('admin',array(
                     'sales'=>$sales,
-                    'pages' => $pages
+                    'pages' => $pages,
+                    'outletsArray' => $outletsArray,
+                    'transactionsArray' => $transactionsArray,
             ));
 	}
         

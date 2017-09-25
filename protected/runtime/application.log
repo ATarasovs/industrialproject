@@ -1349,3 +1349,328 @@ REQUEST_URI=/industrialproject/index.php?r=dashboards/dashboard/LoadLineChartDat
 in C:\xampp\htdocs\industrialproject\protected\modules\dashboards\controllers\DashboardController.php (480)
 in C:\xampp\htdocs\industrialproject\protected\modules\dashboards\controllers\DashboardController.php (199)
 in C:\xampp\htdocs\industrialproject\index.php (13)
+2017/09/25 09:28:42 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+ in C:\wamp64\www\web\framework\db\CDbConnection.php:399
+Stack trace:
+#0 C:\wamp64\www\web\framework\db\CDbConnection.php(347): CDbConnection->open()
+#1 C:\wamp64\www\web\framework\db\CDbConnection.php(325): CDbConnection->setActive(true)
+#2 C:\wamp64\www\web\framework\base\CModule.php(394): CDbConnection->init()
+#3 C:\wamp64\www\web\framework\base\CApplication.php(459): CModule->getComponent('db')
+#4 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(639): CApplication->getDb()
+#5 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(672): CActiveRecord->getDbConnection()
+#6 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(1477): CActiveRecord->getCommandBuilder()
+#7 C:\wamp64\www\web\protected\modules\dashboards\controllers\DashboardController.php(506): CActiveRecord->findAll(Object(CDbCriteria))
+#8 C:\wamp64\www\web\protected\modules\dashboards\controllers\DashboardController.php(199): DashboardController->loadLineChartData(17, '2017-09-11', '2017-08-25', '', '', '', '')
+#9 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadLineChartData()
+#10 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#14 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#15 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('LoadLineChartDa...')
+#19 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('dashboards/dash...')
+#20 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#21 C:\wamp64\www\web\index.php(13): CApplication->run()
+#22 {main}
+REQUEST_URI=/web/index.php?r=dashboards/dashboard/LoadLineChartData
+HTTP_REFERER=http://localhost/web/index.php?r=dashboards/dashboard/admin
+---
+2017/09/25 10:03:56 [error] [exception.CHttpException.403] CHttpException: You are not authorized to perform this action. in C:\wamp64\www\web\framework\web\auth\CAccessControlFilter.php:183
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp64\www\web\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('dashboards/dash...')
+#9 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 C:\wamp64\www\web\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/web/index.php?r=dashboards/dashboard/admin
+HTTP_REFERER=http://localhost/web/index.php?r=site/login
+---
+2017/09/25 10:05:13 [error] [exception.CHttpException.403] CHttpException: You are not authorized to perform this action. in C:\wamp64\www\web\framework\web\auth\CAccessControlFilter.php:183
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp64\www\web\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('dashboards/dash...')
+#9 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 C:\wamp64\www\web\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/web/index.php?r=dashboards/dashboard/admin
+HTTP_REFERER=http://localhost/web/index.php?r=site/login
+---
+2017/09/25 10:30:41 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+ in C:\wamp64\www\web\framework\db\CDbConnection.php:399
+Stack trace:
+#0 C:\wamp64\www\web\framework\db\CDbConnection.php(347): CDbConnection->open()
+#1 C:\wamp64\www\web\framework\db\CDbConnection.php(325): CDbConnection->setActive(true)
+#2 C:\wamp64\www\web\framework\base\CModule.php(394): CDbConnection->init()
+#3 C:\wamp64\www\web\framework\base\CApplication.php(459): CModule->getComponent('db')
+#4 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(639): CApplication->getDb()
+#5 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(672): CActiveRecord->getDbConnection()
+#6 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(1604): CActiveRecord->getCommandBuilder()
+#7 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(167): CActiveRecord->count(Object(CDbCriteria))
+#8 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#9 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#13 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#18 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/admi...')
+#19 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#20 C:\wamp64\www\web\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+HTTP_REFERER=http://localhost/web/index.php?r=dashboards/dashboard/admin
+---
+2017/09/25 10:32:35 [error] [exception.Error] Error: Class 'Outlet' not found in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php:71
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#1 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#2 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#5 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#6 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#10 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/admi...')
+#11 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#12 C:\wamp64\www\web\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+HTTP_REFERER=http://localhost/web/index.php?r=dashboards/dashboard/admin
+---
+2017/09/25 10:33:20 [error] [exception.Error] Error: Class 'Payment' not found in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php:71
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#1 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#2 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#5 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#6 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#10 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/admi...')
+#11 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#12 C:\wamp64\www\web\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+HTTP_REFERER=http://localhost/web/index.php?r=dashboards/dashboard/admin
+---
+2017/09/25 10:33:36 [error] [exception.Error] Error: Class 'Payment' not found in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php:71
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#1 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#2 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#5 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#6 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#10 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/admi...')
+#11 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#12 C:\wamp64\www\web\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+HTTP_REFERER=http://localhost/web/index.php?r=dashboards/dashboard/admin
+---
+2017/09/25 10:33:51 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ip17team8db.otutlet' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `otutlet`.
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (72)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 10:33:51 [error] [exception.CDbException] CDbException: The table "otutlet" for active record class "Outlet" cannot be found in the database. in C:\wamp64\www\web\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Outlet))
+#1 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\wamp64\www\web\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(72): CActiveRecord->findAll(Array)
+#5 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#6 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#15 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/admi...')
+#16 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\wamp64\www\web\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+HTTP_REFERER=http://localhost/web/index.php?r=dashboards/dashboard/admin
+---
+2017/09/25 10:35:14 [error] [php] Undefined variable: outlet (C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php:110)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CController.php(872): SaleController->renderFile()
+#1 C:\wamp64\www\web\framework\web\CController.php(785): SaleController->renderPartial()
+#2 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(181): SaleController->render()
+#3 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#4 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#6 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#8 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#9 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#10 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#12 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#13 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#15 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+in C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php (110)
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (181)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 10:35:34 [error] [php] Undefined variable: outlets (C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php:110)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CController.php(872): SaleController->renderFile()
+#1 C:\wamp64\www\web\framework\web\CController.php(785): SaleController->renderPartial()
+#2 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(181): SaleController->render()
+#3 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#4 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#6 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#8 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#9 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#10 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#12 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#13 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#15 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+in C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php (110)
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (181)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 10:50:11 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php on line 175 and defined (C:\wamp64\www\web\framework\web\helpers\CHtml.php:2289)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#1 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#2 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#4 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#5 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#6 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#8 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#9 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#10 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&outlet=242&userid=&transactiontype=
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (175)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 10:50:35 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php on line 175 and defined (C:\wamp64\www\web\framework\web\helpers\CHtml.php:2289)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#1 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#2 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#4 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#5 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#6 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#8 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#9 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#10 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#11 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&outlet=242&userid=&transactiontype=
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (175)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 11:16:19 [error] [php] number_format() expects parameter 1 to be float, string given (C:\wamp64\www\web\framework\utils\CFormatter.php:295)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CBaseController.php(126): require()
+#1 C:\wamp64\www\web\framework\web\CBaseController.php(95): SaleController->renderInternal()
+#2 C:\wamp64\www\web\framework\web\CController.php(872): SaleController->renderFile()
+#3 C:\wamp64\www\web\framework\web\CController.php(785): SaleController->renderPartial()
+#4 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(182): SaleController->render()
+#5 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#6 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#7 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#8 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#10 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#11 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#12 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#14 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#15 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#16 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin
+in C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php (145)
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (182)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 11:17:26 [error] [php] number_format() expects parameter 1 to be float, string given (C:\wamp64\www\web\framework\utils\CFormatter.php:295)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CBaseController.php(126): require()
+#1 C:\wamp64\www\web\framework\web\CBaseController.php(95): SaleController->renderInternal()
+#2 C:\wamp64\www\web\framework\web\CController.php(872): SaleController->renderFile()
+#3 C:\wamp64\www\web\framework\web\CController.php(785): SaleController->renderPartial()
+#4 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(182): SaleController->render()
+#5 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#6 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#7 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#8 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#10 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#11 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#12 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#14 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#15 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#16 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=Dundee%20Students%20Association&outlet=Liar%20Bar&userid=&transactiontype=Payment
+in C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php (145)
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (182)
+in C:\wamp64\www\web\index.php (13)
+2017/09/25 11:20:10 [error] [exception.Error] Error: Call to undefined function sybstr() in C:\wamp64\www\web\protected\modules\sales\views\sale\admin.php:159
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\CBaseController.php(126): require()
+#1 C:\wamp64\www\web\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\wamp64\\www\\w...', Array, true)
+#2 C:\wamp64\www\web\framework\web\CController.php(872): CBaseController->renderFile('C:\\wamp64\\www\\w...', Array, true)
+#3 C:\wamp64\www\web\framework\web\CController.php(785): CController->renderPartial('admin', Array, true)
+#4 C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php(182): CController->render('admin', Array)
+#5 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#6 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\wamp64\www\web\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\wamp64\www\web\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\wamp64\www\web\framework\web\CWebApplication.php(282): CController->run('admin')
+#15 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/sale/admi...')
+#16 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\wamp64\www\web\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=Dundee%20Students%20Association&outlet=Liar%20Bar&userid=&transactiontype=Payment
+HTTP_REFERER=http://localhost/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&outlet=Liar%20Bar&userid=&transactiontype=Payment
+---
