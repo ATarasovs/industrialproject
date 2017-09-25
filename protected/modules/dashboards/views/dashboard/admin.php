@@ -261,6 +261,7 @@ function AddItemQuickView(val)
 	//else remove val
 };
 
+
 function CreateQuickView()
 {
 	var views = new Array();
@@ -298,6 +299,7 @@ function CreateQuickView()
 
 }
 
+//Function which 
 function SetQuickView()
 {
 	document.getElementById('quickviews').style.display = "inline";
@@ -306,6 +308,7 @@ function SetQuickView()
 
 };
 
+//Function which retrieves quickviews item and 
 function CreateQuickViewButtons()
 {
 
@@ -340,17 +343,9 @@ function CreateQuickViewButtons()
 
 }
 
-window.onload = function InitCharts()
-{
 
-	alert("init");
-	//var today = new Date();
-	//var dd = today.getDate();
-	//var mm = today.getMonth()-1; //January is 0!
-	//LoadLineChartData(length, dd, mm);
-	
-};
 
+//Function which inits the dashboard 
 window.onload = function InitDashboard()
 {
 
@@ -402,6 +397,7 @@ window.onload = function InitDashboard()
 
 };
 
+//Function which takes string of selected chart items hides/shows them.
 function ApplyViewButton(values)
 {
 	var array = values.split(',');
@@ -416,6 +412,7 @@ function ApplyViewButton(values)
 
 }
 
+//Clears user stored views
 function ClearUserViews()
 {
 	alert("clear");
@@ -871,7 +868,7 @@ function LoadDougnutData(length)
 
 };
 
-
+//Function which converts weekday drop down to weekday int
 function weekdayDropdownTo(val)
 {
 	if(val == 0)
@@ -906,6 +903,8 @@ function weekdayDropdownTo(val)
 
 }
 
+
+//Function which converts weekday drop down to weekday int
 function weekdayDropdownFrom(val)
 {
 	if(val == 0)
@@ -1223,9 +1222,7 @@ function LoadAverageSpendData()
 	var currentMonth = new Date();
 	var previousMonth = new Date();
 
-	
-
-	currentMonth.setMonth(currentMonth.getMonth()-2);
+	currentMonth.setMonth(currentMonth.getMonth()-2);		//loads average spend from 2 and 3 months ago (as there is no current data)
 	previousMonth.setMonth(previousMonth.getMonth()-3);
 	
 	currentMonth = currentMonth.toISOString().split('T')[0];
