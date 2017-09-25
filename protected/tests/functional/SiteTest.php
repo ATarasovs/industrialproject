@@ -14,6 +14,11 @@ class SiteTest extends WebTestCase
             $capabilities = DesiredCapabilities::firefox();
             self::$driver = RemoteWebDriver::create($host, $capabilities, 5000);
             echo "\nsetUpBeforeClass\n";
+            /*$driver->get("http://localhost/industrialproject/index.php");
+            $driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
+            echo "Loaded";
+            //$this->testLoggingIn();
+            //$this->tearDown();*/
         }
         
         protected function setUp() {
@@ -54,23 +59,22 @@ class SiteTest extends WebTestCase
             
             SiteTest::$driver->wait(10)->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains('My Web Application'));
             
-            $this->assertEquals('http://localhost/industrialproject/index.php?r=sales/dashboard/admin', SiteTest::$driver->getCurrentURL());
+            $this->assertEquals('http://localhost/industrialproject/index.php?r=dashboards/dashboard/admin', SiteTest::$driver->getCurrentURL());
 	}
         
         public function testCreateUser() {
             SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=users/user/create");
+            //SiteTest::$driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains('My Web Application'));
             
             $formArray = SiteTest::$driver->findElements(\Facebook\WebDriver\WebDriverBy::className('form-control'));
             
             for ($i=0; $i<count($formArray); $i++) {
                 $formArray[$i]->sendKeys("testing".$i);
             }
+                
             
-            SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
-            
-            $this->assertArraySubset("http://localhost/industrialproject/index.php?r=users/user/view", SiteTest::$driver->getCurrentURL());
         }
-          
+        
         public static function tearDownAfterClass() {
             self::$driver->quit();
             echo "\ntearDownAfterClass\n";
