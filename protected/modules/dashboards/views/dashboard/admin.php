@@ -211,6 +211,8 @@ $this->pageTitle=Yii::app()->name;
 						<br><br>
 							<input type="text" class="form-control" id="quickViewName"> </input>
 							<br>
+							<input type="text" class="form-control" id="quickViewDescription"> </input>
+							<br>
 							<button id="New" value="New" class="btn btn-success" onclick="CreateQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>Create New</button> &nbsp;
 							<br> <br>
 						</div>
@@ -270,27 +272,58 @@ function AddItemQuickView(val)
 function CreateQuickView()
 {
 	var views = new Array();
+	var timeFrom = $('#filterByTimeFrom').val();
+	var timeTo = $('#filterByTimeTo').val();
 
-	views[views.length] = document.getElementById('quickViewName').value;
+	var weekdayFrom = $('#filterByWeekdayFrom').val();
+	var weekdayTo = $('#filterByWeekdayTo').val();
+
+	var dateFrom = $('#filterByDateFrom').val();
+	var dateTo = $('#filterByDateTo').val();
+
+	//Get filter options
+	//Get user id
+	var viewName = document.getElementById('quickViewName').value;
+	var viewDescription = document.getElementById('quickViewDescription').value;
 	views[views.length] = window.lineView;
+
 
 	if(window.lineView.length < 1)
 	{
 		alert("No filters selected");
 		return;
 	}
+
+	console.log("POST VIEW" + views, weekdayFrom, weekdayTo, timeFrom, timeTo);
 		
-	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
 
-	if(allQuickViews === null)
-	{
-		allQuickViews = new Array();
-	}
+	//AJAX CALL
+	jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=dashboards/dashboard/SaveQuickView',
+                type: "POST",
+                data: {ViewName: viewName, ViewDescription: viewDescription, Selected: views, WeekdayFrom: weekdayFrom, WeekdayTo: weekdayTo, TimeFrom: timeFrom, TimeTo: timeTo, DateFrom: dateFrom, DateTo: dateTo},  
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+						//Assign Data to Chart
+						
+						alert(resp);
+						if(resp==true)
+						{
+						}
 
-	allQuickViews[allQuickViews.length] = views;
+                    }
+                });
 
 
-	localStorage.setItem("quickviews3", JSON.stringify(allQuickViews));
 
 	document.getElementById('quickviews').style.display = "none";
 
@@ -314,35 +347,63 @@ function SetQuickView()
 //Function which retrieves quickviews item and 
 function CreateQuickViewButtons()
 {
+	//AJAX CALL TO GET USER CREATED VIEWS
+	//AJAX CALL
+	jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=dashboards/dashboard/RetrieveQuickViews',
+                type: "GET",
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+						//Assign Data to Chart
+						
+						alert("AJAX RESP CB:" + resp);
+						if(resp==true)
+						{
+						}
 
-	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
+                    }
+                });
+	
+	
+	var respArr = [
+		["Admin", "test", "0,5,6,8", 0, 4, "00:00", "23:00", "2017-01-01", "2017-01-02", "Description of view"],
+		["Admin", "test 2", "0,2,4,6", 5, 6, "10:00", "20:00", "2017-02-01", "2017-02-02", "Description of view 2"]
+	];
 
-	if(localStorage.quickviews3 === undefined){
-		return;
-	}
-
-	if(allQuickViews === null)
-	{
-		allQuickViews = new Array();
-	}
-
+	//Reset quickviews section for line graph
 	document.getElementById('userCreatedViews').innerHTML = "";
 
-	for(var i=0; i<allQuickViews.length; i++)
+	for(var i=0; i<respArr.length; i++)
 	{
-		var button = document.createElement("button");
+		let button = document.createElement("button");
 		button.className = "btn btn-primary"
-		button.innerHTML = allQuickViews[i][0];		//assign button quick view name
-		button.value = allQuickViews[i][1];		//assign button selected/deselected item string
+		button.innerHTML = respArr[i][1];		//assign button quick view name
+		button.value = respArr[i][2];		//assign button selected/deselected item string
+		button.title = respArr[i][9];
+		button.id = "user-view-btn";
 
-		var buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
+		let buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
 		buttonLoc.append(button);
 		buttonLoc.append(' ');
 
+		console.log("RESP STRINGIFIED: " + JSON.stringify(respArr[i]) );
+
+		let jsonString = JSON.stringify(respArr[i]);
+
 		button.addEventListener ("click", function() {
-		ApplyViewButton(button.value);
+			ApplyViewButton(jsonString);
 		});
 	}
+
 
 }
 
@@ -368,51 +429,58 @@ window.onload = function InitDashboard()
 	LoadDougnutData(4);
 
 	//Init user created quick views
-	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
-
-	if(localStorage.quickviews3 === undefined){
-		return;
-	}
-
-	if(allQuickViews === null)
-	{
-		allQuickViews = new Array();
-	}
-
-	document.getElementById('userCreatedViews').innerHTML = "";
-
-
-	for(var i=0; i<allQuickViews.length; i++)
-	{
-		var button = document.createElement("button");
-		button.className = "btn btn-primary"
-		button.innerHTML = allQuickViews[i][0]; //assign button quick view name
-		button.value = allQuickViews[i][1]; //assign button selected/deselected item string
-
-
-		var buttonLoc = document.getElementById('userCreatedViews');
-		buttonLoc.append(button);
-		buttonLoc.append(' ');
-
-		button.addEventListener ("click", function() {
-		ApplyViewButton(button.value);
-		});
-	}
+	CreateQuickViewButtons();
 
 };
 
 //Function which takes string of selected chart items hides/shows them.
 function ApplyViewButton(values)
 {
-	var array = values.split(',');
+	var valuesArr = [];
+	valuesArr = JSON.parse(values);
 
-	for(var i=0; i<array.length; i++)
+	console.log("APPLY: " + valuesArr);
+
+	//Hide selected outlets
+	var selectedArr = valuesArr[2].split(',');
+	for(var i=0; i<selectedArr.length; i++)
 	{
-		var arr = array[i];
+		var arr = selectedArr[i];
 		myChart.data.datasets[arr].hidden = !myChart.data.datasets[arr].hidden;
 	}
 
+	//filter day to and from
+	if(valuesArr[3] != "")
+	{
+	weekdayDropdownFrom(valuesArr[3]);
+	}
+	if(valuesArr[4] != "")
+	{
+	weekdayDropdownTo(valuesArr[4]);
+	}
+	//Filter time to and from
+	if(valuesArr[5] != "")
+	{
+	document.getElementById('filterByTimeFrom').value = (valuesArr[5]);
+	}
+	if(valuesArr[6] != "")
+	{
+	document.getElementById('filterByTimeTo').value = (valuesArr[6]);
+	}
+
+	if(valuesArr[7] != "")
+	{
+	document.getElementById('filterByDateFrom').value = (valuesArr[7]);
+	}
+
+	if(valuesArr[8] != "")
+	{
+	document.getElementById('filterByDateFrom').value = (valuesArr[8]);
+	}
+
+
 	myChart.update();
+
 
 }
 
@@ -420,8 +488,9 @@ function ApplyViewButton(values)
 function ClearUserViews()
 {
 	alert("clear");
-	localStorage.removeItem("quickviews3");
 	document.getElementById('userCreatedViews').innerHTML = "";
+
+	//call function which deletes user created views
 
 }
 </script>
@@ -974,11 +1043,11 @@ function LoadLineChartData(length, date, dateTo)
 
 	var weekdayFrom = $('#filterByWeekdayFrom').val();
 	var weekdayTo = $('#filterByWeekdayTo').val();
-	console.log(date, dateTo)
+	console.log('time:' + timeFrom, timeTo)
 
 
 
-	console.log(weekdayFrom, weekdayTo)
+
 
 	//Identifier for ajaxProcess function to load correct chartData
 	var period = length;
@@ -1048,6 +1117,7 @@ function LoadLineChartData(length, date, dateTo)
 				weekday[6] = "Saturday";
 
 
+				//Small function which adds prefix to a given date for chart label
 				function getPrefix(date){
 					if(date == 1 || date == 21 || date == 31){
 						return "st";
@@ -1065,6 +1135,7 @@ function LoadLineChartData(length, date, dateTo)
 
 				}
 
+				//Split date into just day
 				var from = resp[0][0].split("-");
 				var date = new Date(from[0], (from[1]-1), from[2]);
 

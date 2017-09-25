@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData'),
+				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData', 'SaveQuickView', 'RetrieveQuickViews'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -161,18 +161,35 @@ class DashboardController extends Controller
 	//Add user created quickview to table 
 	public function actionSaveQuickView()
 	{
-		$SelectedArr = $_POST['Selected'];
-		$UserID = $_POST['UID'];
+		$SelectedArr = $_POST['Selected']; //Array of which datasets are disbaled
+		$UserID = Yii::app()->user->getId();		//Maybe just get from method
 		$WeekdayFrom = $_POST['WeekdayFrom'];
 		$WeekdayTo = $_POST['WeekdayTo'];
+		$TimeFrom = $_POST['TimeFrom'];
+		$TimeTo = $_POST['TimeTo'];
+		$DateFrom = $_POST['DateFrom'];
+		$DateTo = $_POST['DateTo'];
+		$ViewName = $_POST['ViewName'];
+		$Description = $_POST['ViewDescription'];
 
-		//Connect TO DB and ADD RECORD
+		$return = ["UID:".$UserID, $SelectedArr, $UserID, $DateFrom, $DateTo, $WeekdayFrom, $WeekdayTo, $TimeFrom, $TimeTo, $ViewName, $Description];
+
+		//ADD TO DB RETURN BOOL
+
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($return, JSON_FORCE_OBJECT);
 
 	}
 
 	//Get user created view for account
 	public function actionRetrieveQuickViews()
 	{
+		$UID = Yii::app()->user->getId();
+
+		$Views =[];
+
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($Views, JSON_FORCE_OBJECT);
 
 	}
 
