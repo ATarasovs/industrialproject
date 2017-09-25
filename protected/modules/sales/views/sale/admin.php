@@ -22,109 +22,116 @@ if(Yii::app()->user->hasFlash('success')) { ?>
 
 <h1>List of Sales</h1>
     <br/>
-    <div class="form-group col-md-5">
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            
-            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></i></div>
-            <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date from:" type="text"/>
-
-            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-            <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date to:" type="text"/> 
-       
-        </div>
-        <br>
-
-        
-
-
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time from:"> 
-            
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time to:">
-        </div>
-        <br>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Weekday from">
-                <option value="">Weekday from:</option>
-                <option value="0">Monday</option>
-                <option value="1">Tuesday</option>
-                <option value="2">Wednesday</option>
-                <option value="3">Thursday</option>
-                <option value="4">Friday</option>
-                <option value="5">Saturday</option>
-                <option value="6">Sunday</option>
-            </select>
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByWeekdayTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Weekday to">
-                <option value="">Weekday to:</option>
-                <option value="0">Monday</option>
-                <option value="1">Tuesday</option>
-                <option value="2">Wednesday</option>
-                <option value="3">Thursday</option>
-                <option value="4">Friday</option>
-                <option value="5">Saturday</option>
-                <option value="6">Sunday</option>
-            </select>
-        </div>
-        <br>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Year">
-                <!-- These are hard coded at the moment. Will work on so that these values are generated from the data in the Database --> 
-                <option value="">Select year</option> 
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-            </select>
-            <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
-            <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Month">
-                <option value="">Select month</option>
-                <option value="1">Janurary</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-
-            </select>
-        </div>
-        <br>
-        <div id="hidden" class="hide">
+    <div class="row">
+        <div class="form-group col-md-6">
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer" disabled="disabled">
+
+                <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></i></div>
+                <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date from:" type="text"/>
+
+                <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                <input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date to:" type="text"/> 
+
             </div>
+            <br>
+
+
+
 
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <?php 
-                   echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name'));
-                ?>
-                <!--<input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">-->
-            </div>
-            
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <?php 
-                   echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
-                ?>
-                    <!--<input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">-->
-            </div>
-            
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
-            </div>
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time from:"> 
 
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <input id="filterByTimeTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time to:">
+            </div>
+            <br>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <select id="filterByWeekdayFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Weekday from">
+                    <option value="">Weekday from:</option>
+                    <option value="0">Monday</option>
+                    <option value="1">Tuesday</option>
+                    <option value="2">Wednesday</option>
+                    <option value="3">Thursday</option>
+                    <option value="4">Friday</option>
+                    <option value="5">Saturday</option>
+                    <option value="6">Sunday</option>
+                </select>
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <select id="filterByWeekdayTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Weekday to">
+                    <option value="">Weekday to:</option>
+                    <option value="0">Monday</option>
+                    <option value="1">Tuesday</option>
+                    <option value="2">Wednesday</option>
+                    <option value="3">Thursday</option>
+                    <option value="4">Friday</option>
+                    <option value="5">Saturday</option>
+                    <option value="6">Sunday</option>
+                </select>
+            </div>
+            <br>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <select id="filterByYear" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Year">
+                    <!-- These are hard coded at the moment. Will work on so that these values are generated from the data in the Database --> 
+                    <option value="">Select year</option> 
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                </select>
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Month">
+                    <option value="">Select month</option>
+                    <option value="1">Janurary</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+
+                </select>
+            </div>
+            <br>
+        </div>
+        <div class="form-group col-md-6">
+            <div id="hidden" class="hide">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                    <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer" disabled="disabled">
+                </div>
+                <br/>
+
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                    <?php 
+                       echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name'));
+                    ?>
+                    <!--<input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">-->
+                </div>
+                <br/>
+
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                    <?php 
+                       echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
+                    ?>
+                        <!--<input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">-->
+                </div>
+                <br/>
+
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                    <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
+                </div>
+
+            </div>
         </div>
     </div>
     
