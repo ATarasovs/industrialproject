@@ -25,7 +25,7 @@ class SiteTest extends WebTestCase
 	{
             SiteTest::$driver->get("http://localhost/industrialproject/index.php");
             SiteTest::$driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
-            /*
+            
             //Test no details
             SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username_em_'));
@@ -41,7 +41,7 @@ class SiteTest extends WebTestCase
             SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password_em_'));
             $this->assertEquals('Incorrect username or password.', $em->getText());
-            */
+            
             //Test correct details
             $lgUser = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username'));
             $lgPass = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password'));
@@ -56,7 +56,7 @@ class SiteTest extends WebTestCase
             
             $this->assertEquals('http://localhost/industrialproject/index.php?r=sales/dashboard/admin', SiteTest::$driver->getCurrentURL());
 	}
-        /*
+        
         public function testCreateUser() {
             SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=users/user/create");
             
@@ -70,7 +70,7 @@ class SiteTest extends WebTestCase
             
             $this->assertStringStartsWith("http://localhost/industrialproject/index.php?r=users/user/view", SiteTest::$driver->getCurrentURL());
         }
-        */
+        
         public function testUpdateUser() {
             SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=users/user/update&id=1");
             
@@ -83,13 +83,9 @@ class SiteTest extends WebTestCase
             
             SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             
-            $results = SiteTest::$driver->findElements(\Facebook\WebDriver\WebDriverBy::id("users"));
+            $results = SiteTest::$driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector("td"));
             
-            for ($i=0; $i<count($results); $i++) {
-                echo $results[$i]->getAttribute('th');
-            }
-            
-            //$this->assertStringStartsWith("http://localhost/industrialproject/index.php?r=users/user/view", SiteTest::$driver->getCurrentURL());
+            $this->assertEquals("1234", $results[5]->getText());
         }
           
         public static function tearDownAfterClass() {
