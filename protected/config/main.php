@@ -26,7 +26,6 @@ return array(
 		'bootstrap.behaviors.TbWidget',
                 'application.modules.users.models.*',
                 'application.modules.sales.models.*',
-                'application.modules.dashboards.models.*',
                 'application.modules.uploadfiles.models.*',
 	),
 
@@ -41,7 +40,6 @@ return array(
 		),
                 'users',
                 'sales',
-                'dashboards',
                 'uploadfiles',
 	),
 
