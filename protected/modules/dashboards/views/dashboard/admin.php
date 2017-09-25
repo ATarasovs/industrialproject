@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
 
 <script>
-
+//Local storage items
 var quickViews = JSON.parse(localStorage.getItem("quickViews"));
 var lineView = [];
 </script>
@@ -245,6 +245,9 @@ function ClearLineFilters()
 </script>
 
 <script>
+
+
+//Function for saving selected and deslected datasets
 function AddItemQuickView(val)
 {
 	//if lineview doesnt contain val
@@ -261,7 +264,9 @@ function AddItemQuickView(val)
 	//else remove val
 };
 
-
+//Function which generates string of selected chart data sets
+//quickviews3 = local storage key
+//lineView = global js array which stores selecte values
 function CreateQuickView()
 {
 	var views = new Array();
@@ -284,8 +289,6 @@ function CreateQuickView()
 
 	allQuickViews[allQuickViews.length] = views;
 
-	console.log(allQuickViews);
-
 
 	localStorage.setItem("quickviews3", JSON.stringify(allQuickViews));
 
@@ -299,7 +302,7 @@ function CreateQuickView()
 
 }
 
-//Function which 
+//Function which shows/hides the quick view creator
 function SetQuickView()
 {
 	document.getElementById('quickviews').style.display = "inline";
@@ -329,10 +332,10 @@ function CreateQuickViewButtons()
 	{
 		var button = document.createElement("button");
 		button.className = "btn btn-primary"
-		button.innerHTML = allQuickViews[i][0];
-		button.value = allQuickViews[i][1];
+		button.innerHTML = allQuickViews[i][0];		//assign button quick view name
+		button.value = allQuickViews[i][1];		//assign button selected/deselected item string
 
-		var buttonLoc = document.getElementById('userCreatedViews');
+		var buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
 		buttonLoc.append(button);
 		buttonLoc.append(' ');
 
@@ -383,8 +386,9 @@ window.onload = function InitDashboard()
 	{
 		var button = document.createElement("button");
 		button.className = "btn btn-primary"
-		button.innerHTML = allQuickViews[i][0];
-		button.value = allQuickViews[i][1];
+		button.innerHTML = allQuickViews[i][0]; //assign button quick view name
+		button.value = allQuickViews[i][1]; //assign button selected/deselected item string
+
 
 		var buttonLoc = document.getElementById('userCreatedViews');
 		buttonLoc.append(button);
