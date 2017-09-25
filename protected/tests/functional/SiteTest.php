@@ -32,8 +32,27 @@ class SiteTest extends WebTestCase
             SiteTest::$driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
             echo "Loaded";
             
+            //Test no details
+            SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
+            $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username_em_'));
+            $this->assertEquals('Username cannot be blank.', $em->getText());
+            $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password_em_'));
+            $this->assertEquals('Password cannot be blank.', $em->getText());
+            
+            //Test incorrect details
             $lgUser = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username'));
             $lgPass = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password'));
+            $lgUser->sendKeys("wrongLogin");
+            $lgPass->sendKeys("wrongPass");
+            SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
+            $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password_em_'));
+            $this->assertEquals('Incorrect username or password.', $em->getText());
+            
+            //Test correct details
+            $lgUser = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username'));
+            $lgPass = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password'));
+            $lgUser->clear();
+            $lgPass->clear();
             $lgUser->sendKeys("admin");
             $lgPass->sendKeys("admin");
             
@@ -41,7 +60,7 @@ class SiteTest extends WebTestCase
             
             SiteTest::$driver->wait(10)->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains('My Web Application'));
             
-            $this->assertEquals('My Web Application', SiteTest::$driver->getTitle());
+            $this->assertEquals('http://localhost/industrialproject/index.php?r=dashboards/dashboard/admin', SiteTest::$driver->getCurrentURL());
 	}
 /*
 	public function testContact()
