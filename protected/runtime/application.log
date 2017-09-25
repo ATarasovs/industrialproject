@@ -1349,3 +1349,32 @@ REQUEST_URI=/industrialproject/index.php?r=dashboards/dashboard/LoadLineChartDat
 in C:\xampp\htdocs\industrialproject\protected\modules\dashboards\controllers\DashboardController.php (480)
 in C:\xampp\htdocs\industrialproject\protected\modules\dashboards\controllers\DashboardController.php (199)
 in C:\xampp\htdocs\industrialproject\index.php (13)
+2017/09/25 10:55:18 [error] [exception.CHttpException.403] CHttpException: You are not authorized to perform this action. in C:\Apache24\htdocs\industrialproject\framework\web\auth\CAccessControlFilter.php:183
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#3 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('dashboards/dash...')
+#9 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/industrialproject/index.php?r=dashboards/dashboard/admin
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=site/login
+---
+2017/09/25 12:40:27 [warning] [application] Failed to set unsafe attribute "position" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/25 12:40:27 [warning] [application] Failed to set unsafe attribute "phone" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/25 12:42:16 [warning] [application] Failed to set unsafe attribute "position" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/25 12:42:16 [warning] [application] Failed to set unsafe attribute "phone" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
