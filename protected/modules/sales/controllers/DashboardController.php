@@ -94,7 +94,31 @@ class DashboardController extends Controller
 		$return = ["UID:".$UserID, $SelectedArr, $UserID, $DateFrom, $DateTo, $WeekdayFrom, $WeekdayTo, $TimeFrom, $TimeTo, $ViewName, $Description];
 
 		//ADD TO DB RETURN BOOL
+		$QuickView = new Quickview;
 
+		$QuickView->userID = $UserID;
+		$QuickView->title = $ViewName;
+		$QuickView->locations = $SelectedArr;
+		$QuickView->WeekdayFrom = $WeekdayFrom;
+		$QuickView->WeekdayTo = $WeekdayTo;
+		$QuickView->TimeFrom = $TimeFrom;
+		$QuickView->TimeTo = $TimeTo;
+		$QuickView->DateFrom = $DateFrom;
+		$QuickView->DateTo = $DateTo;
+		$QuickView->description = $Description;
+
+		$return = "SAVE RETURN";
+		
+		Yii::log($UserID, 'trace', 'system.web');
+		
+		if($QuickView->save())
+		{
+			$return = "SAVE WORKED";
+		}
+		
+
+
+		
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($return, JSON_FORCE_OBJECT);
 
@@ -105,7 +129,16 @@ class DashboardController extends Controller
 	{
 		$UID = Yii::app()->user->getId();
 
-		$Views =[];
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('userID="'.$UID.'" ');
+		$search_results = Quickview::model()->findAll($criteria);
+
+		$Views = [];
+
+		foreach($search_results as $rec)
+		{
+			$Views[] = $rec;
+		}
 
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($Views, JSON_FORCE_OBJECT);

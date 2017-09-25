@@ -295,6 +295,8 @@ function CreateQuickView()
 	}
 
 	console.log("POST VIEW" + views, weekdayFrom, weekdayTo, timeFrom, timeTo);
+
+	views = JSON.stringify(views);
 		
 
 	//AJAX CALL
@@ -315,10 +317,11 @@ function CreateQuickView()
                 success: function(resp){
 						//Assign Data to Chart
 						
-						alert(resp);
-						if(resp==true)
-						{
-						}
+						//alert(resp);
+						console.log("SAVE RESPONSE: " + resp);
+
+						alert("SAVE RESPONSE: " + JSON.stringify(resp) );
+						
 
                     }
                 });
@@ -364,45 +367,47 @@ function CreateQuickViewButtons()
                     },
                 success: function(resp){
 						//Assign Data to Chart
-						
-						//alert("AJAX RESP CB:" + resp);
-						if(resp==true)
+						 alert("RESP FOUND");
+						 alert(JSON.stringify(resp[0]));
+
+						var responseArr = [];
+						for(var i=0; i<resp.length; i++)
 						{
+						 responseArr[responseArr.length] = $.map(resp[i], function(el) { return el });
 						}
 
+						 console.log("MAPPED AR: " + responseArr[0]);
+
+						 var respArr = responseArr;
+						//Reset quickviews section for line graph
+						document.getElementById('userCreatedViews').innerHTML = "";
+
+
+						for(var i=0; i<respArr.length; i++)
+						{
+							let button = document.createElement("button");
+							button.className = "btn btn-primary"
+							button.innerHTML = respArr[i][2];		//assign button quick view name
+							button.value = respArr[i][3];		//assign button selected/deselected item string
+							button.title = respArr[i][10];
+							button.id = "user-view-btn";
+
+							let buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
+							buttonLoc.append(button);
+							buttonLoc.append(' ');
+
+							let jsonString = respArr[i][3];
+							let restOfObj = resp[i];
+
+							button.addEventListener ("click", function() {
+								ApplyViewButton(jsonString, restOfObj);
+							});
+						}
                     }
                 });
 	
-	
-	var respArr = [
-		["Admin", "test", "0,5,6,8", 0, 4, "00:00", "23:00", "2017-01-01", "2017-01-02", "Description of view"],
-		["Admin", "test 2", "0,2,4,6", 5, 6, "10:00", "20:00", "2017-02-01", "2017-02-02", "Description of view 2"]
-	];
 
-	//Reset quickviews section for line graph
-	document.getElementById('userCreatedViews').innerHTML = "";
 
-	for(var i=0; i<respArr.length; i++)
-	{
-		let button = document.createElement("button");
-		button.className = "btn btn-primary"
-		button.innerHTML = respArr[i][1];		//assign button quick view name
-		button.value = respArr[i][2];		//assign button selected/deselected item string
-		button.title = respArr[i][9];
-		button.id = "user-view-btn";
-
-		let buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
-		buttonLoc.append(button);
-		buttonLoc.append(' ');
-
-		console.log("RESP STRINGIFIED: " + JSON.stringify(respArr[i]) );
-
-		let jsonString = JSON.stringify(respArr[i]);
-
-		button.addEventListener ("click", function() {
-			ApplyViewButton(jsonString);
-		});
-	}
 
 
 }
@@ -434,49 +439,59 @@ window.onload = function InitDashboard()
 };
 
 //Function which takes string of selected chart items hides/shows them.
-function ApplyViewButton(values)
+function ApplyViewButton(values, obj)
 {
-	var valuesArr = [];
-	valuesArr = JSON.parse(values);
 
-	console.log("APPLY: " + valuesArr);
+	var valuesArr = $.map(obj, function(value, index) {
+		return [value];
+	});
+	
 
-	//Hide selected outlets
-	var selectedArr = valuesArr[2].split(',');
+
+	var result = values.slice(2, -2);
+
+	var selectedArr = result.split(',').map(Number);
+
 	for(var i=0; i<selectedArr.length; i++)
 	{
-		var arr = selectedArr[i];
+		var arr = parseInt(selectedArr[i]);
 		myChart.data.datasets[arr].hidden = !myChart.data.datasets[arr].hidden;
 	}
 
 	//filter day to and from
-	if(valuesArr[3] != "")
-	{
-	weekdayDropdownFrom(valuesArr[3]);
-	}
 	if(valuesArr[4] != "")
 	{
-	weekdayDropdownTo(valuesArr[4]);
+	weekdayDropdownFrom(valuesArr[4]);
 	}
-	//Filter time to and from
 	if(valuesArr[5] != "")
 	{
-	document.getElementById('filterByTimeFrom').value = (valuesArr[5]);
-	}
-	if(valuesArr[6] != "")
-	{
-	document.getElementById('filterByTimeTo').value = (valuesArr[6]);
-	}
+	weekdayDropdownTo(valuesArr[5]);
+	}0
 
-	if(valuesArr[7] != "")
+	if(valuesArr[6] != "00:00:00" && valuesArr[7] != "00:00:00")
 	{
-	document.getElementById('filterByDateFrom').value = (valuesArr[7]);
+		//Filter time to and from
+		if(valuesArr[6] != "")
+		{
+		document.getElementById('filterByTimeFrom').value = (valuesArr[6]);
+		}
+		if(valuesArr[7] != "")
+		{
+		document.getElementById('filterByTimeTo').value = (valuesArr[7]);
+		}
 	}
 
 	if(valuesArr[8] != "")
 	{
 	document.getElementById('filterByDateFrom').value = (valuesArr[8]);
 	}
+
+	if(valuesArr[9] != "")
+	{
+	document.getElementById('filterByDateTo').value = (valuesArr[9]);
+	}
+
+	
 
 
 	myChart.update();
@@ -793,7 +808,7 @@ $(document).ready(function() {
 <!-- ############################### -->
 <!-- ###	Doughnut Chart Scripts ### -->
 <!-- ############################### -->
-<!-- Initialise Doughnut -->
+<!-- Initalise Doughnut -->
 <script>
  var ctx = document.getElementById("myDoughnutChart").getContext("2d");
 
