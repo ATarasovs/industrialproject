@@ -12,7 +12,7 @@ $(document).ready(function() {
     var outletNameParam = getParameterByName('outlet');
     var userIdParam = getParameterByName('userid');
     var transactionTypeParam = getParameterByName('transactiontype');
-    var totalAmountFromParam = getParameterByName('totalamountfrom');
+    var totalAmountFromParam = getParameterByName('totalamountfrorm');
     var totalAmountToParam = getParameterByName('totalamountto');
     
 //    $("#filterBySaleId").val(saleIdParam);
@@ -87,9 +87,9 @@ function search() {
     var outletName = $("#filterByOutletName").val();
     var userId = $("#filterByUserId").val();
     var transactionType = $("#filterByTransactionType").val();    
-    var totalAmountFrom = $("#filterByTotalAmountFrom").val();
-    var totalAmountTo = $("#filterByTotalAmountTo").val();
-
+    var totalAmountFrom = $("filterByTotalAmountFrom").val();
+    var totalAmountTo = $("filterByTotalAmountTo").val();
+    
     location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
    
 }

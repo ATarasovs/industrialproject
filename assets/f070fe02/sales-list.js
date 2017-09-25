@@ -89,8 +89,10 @@ function search() {
     var transactionType = $("#filterByTransactionType").val();    
     var totalAmountFrom = $("#filterByTotalAmountFrom").val();
     var totalAmountTo = $("#filterByTotalAmountTo").val();
-
-    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
+    
+    console.log(totalAmountFrom);
+    console.log(totalAmountTo);
+//    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
    
 }
 
