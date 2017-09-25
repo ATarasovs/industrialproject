@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerScriptFile(
   <ul class="navbar-nav mr-auto">
 	<li class="nav-item">
 	<?php 
-	echo CHtml::link('<i class="fa fa-line-chart"></i> Dashboard',array('/dashboards/dashboard/admin'), array('class'=>'nav-link')); 
+	echo CHtml::link('<i class="fa fa-line-chart"></i> Dashboard',array('/sales/dashboard/admin'), array('class'=>'nav-link')); 
 	?>
 	</li>
 	<li class="nav-item">
