@@ -24,7 +24,7 @@ class SAXbeta {
      * @param segLength - the number of hours per segment (should be 1, 2, 3, 4, 6, 8, 12 or 24)
      */
     public function getSegmentedData($startDT, $days, $records, $segLength) {
-        for ($i=0; $i<$records->count(); $i++) {
+        for ($i=0; $i<count($records); $i++) {
             $recordsCon = array(
             array (),
             array()
@@ -37,7 +37,7 @@ class SAXbeta {
             $dt2 = $startDT;
             
             
-            for ($j=0; $j<$records[$i]->count(); $j++) {
+            for ($j=0; $j<count($records[$i]); $j++) {
                 $dt = $records[$i][$j]->getDate_Time();
                 $dif = $dt->diff->$dt2->hours;
                 

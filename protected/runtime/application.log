@@ -1366,3 +1366,15 @@ Stack trace:
 REQUEST_URI=/industrialproject/index.php?r=dashboards/dashboard/admin
 HTTP_REFERER=http://localhost/industrialproject/index.php?r=site/login
 ---
+2017/09/25 12:40:27 [warning] [application] Failed to set unsafe attribute "position" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/25 12:40:27 [warning] [application] Failed to set unsafe attribute "phone" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/25 12:42:16 [warning] [application] Failed to set unsafe attribute "position" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/25 12:42:16 [warning] [application] Failed to set unsafe attribute "phone" of "User".
+in C:\Apache24\htdocs\industrialproject\protected\modules\users\controllers\UserController.php (72)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
