@@ -33,7 +33,7 @@ class User extends CActiveRecord
 			array('username, password, salt', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('userID, username, forename, surname, email', 'safe', 'on'=>'search'),
+			array('position, phone', 'safe'),
 		);
 	}
 
@@ -90,6 +90,8 @@ class User extends CActiveRecord
 		$criteria->compare('forename',$this->forename,true);
 		$criteria->compare('surname',$this->surname,true);
                 $criteria->compare('email',$this->email,true);
+                $criteria->compare('position',$this->position,true);
+                $criteria->compare('phone',$this->phone,true);
 
 		return new CActiveDataProvider($this, array(
                     'criteria'=>$criteria,
