@@ -14,6 +14,8 @@ Yii::app()->clientScript->registerScriptFile(
 	Yii::app()->baseUrl.'/lib/font-awesome-4.7.0/css/font-awesome.css'
 );
 
+
+
 ?>
 
 <!DOCTYPE html>

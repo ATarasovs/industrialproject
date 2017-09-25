@@ -12,10 +12,7 @@ var lineView = [];
 	$hasQuickview = false;
     Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.sales.assets.js').'\sales-list.js'), CClientScript::POS_HEAD);
 
-//$this->breadcrumbs=array(
-//	'Dashboard'=>array('index'),
-//	'List',
-//);
+
 
 ?>
 
@@ -74,13 +71,13 @@ $this->pageTitle=Yii::app()->name;
 <!-- FIRST AND SECOND CARDS WITH SUMMARY OF WEEKLY SALES DATA -->	
 
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-5">
   	<br>
 		<div class="card"> <!-- FIRST CARD WITH DOUGHNUT -->
 			<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-pie-chart" aria-hidden="true"></i> Sales Summary Data</p></h4>
 			<div class="card-block">
 				<div class="dropdown pull-right">
-					<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<button class="btn btn-secondary dropdown-toggle D pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Select Data
 					</button>
 					<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
@@ -91,7 +88,7 @@ $this->pageTitle=Yii::app()->name;
 				</div>
 
 				<br>
-				<canvas id="myDoughnutChart" width="750" height="550"> </canvas>
+				<canvas id="myDoughnutChart" width="425" height="425"> </canvas>
 				<hr>
 					<h6>Quick views:</h6>
 						<div class="mmenu">
@@ -106,17 +103,29 @@ $this->pageTitle=Yii::app()->name;
 			</div>
 		</div>
 	</div>	
-    <div class="col-sm-5">
+    <div class="col-sm-7">
 	<br>
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
-		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar View</p></h4>
-			<div class="card-block">
-				<div id="canvas-holder-2" style="width:40%; direction:ltr; margin-left:auto; margin-right:auto; display:table;">
-
-				<!-- CALENDAR GOES HERE -->
-
+		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-credit-card" aria-hidden="true"></i> Average User Spend</p></h4>
+		<div class="card-block">
+				<div class="dropdown pull-right">
+					<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Select Data
+					</button>
+					<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item pull-right" onClick="LoadDougnutData(1);" >Weekly data</a>
+								<a class="dropdown-item pull-right" onClick="LoadDougnutData(4);" >Monthly data</a>
+								<a class="dropdown-item pull-right" onClick="LoadDougnutData(12);" >Quarterly data</a>
+					</div>
 				</div>
-			</div>
+
+				<canvas id="myBarChart" width="250" height="200"> </canvas>	
+				
+		</div>
+
+
+
+		</div>
 		</div>
 		</div>
 	
@@ -135,6 +144,7 @@ $this->pageTitle=Yii::app()->name;
 		<input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date: From" type="text"/>&nbsp;
 		<input class="form-control" id="filterByDateTo" name="dateTo" placeholder="Date: To" type="text"/> &nbsp;
 		<button class="btn btn-success" id="applyFilters" type="submit" value="Apply" onClick="LoadLineChartData(7)">Apply</button> &nbsp;
+		<button class="btn btn-danger" id="clearFilters" type="submit" value="Clear Filters" onClick=" ClearLineFilters()">Clear Filters</button> &nbsp;
 	</div>
 	<!-- FILTERS HIDDEN DIV -->
 	<div id="filtersDiv"  style="display:none;" class="pull-left" >
@@ -148,7 +158,7 @@ $this->pageTitle=Yii::app()->name;
 
 		<!-- FROM/TO WEEKDAY -->
 		<div class="dropdown pull-right"> &nbsp;
-			<button class="btn btn-secondary dropdown-toggle weekdayFromL pull-right" type="button" id="filterByWeekdayFrom" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button class="btn btn-secondary dropdown-toggle weekdayFromL pull-right" type="button" id="filterByWeekdayFrom" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="weekdayFromL">
 			Weekday: From
 			</button>
 			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
@@ -164,7 +174,7 @@ $this->pageTitle=Yii::app()->name;
 		</div>
 
 		<div class="dropdown pull-right"> &nbsp;
-			<button class="btn btn-secondary dropdown-toggle weekdayToL pull-right" type="button" id="filterByWeekdayTo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+			<button class="btn btn-secondary dropdown-toggle weekdayToL pull-right" type="button" id="filterByWeekdayTo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="weekdayToL"> 
 			Weekday: To
 			</button>
 			<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
@@ -220,6 +230,15 @@ function showDiv() {
 function hideDiv(){
 	document.getElementById('filtersDiv').style.display = "none";
    document.getElementById('noFiltersDiv').style.display = "inline";
+
+};
+
+function ClearLineFilters()
+{
+	document.getElementById('filterByDateFrom').value = "";
+	document.getElementById('filterByDateTo').value = "";
+	document.getElementById('filterByTimeFrom').value = "";
+	document.getElementById('filterByTimeTo').value = "";
 
 };
 
@@ -321,9 +340,36 @@ function CreateQuickViewButtons()
 
 }
 
-window.onload = function CreateQuickViewButtonsOnLoad()
+window.onload = function InitCharts()
 {
 
+	alert("init");
+	//var today = new Date();
+	//var dd = today.getDate();
+	//var mm = today.getMonth()-1; //January is 0!
+	//LoadLineChartData(length, dd, mm);
+	
+};
+
+window.onload = function InitDashboard()
+{
+
+	//Init line graph with most recent week of data (minus one month right now so daata shows)
+	var today = new Date();
+	var mm = today.getFullYear()+'-'+'0'+(today.getMonth())+'-'+today.getDate();
+	var dd = today.getFullYear()+'-'+'0'+(today.getMonth())+'-'+(today.getDate()-6);
+	LoadLineChartData(7, dd, mm);
+
+	document.getElementById('filterByDateFrom').value = (dd);
+	document.getElementById('filterByDateTo').value = (mm);
+
+	//init avergae spend
+	LoadAverageSpendData();
+
+	//Init DoughnutChart with monthly data
+	LoadDougnutData(4);
+
+	//Init user created quick views
 	var allQuickViews = JSON.parse(localStorage.getItem("quickviews3"));
 
 	if(localStorage.quickviews3 === undefined){
@@ -354,7 +400,7 @@ window.onload = function CreateQuickViewButtonsOnLoad()
 		});
 	}
 
-}
+};
 
 function ApplyViewButton(values)
 {
@@ -471,6 +517,12 @@ var myChart = new Chart(ctx, {
 			label: "DOJ Catering",
 			borderColor: "#f032e6",
 			fill: false
+			},{
+			data: [0,0,0,0,0,0,0],
+			label: "College Shop",
+			borderColor: "#800000",
+			fill: false
+
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Mono",
@@ -500,11 +552,6 @@ var myChart = new Chart(ctx, {
 			data: [0,0,0,0,0,0,0],
 			label: "Floor Five",
 			borderColor: "#fffac8",
-			fill: false
-			},{ 
-			data: [0,0,0,0,0,0,0],
-			label: "Ninewells Shop",
-			borderColor: "#800000",
 			fill: false
 			},{ 
 			data: [0,0,0,0,0,0,0],
@@ -540,7 +587,7 @@ var myChart = new Chart(ctx, {
 							return data.datasets[tooltipItems.datasetIndex].label +': ' + ' £' + tooltipItems.yLabel;
 						}
 					},
-					bodyFontSize: 15,
+					bodyFontSize: 20,
 
 			},
 		elements: { point: { hitRadius: 10, hoverRadius: 5 } },
@@ -587,11 +634,11 @@ $(document).ready(function() {
 						myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
 						myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
 						myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
-						myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
 						myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
 						myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
-						myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+						myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
 						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+						myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
 						myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
 						myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
 
@@ -600,47 +647,53 @@ $(document).ready(function() {
         } else if ( id == "NightlifeLine"){
 
 							
-			myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
-			myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
-			myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
-			myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
-			myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
-			myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
-			myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
-			myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
-			myChart.data.datasets[11].hidden = !myChart.data.datasets[8].hidden;
-			myChart.data.datasets[14].hidden = !myChart.data.datasets[9].hidden;
-			myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
-			myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
-						myChart.update();
+					myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+					myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+					myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+					myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
+					myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
+					myChart.update();
 
 
 				} else if ( id == "ServicesLine"){
 
-					myChart.data.datasets[0].hidden = !myChart.data.datasets[2].hidden;
-					myChart.data.datasets[1].hidden = !myChart.data.datasets[2].hidden;
-					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
-					myChart.data.datasets[4].hidden = !myChart.data.datasets[2].hidden;
-					myChart.data.datasets[5].hidden = !myChart.data.datasets[2].hidden;
-					myChart.data.datasets[6].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+					myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+					myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
+					myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
+					myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
 					myChart.update();
 
 				} else if (id == "Food")
 				{
-						myChart.data.datasets[0].hidden = !myChart.data.datasets[0].hidden;
-						myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
-						myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
-						myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
-						myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
-						myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
-						myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
-						myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
-						myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
-						myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
-						myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
-						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
-						myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
-						myChart.update();
+					myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+					myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+					myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+					myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+					myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
+					myChart.update();
 
 				} else if ( id == "ResetLine"){
 
@@ -748,6 +801,7 @@ $(document).ready(function() {
 				 responsive: true,
 				 maintainAspectRatio: true,
 				 tooltips: {
+					bodyFontSize: 20,
 					callbacks: {
 //						label: function(tooltipItems, data) {
 //						}
@@ -763,7 +817,7 @@ $(document).ready(function() {
 				 }, 
 				 title: {
                 display: true,
-                text: 'Weekly Sales - 17/09/17'
+                text: ' '
         	},
 				 cutoutPercentage: 50
 		 },
@@ -772,23 +826,20 @@ $(document).ready(function() {
 		 },
  });
 
-
-
  //Load Weekly Summary Data
 //LoadDougnutData(3);
-
 function LoadDougnutData(length)
 {
 	//Change drop-down text
 	if(length == 1)
 	{
-		$(".btn.btn-secondary.dropdown-toggle").text("Weekly"); 
+		$(".btn.btn-secondary.dropdown-toggle.D").text("Weekly"); 
 	} else if (length == 4)
 	{
-		$(".btn.btn-secondary.dropdown-toggle").text("Monthly"); 
+		$(".btn.btn-secondary.dropdown-toggle.D").text("Monthly"); 
 	} else if (length == 12)
 	{
-		$(".btn.btn-secondary.dropdown-toggle").text("Quarterly"); 
+		$(".btn.btn-secondary.dropdown-toggle.D").text("Quarterly"); 
 	}
 
 
@@ -889,8 +940,9 @@ function weekdayDropdownFrom(val)
 
 }
 
-function LoadLineChartData(length)
+function LoadLineChartData(length, date, dateTo)
 {
+
 	//Change drop-down text
 	if(length == 1)
 	{
@@ -905,16 +957,23 @@ function LoadLineChartData(length)
 
 	document.getElementById('applyFilters').innerHTML ='<i class="fa fa-spin fa-spinner" aria-hidden="true"></i>';
 
+	if(date == null && dateTo == null)
+	{
+		//If date froom != null, pass that in also
+		var date = $('#filterByDateFrom').val();
+		var dateTo = $('#filterByDateTo').val();
 
-	//If date froom != null, pass that in also
-	var date = $('#filterByDateFrom').val();
-	var dateTo = $('#filterByDateTo').val();
+	}
+
 
 	var timeFrom = $('#filterByTimeFrom').val();
 	var timeTo = $('#filterByTimeTo').val();
 
 	var weekdayFrom = $('#filterByWeekdayFrom').val();
 	var weekdayTo = $('#filterByWeekdayTo').val();
+	console.log(date, dateTo)
+
+
 
 	console.log(weekdayFrom, weekdayTo)
 
@@ -940,6 +999,8 @@ function LoadLineChartData(length)
 				}
 			},
 			success: function(resp){
+
+				console.log('###:' + resp);
 
 
 				
@@ -1034,8 +1095,6 @@ function LoadLineChartData(length)
 	});
 
 }
-
- 
 </script>
 
 <!-- Dougnut Quick View Buttons -->
@@ -1095,29 +1154,125 @@ jQuery(document).ready(function() {
 
 <!-- BAR CHART -->
 <script>
-var myBarChart = new Chart(document.getElementById("bar-chart-grouped"), {
+var myBarChart = new Chart(document.getElementById("myBarChart"), {
     type: 'bar',
     data: {
-      labels: ["Current Week", "Previous Week"],
-      datasets: [
-        {
-          label: "YoYo Sales",
-          backgroundColor: "#3e95cd",
-          data: [268,321]
-        }, {
-          label: "Total Sales",
-          backgroundColor: "#8e5ea2",
-          data: [408,547]
-        }
-      ]
+		labels: [
+				"DUSA The Union Online",
+				"Online Dundee University Students Association",
+				"Premier Shop",
+				"DJCAD Cantina",
+				"Library",
+				"Ninewells Shop",
+				"DOJ Catering",
+				"College Shop",
+				"Mono",
+				"Liar Bar",
+				"Air Bar",
+				"Remote Campus Shop",
+				"Level 2, Reception",
+				"Floor Five",
+				"Dental Café",
+				"Food on Four",
+			],
+			datasets:[
+			{
+				label: "Current Month Average Transaction Spend £",
+				backgroundColor: '#FF1493',
+				fillColor: '#FF1493',
+				highlightFill: '#FF1493',
+				highlightStroke: '#FF1493',
+				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+			},
+			{
+				label: "Previous Month Average Transaction Spend £",
+				backgroundColor: '#2D66F1',
+				fillColor: '#2D66F1',
+				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+			}  
+			]
     },
     options: {
+		tooltips: {
+			bodyFontSize: 20,
+		},
       title: {
         display: true,
         text: 'Sales totals YoYo Wallet vs Other'
-      }
+      },
+	  scales: {
+    xAxes: [{
+        stacked: false,
+        beginAtZero: true,
+        scaleLabel: {
+            labelString: 'Month'
+        },
+        ticks: {
+            stepSize: 1,
+            min: 0,
+            autoSkip: false
+        }
+    }]
+}
     }
 });
+
+
+function LoadAverageSpendData()
+{
+	var currentMonth = new Date();
+	var previousMonth = new Date();
+
+	
+
+	currentMonth.setMonth(currentMonth.getMonth()-2);
+	previousMonth.setMonth(previousMonth.getMonth()-3);
+	
+	currentMonth = currentMonth.toISOString().split('T')[0];
+	previousMonth = previousMonth.toISOString().split('T')[0];
+	
+	currentMonth = currentMonth.substring(0, currentMonth.length - 2);
+	previousMonth = previousMonth.substring(0, previousMonth.length - 2);
+
+	currentMonth = currentMonth.concat('00');
+	previousMonth = previousMonth.concat('00');
+
+	var a = currentMonth; 
+	var b = previousMonth;
+	jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=dashboards/dashboard/LoadAverageData',
+                type: "POST",
+                data: {Month: a, PrevMonth: b},  
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+						//Assign Data to Chart
+						//alert(Object.keys(resp).length); 
+
+						console.log("SUM DAT: " + JSON.stringify(resp));
+
+						//Load Chart Data
+						var counter = 0;
+						myBarChart.data.datasets.forEach((dataset) => {
+							dataset.data = resp[counter];
+							counter ++;
+						});
+
+						myBarChart.update();
+
+
+
+                    }
+                });
+}
 </script>
 
 <?php

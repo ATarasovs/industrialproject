@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData'),
+				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -158,6 +158,24 @@ class DashboardController extends Controller
 
 	}
 
+	public function actionLoadAverageData()
+	{
+		$month = $_POST['Month'];
+		$prevMonth = $_POST['PrevMonth'];
+
+		if($month != null)
+		{
+			$CurrentMonthData = $this->loadAverageSpend($month);
+			$PreviousMonthData = $this->loadAverageSpend($prevMonth);
+		}
+
+		$avgspendmonth[] = $CurrentMonthData;
+		$avgspendmonth[] = $PreviousMonthData;
+		
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($avgspendmonth, JSON_FORCE_OBJECT);
+	}
+
 	public function actionLoadLineChartData()
 	{
 		$nWeeks = $_POST['Period'];
@@ -282,12 +300,6 @@ class DashboardController extends Controller
 						$d2 = date("Y-m-d H:i:s", strtotime('+'.($i+1).' hours', strtotime($date))); 
 
 						$d3 = date("Y-m-d H:i:s", strtotime('+'.$i.' hours', strtotime($date)));
-						
-						//if($d2 > $d3){
-
-							//return[$d1,$d2,$d3];
-						//}
-						
 
 						if(($d1 >= $d3) && $d1 <= $d2){
 
@@ -305,12 +317,6 @@ class DashboardController extends Controller
 		}
 
 		return $lineChartDataArr;
-
-
-		
-
-
-
 
 	}
 
@@ -390,8 +396,8 @@ class DashboardController extends Controller
 			 $criteria->addCondition("TIME(Date_Time) = '$timeto'");
 		}
 
+		//Weekday Filtering
 		if ($weekdayfrom != "" && $weekdayto !="") {
-			
 			if ($weekdayfrom != $weekdayto){
 				if ($weekdayfrom < $weekdayto){
 				$criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
@@ -423,6 +429,7 @@ class DashboardController extends Controller
 			 {
 				 $timestamp = strtotime($date);
 				 $dateres = idate('w', $timestamp);	//Get day of week as int
+				 $dw = ($dateres-1);
 				 $dates3[] = ($dateres-1);
 			 }
 	 
@@ -445,28 +452,38 @@ class DashboardController extends Controller
 				 do{
 					 $sd++;
 					 if($sd > 6){ //keep wihtin bounds of weekday array
-						 $sd = 0;
-					 } 
-					 if($sd == $ed){
-						 $days[] = $ed;		//COMPLETE RE-THINK THIS CODE
-					 } else {
-						 $days[] = $sd;
-					 }
-					 
+						$sd = 0;
+					} 
+					if($sd == $ed){
+						$days[] = $ed;		//COMPLETE RE-THINK THIS CODE
+					} else {
+						$days[] = $sd;
+					}
+					
 				 } while ($sd != $ed);
 			 }
-			 
+
+			 //return $dates3;
+
 			 $dates = array_reverse($dates);
 	 
 			 //Convert LOOP THROUGH DATES 3 (EVERY DATE AS A DAY) AND IF IT DOESNT MATCH ANY OF DAYS, THEN REMOVE 
 			 $delArr = [];
+
+			 //return $days;
 	 
 			 for($i =0; $i < count($dates3); $i++)
 			 {
 				 $matchFlag = false;
 				 for($o = 0; $o < count($days); $o++)
 				 {
-					 if($dates3[$i] == $days[$o])
+					if($dates3[$i] == -1)
+					{
+						if($days[$o] == 6)
+						{
+							$matchFlag=true;
+						}
+					}else if($dates3[$i] == $days[$o])
 					 {
 						 $matchFlag = true;
 					 }
@@ -484,7 +501,6 @@ class DashboardController extends Controller
 				$dates = array_reverse($dates);
 		}
 
-		//return $dates;
 
 
 		$search_results = Dashboard::model()->findAll($criteria);
@@ -533,6 +549,77 @@ class DashboardController extends Controller
 		}
 
 		return $lineChartDataArr;
+
+	}
+
+	function loadAverageSpend($month)
+	{
+		$arrOutlets = Dashboard::model()->outletsArray();
+		
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('Date_Time > "'.$month.'" ');
+		
+		$search_results = Dashboard::model()->findAll($criteria);
+		
+		
+		$arrOutlets = Dashboard::model()->outletsArray();
+
+		unset($arrOutlets[0]);
+
+		$arrOutlets = array_values($arrOutlets);
+		
+		$lineChartDataArr =[];
+		$lineChartDataArr2 =[];
+		$outletTotals =[];
+		
+		foreach($arrOutlets as $outlet)
+		{
+			$outletTotals = [];
+			$dingTotal = [];
+
+			$hourTotal = 0;
+			$dings = 0;
+				
+				foreach($search_results as $rec)
+				{
+
+					if($rec->Outlet_Name == $outlet)//&&($rec->Date_Time == $date)) //
+					{
+
+						$hourTotal = $hourTotal + $rec->Total_Amount;
+						$dings ++;
+
+					}
+				}
+				
+				
+
+			$lineChartDataArr[] = $hourTotal;
+			$lineChartDataArr2[] = $dings;
+		}
+
+		$avg = 0;
+		$averages = [];
+		for($i = 0; $i<16; $i++)
+		{
+			$t1 = $lineChartDataArr[$i];
+			$t2 = $lineChartDataArr2[$i];
+
+			if($t1==0 || $t2 ==0)
+			{
+				$averages[] = 0;
+			} else
+			{
+				$avg = $lineChartDataArr[$i]/$lineChartDataArr2[$i];
+				$avg = round($avg,2);
+				$averages[] = $avg;
+			}
+			
+		}
+
+		return $averages;
+
+
 
 	}
 
