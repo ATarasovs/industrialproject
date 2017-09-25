@@ -4,10 +4,10 @@
 return array(
 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 //	 uncomment the following lines to use a MySQL database
-	'connectionString' => 'mysql:host=silva.computing.dundee.ac.uk;dbname=ip17team8db',
+	'connectionString' => 'mysql:host=127.0.0.1;dbname=sys',
 	'emulatePrepare' => true,
-	'username' => 'ip17team8',
-	'password' => '6593.ip17t.3956',
+	'username' => 'root',
+	'password' => 'root',
 	'charset' => 'utf8',
 );
 

@@ -301,7 +301,7 @@ function CreateQuickView()
 	jQuery.ajax({
                 // The url must be appropriate for your configuration;
                 // this works with the default config of 1.1.11
-                url: 'index.php?r=dashboards/dashboard/SaveQuickView',
+                url: 'index.php?r=sales/dashboard/SaveQuickView',
                 type: "POST",
                 data: {ViewName: viewName, ViewDescription: viewDescription, Selected: views, WeekdayFrom: weekdayFrom, WeekdayTo: weekdayTo, TimeFrom: timeFrom, TimeTo: timeTo, DateFrom: dateFrom, DateTo: dateTo},  
                 error: function(xhr,tStatus,e){
@@ -352,7 +352,7 @@ function CreateQuickViewButtons()
 	jQuery.ajax({
                 // The url must be appropriate for your configuration;
                 // this works with the default config of 1.1.11
-                url: 'index.php?r=dashboards/dashboard/RetrieveQuickViews',
+                url: 'index.php?r=sales/dashboard/RetrieveQuickViews',
                 type: "GET",
                 error: function(xhr,tStatus,e){
                     if(!xhr){
@@ -365,7 +365,7 @@ function CreateQuickViewButtons()
                 success: function(resp){
 						//Assign Data to Chart
 						
-						alert("AJAX RESP CB:" + resp);
+						//alert("AJAX RESP CB:" + resp);
 						if(resp==true)
 						{
 						}
@@ -793,7 +793,7 @@ $(document).ready(function() {
 <!-- ############################### -->
 <!-- ###	Doughnut Chart Scripts ### -->
 <!-- ############################### -->
-<!-- Initalise Doughnut -->
+<!-- Initialise Doughnut -->
 <script>
  var ctx = document.getElementById("myDoughnutChart").getContext("2d");
 
@@ -917,7 +917,7 @@ function LoadDougnutData(length)
 	jQuery.ajax({
                 // The url must be appropriate for your configuration;
                 // this works with the default config of 1.1.11
-                url: 'index.php?r=dashboards/dashboard/TestCall',
+                url: 'index.php?r=sales/dashboard/TestCall',
                 type: "POST",
                 data: {ajaxData: a},  
                 error: function(xhr,tStatus,e){
@@ -1059,7 +1059,7 @@ function LoadLineChartData(length, date, dateTo)
 	jQuery.ajax({
 	// The url must be appropriate for your configuration;
 	// this works with the default config of 1.1.11
-	url: 'index.php?r=dashboards/dashboard/LoadLineChartData',
+	url: 'index.php?r=sales/dashboard/LoadLineChartData',
 	type: "POST",
 	data: {Period: period, DateFrom: date, DateTo: dateTo, TimeFrom: timeFrom, TimeTo: timeTo, WeekdayFrom: weekdayFrom, WeekdayTo: weekdayTo},  
 	error: function(xhr,tStatus,e){
@@ -1314,7 +1314,7 @@ function LoadAverageSpendData()
 	jQuery.ajax({
                 // The url must be appropriate for your configuration;
                 // this works with the default config of 1.1.11
-                url: 'index.php?r=dashboards/dashboard/LoadAverageData',
+                url: 'index.php?r=sales/dashboard/LoadAverageData',
                 type: "POST",
                 data: {Month: a, PrevMonth: b},  
                 error: function(xhr,tStatus,e){
