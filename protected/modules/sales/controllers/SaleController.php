@@ -81,6 +81,8 @@ class SaleController extends Controller
             $retailername = Yii::app()->request->getParam('retailer');
             $userid = Yii::app()->request->getParam('userid');
             $transactiontype = Yii::app()->request->getParam('transactiontype');
+            $totalamountfrom = Yii::app()->request->getParam('totalamountfrom');
+            $totalamountto = Yii::app()->request->getParam('totalamountto');
 
 
             //Date Filtering
@@ -162,6 +164,24 @@ class SaleController extends Controller
             if ($transactiontype != "") {
                 $criteria->addCondition("Transaction_Type = '$transactiontype'");
             }
+            
+            if ($transactiontype != "") {
+                $criteria->addCondition("Transaction_Type = '$transactiontype'");
+            }
+            
+            if ($totalamountfrom != "" && $totalamountto != "") {
+                $criteria->addCondition("Total_Amount >= '$totalamountfrom' and Total_Amount <= '$totalamountto'");
+            }
+            
+            if ($totalamountfrom != "") {
+                $criteria->addCondition("Total_Amount >= '$totalamountfrom'");
+            }
+            
+            if ($totalamountto != "") {
+                $criteria->addCondition("Total_Amount <= '$totalamountto'");
+            }
+            
+            
             
             $criteria->order = 'Date_Time DESC';
             $count=Sale::model()->count($criteria);

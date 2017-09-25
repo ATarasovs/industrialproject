@@ -95,10 +95,16 @@ if(Yii::app()->user->hasFlash('success')) { ?>
                     <option value="10">October</option>
                     <option value="11">November</option>
                     <option value="12">December</option>
-
                 </select>
             </div>
             <br>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <input id="filterByTotalAmountFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Total amount from:"> 
+
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <input id="filterByTotalAmountTo" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Total amount to:">
+            </div>
         </div>
         <div class="form-group col-md-6">
             <div id="hidden" class="hide">
