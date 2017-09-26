@@ -95,16 +95,18 @@ class SiteTest extends WebTestCase
                 array("filterByMonth", 4, "datetime"),
                 array("filterByWeekdayFrom", 1, "datetime"),
                 array("filterByWeekdayTo", 6, "datetime"),
-                array("filterByOutletName", 9, "outletname"),
+                array("filterByOutletName", 8, "outletname"),
                 array("filterByTransactionType", 3, "transactiontype"),
-                array("filterByDateFrom", "", "datetime"),
-                array("filterByDateTo", "", "datetime")/*,
-                array("filterByTimeFrom", "", "datetime")/*,
-                array("filterByTimeTo", "", "datetime")/*,
-                array("filterByTotalAmountFrom", 5, "cashspent")/*,
-                array("filterByTotalAmountTo", 10, "cashspent")/*,
-                //array("filterByRetailerName", "Dundee Students Association", "retailername"),
-                array("filterByUserId", "dusa-5537", "userid")*/
+                array("filterByTotalAmountFrom", 5, "cashspent"),
+                array("filterByTotalAmountTo", 10, "cashspent"),
+                array("filterByUserId", "dusa-5537", "userid")
+                
+                /*array("filterByDateFrom", "", "datetime"),
+                array("filterByDateTo", "", "datetime"),
+                array("filterByTimeFrom", "", "datetime"),
+                array("filterByTimeTo", "", "datetime"),
+                array("filterByRetailerName", "Dundee Students Association", "retailername")*/
+                
             );
             
             $weekdaysToInt = array(
@@ -120,40 +122,20 @@ class SiteTest extends WebTestCase
             //used to make sure no infinite loops happen
             $infLoop = false;
             
-            for ($i=6; $i<count($filterElementNameArray); $i++) {
-                SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("advancedFiltersBtn"))->click();
+            for ($i=0; $i<count($filterElementNameArray); $i++) {
                 $correct = true;
                 $filter = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id($filterElementNameArray[$i][0]));
                 $valueChosen = null;
-                switch ($i) {
-                    //year:
-                    case 0:
-                    //month:
-                    case 1:
-                    //weekday from/to:
-                    case 2:
-                    case 3:
-                    //outlet:
-                    case 4:
-                    //transaction type:
-                    case 5:
-                        $filter->click();
-                        $options = $filter->findElements(\Facebook\WebDriver\WebDriverBy::tagName('option'));
-                        $valueChosen = $options[$filterElementNameArray[$i][1]]->getText();
-                        $options[$filterElementNameArray[$i][1]]->click();
-                        break;
-                    //date:
-                    case 6:
-                    case 7:
-                        $filter->click();
-                        $filter->findElements(\Facebook\WebDriver\WebDriverBy::className('flatpickr-prev-month'));
-                        break;
-                    //time:
-                    case 8:
-                    case 9:
-                        break;
-                    default:
+                
+                if ($i < 6) {
+                    $filter->click();
+                    $options = $filter->findElements(\Facebook\WebDriver\WebDriverBy::tagName('option'));
+                    $valueChosen = $options[$filterElementNameArray[$i][1]]->getText();
+                    $options[$filterElementNameArray[$i][1]]->click();
+                } else {
+                    $filter->sendKeys($filterElementNameArray[$i][1]);
                 }
+                
                 SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('searchBtn'))->click();
                 
                 $tableRecords = SiteTest::$driver->findElements(\Facebook\WebDriver\WebDriverBy::className($filterElementNameArray[$i][2]));
@@ -166,7 +148,9 @@ class SiteTest extends WebTestCase
                         $i--;
                         continue;
                     } else {
-                        throwException("Infinite loop prevented, make sure each test filter finds at least ten records on its own!");
+                        echo "Infinite loop prevented, make sure each test filter finds at least ten records on its own! Check filter: ";
+                        echo $filterElementNameArray[$i][0];
+                        return;
                     }
                 }
                 
@@ -198,15 +182,14 @@ class SiteTest extends WebTestCase
                         case 5:
                             if ($tableRecords[$j]->getText() != $valueChosen) $correct = false;
                             break;
-                        //date
                         case 6:
+                            if ($tableRecords[2 + ($j*3)]->getText() < $filterElementNameArray[$i][1]) $correct = false;
+                            break;
                         case 7:
+                            if ($tableRecords[2 + ($j*3)]->getText() > $filterElementNameArray[$i][1]) $correct = false;
                             break;
-                        //time
                         case 8:
-                        case 9:
-                            break;
-                        default:
+                            if ($tableRecords[$j]->getText() == $filterElementNameArray[$i][1]) $correct = false;
                     }
                 }
                 $this->assertTrue($correct, $filterElementNameArray[$i][0]." did not pass");
