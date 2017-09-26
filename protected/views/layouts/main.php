@@ -44,6 +44,9 @@ Yii::app()->clientScript->registerScriptFile(
 <body>
 
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary" style="background: #153465!important;">
+
+<img src="https://www.dusa.co.uk/wp-content/uploads/2016/12/uniondusaLogoSmall.png" width="200" onerror="this.src='your.png'">&nbsp;&nbsp;
+
 <div class="container">
 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
@@ -79,15 +82,15 @@ Yii::app()->clientScript->registerScriptFile(
 	</li>
 	</ul>
 	<?php echo CHtml::link('<i class="fa fa-sign-out"></i> Logout',array('/site/logout'), array('class'=>'btn btn-outline-danger my-2 my-sm-0')); ?>
+
 <?php
 } else { 
 	?>
 	</ul>
 	<?php echo CHtml::link('<i class="fa fa-sign-in"></i> Login',array('/site/login'), array('class'=>'btn btn-outline-success my-2 my-sm-0')); ?>
-
 	<?php
 	}
-?>
+	?>
 </div>
 
 <script>
@@ -101,6 +104,7 @@ Yii::app()->clientScript->registerScriptFile(
 </script>
 
 </div>
+	<img src="https://www.yoyowallet.com/assets/img/logo.svg" class="pull right" width="200" onerror="this.src='your.png'">
 </nav>
 <br>
 <br>

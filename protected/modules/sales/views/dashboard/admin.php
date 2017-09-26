@@ -148,10 +148,11 @@ $this->pageTitle=Yii::app()->baseUrl;
 				<hr>
 					<h6>Quick views:</h6>
 						<div class="mmenu">
-							<input id="Shops" type="button" value="Shops" class="btn btn-primary"/>
-							<input id="Nightlife" type="button" value="Nightlife" class="btn btn-primary" />
-							<input id="Services" type="button" value="Services" class="btn btn-primary"/>
-							<input id="New" type="button" value="New" class="btn btn-success"/>
+							<button id="Shops" type="button" value="Shops" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Shops</button>
+							<button id="Nightlife" type="button" value="Nightlife" class="btn btn-primary"><i class="fa fa-glass" aria-hidden="true"></i> Nightlife</button>
+							<button id="Services" type="button" value="Services" class="btn btn-primary"><i class="fa fa-wrench" aria-hidden="true"></i> Services</button>
+
+							<!-- <input id="New" type="button" value="New" class="btn btn-success"/> -->
 							<input id="Reset" type="button" value="Reset" class="btn btn-danger pull-right"/>
 							</span>
 						</div>
