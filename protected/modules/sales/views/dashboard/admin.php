@@ -62,10 +62,10 @@ $this->pageTitle=Yii::app()->baseUrl;
   <div class="card-block">
     <h4 class="card-title">DUSA Analytics Dashboard</h4>
     <p class="card-text">Use the buttons below to navigate to different analytics</p>
-    <button class="btn btn-primary" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i>Sales Viewer</button>
-	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i>Summary Data</button>
-	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i>Average Transaction Spend</button>
-	<button class="btn btn-primary" onclick ="SmoothScrollToCalendar()"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</button>
+    <button class="btn btn-primary" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Viewer</button>
+	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Summary Data</button>
+	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Average Transaction Spend</button>
+	<button class="btn btn-success" onclick ="generatePatternsArr()"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button>
   </div>
   <!-- <div class="card-footer text-muted" style="background: #153465!important;">
     -
@@ -84,7 +84,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 			<h3 class="card-title">Total Sales</h3>
 			<div id="totalSalesCard"> <h2>£00,00.00</h2> </div>
 			<p class="card-text">Use the buttons below to navigate to different analytics</p>
-				<button class="btn btn-primary">Current Semester</button>
+				<button class="btn btn-primary active">Current Semester</button>
 				<button class="btn btn-primary">All-Time</button>
 			</div>
 		</div>
@@ -100,7 +100,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 		<div id="totalUsersCard"> <h2>0</h2> </div>
 		<p class="card-text">Use the buttons below to navigate to different analytics</p>
 			<button class="btn btn-primary">Current Semester</button>
-			<button class="btn btn-primary">All-Time</button>
+			<button class="btn btn-primary active">All-Time</button>
 		</div>
 	</div>
 </div>
@@ -115,7 +115,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 	<h2 class="card-title">128.3</h2>
 	<p class="card-text">Use the buttons below to navigate to different analytics</p>
 		<button class="btn btn-primary">Current Semester</button>
-		<button class="btn btn-primary">All-Time</button>
+		<button class="btn btn-primary active">All-Time</button>
 	</div>
 </div>
 </div>
@@ -292,7 +292,59 @@ $this->pageTitle=Yii::app()->baseUrl;
 <br><br>
 
 <!-- front end scripts  -->
-<script> 
+<script>
+
+function generatePatternsArr()
+{
+	patternArr = [];
+
+	// Create a temporary canvas and fill it with a grid pattern
+	var patternCanvas = document.createElement("canvas"),
+		patternContext = patternCanvas.getContext("2d");
+
+	for(var i=0; i< 15; i++)
+	{
+		var img=document.getElementById("Pattern".concat(i+1));
+		var pat=patternContext.createPattern(img,"repeat");
+		patternContext.rect(0,0,10,10);
+		patternContext.fillStyle=pat;
+		patternContext.fill();
+
+		patternArr[i] = pat;
+	}
+
+	EnableAccessability(patternArr);
+	
+
+}
+
+function EnableAccessability(patternArr)
+{
+	//Doughnut
+	myDoughnutChart.data.datasets[0].backgroundColor=patternArr;
+	myDoughnutChart.data.datasets[0].hoverBackgroundColor=patternArr;
+	myDoughnutChart.update();
+	
+
+	//Bar
+	myBarChart.data.datasets[0].backgroundColor = patternArr[1];
+	myBarChart.data.datasets[1].backgroundColor = patternArr[2];
+	myBarChart.update();
+
+
+	//Line
+	for(var i=0; i<14; i++)
+	{
+		myChart.data.datasets[i].fill = true;
+		myChart.data.datasets[i].backgroundColor =patternArr[i];
+
+	}
+
+	myChart.update();
+
+}
+
+
 function showDiv() {
    document.getElementById('filtersDiv').style.display = "inline";
    document.getElementById('noFiltersDiv').style.display = "none";
@@ -408,7 +460,7 @@ function CreateQuickView()
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        //alert("else: "+e.message); // the great unknown
+                        alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
@@ -523,6 +575,7 @@ function CreateQuickViewButtons()
 window.onload = function InitDashboard()
 {
 
+	
 
 	//Init Top 3 Cards
 	LoadTotalSalesCard(4); //Calls load active users which calls load daily transactions (to avoid animation errors)
@@ -873,7 +926,7 @@ var myChart = new Chart(ctx, {
 					bodyFontSize: 20,
 
 			},
-		elements: { point: { hitRadius: 10, hoverRadius: 5 } },
+		elements: { point: { hitRadius: 12, hoverRadius: 7 } },
 		scales: {
 			yAxes: [{
 				ticks: {
@@ -922,8 +975,6 @@ $(document).ready(function() {
 						myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
 						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
 						myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
-						myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
-						myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
 
 						myChart.update();
 
@@ -940,8 +991,6 @@ $(document).ready(function() {
 					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
 					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
 					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
-					myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
-					myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
 					myChart.update();
 
 
@@ -957,8 +1006,6 @@ $(document).ready(function() {
 					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
 					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
 					myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
-					myChart.data.datasets[15].hidden = !myChart.data.datasets[15].hidden;
-					myChart.data.datasets[16].hidden = !myChart.data.datasets[16].hidden;
 					myChart.update();
 
 				} else if (id == "Food")
@@ -1011,20 +1058,6 @@ $(document).ready(function() {
 
  var ctx = document.getElementById("myDoughnutChart").getContext("2d");
 
-// Create a temporary canvas and fill it with a grid pattern
-var patternCanvas = document.createElement("canvas"),
-    patternContext = patternCanvas.getContext("2d");
-
-var img=document.getElementById("Pattern3");
-var pat=patternContext.createPattern(img,"repeat");
-
-patternContext.rect(0,0,10,10);
-patternContext.fillStyle=pat;
-patternContext.fill();
-
-// Store the pattern for referencing in the Chart.js data
-var pattern = patternContext.createPattern(patternCanvas, "repeat");
-
  var myDoughnutChart = new Chart(ctx, {
 		 type: 'doughnut',
 		 data: {
@@ -1049,7 +1082,7 @@ var pattern = patternContext.createPattern(patternCanvas, "repeat");
 				 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				 backgroundColor: [
 						 "#e6194b",
-						 pat,
+						 "#3cb44b",
 						 "#ffe119",
 						 "#0082c8",
 						 "#f58231",
@@ -1067,7 +1100,7 @@ var pattern = patternContext.createPattern(patternCanvas, "repeat");
 				 ],
 				 hoverBackgroundColor: [
 					"#e6194b",
-					pat,
+					"#3cb44b",
 					"#ffe119",
 					"#0082c8",
 					"#f58231",
