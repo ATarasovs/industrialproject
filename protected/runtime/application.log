@@ -2408,3 +2408,14 @@ Stack trace:
 REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/TestCall
 HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
 ---
+2017/09/26 01:13:56 [error] [exception.ParseError] ParseError: syntax error, unexpected '}' in C:\xampp\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php:213
+Stack trace:
+#0 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(338): CWebApplication->createController('admin/', Object(SalesModule))
+#1 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(276): CWebApplication->createController('dashboard/admin...')
+#2 C:\xampp\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#3 C:\xampp\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\industrialproject\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/admin
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/sale/admin
+---

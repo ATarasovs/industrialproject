@@ -59,20 +59,73 @@ $this->pageTitle=Yii::app()->name;
   <div class="card-block">
     <h4 class="card-title">DUSA Analytics Dashboard</h4>
     <p class="card-text">Use the buttons below to navigate to different analytics</p>
-    <a href="#" class="btn btn-primary">Weekly Sales View</a>
-		<a href="#" class="btn btn-primary">Monthly Sales View</a>
-		<a href="#" class="btn btn-primary">Calendar View</a>
+    <button class="btn btn-primary" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i>Sales Viewer</button>
+	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i>Summary Data</button>
+	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i>Average Transaction Spend</button>
+	<button class="btn btn-primary" onclick ="SmoothScrollToCalendar()"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</button>
   </div>
-  <div class="card-footer text-muted" style="background: #153465!important;">
+  <!-- <div class="card-footer text-muted" style="background: #153465!important;">
     -
-  </div>
+  </div> -->
 </div>
 <br>
-<!-- FIRST AND SECOND CARDS WITH SUMMARY OF WEEKLY SALES DATA -->	
 
+<!-- 3 TOP CARDS -->
+<div class="row">
+	<div class="col-md-4">
+		<div class="card text-center">
+		<!-- <div class="card-header bg-primary" style="background: #153465!important;">
+			<h4> <p class="text-white"></p> </h4>
+		</div> -->
+			<div class="card-block bg-success">
+			<h3 class="card-title">Total Sales</h3>
+			<div id="totalSalesCard"> <h2>£00,00.00</h2> </div>
+			<p class="card-text">Use the buttons below to navigate to different analytics</p>
+				<button class="btn btn-primary">Current Semester</button>
+				<button class="btn btn-primary">All-Time</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+	<div class="card text-center">
+	<!-- <div class="card-header bg-primary" style="background: #153465!important;">
+			<h4> <p class="text-white"></p> </h4>
+		</div> -->
+		<div class="card-block bg-info">
+		<h3 class="card-title">Active UoD YoYo Users</h3>
+		<div id="totalUsersCard"> <h2>0</h2> </div>
+		<p class="card-text">Use the buttons below to navigate to different analytics</p>
+			<button class="btn btn-primary">Current Semester</button>
+			<button class="btn btn-primary">All-Time</button>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-4">
+<div class="card text-center">
+	<!-- <div class="card-header bg-primary" style="background: #153465!important;">
+		<h4> <p class="text-white"></p> </h4>
+	</div> -->
+	<div class="card-block bg-warning">
+	<h3 class="card-title">Average # Daily Transactions</h3>
+	<h2 class="card-title">128.3</h2>
+	<p class="card-text">Use the buttons below to navigate to different analytics</p>
+		<button class="btn btn-primary">Current Semester</button>
+		<button class="btn btn-primary">All-Time</button>
+	</div>
+</div>
+</div>
+
+
+</div>
+
+
+<!-- FIRST AND SECOND CARDS WITH SUMMARY OF WEEKLY SALES DATA -->	
   <div class="row">
     <div class="col-md-5">
   	<br>
+					<div id="salesDiv"></div>
 		<div class="card"> <!-- FIRST CARD WITH DOUGHNUT -->
 			<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-pie-chart" aria-hidden="true"></i> Sales Summary Data</p></h4>
 			<div class="card-block">
@@ -107,27 +160,12 @@ $this->pageTitle=Yii::app()->name;
 	<br>
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
 		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-credit-card" aria-hidden="true"></i> Average User Spend</p></h4>
-		<div class="card-block">
-				<div class="dropdown pull-right">
-					<button class="btn btn-secondary dropdown-toggle pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Select Data
-					</button>
-					<div class="dropdown-menu pull" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item pull-right" onClick="LoadDougnutData(1);" >Weekly data</a>
-								<a class="dropdown-item pull-right" onClick="LoadDougnutData(4);" >Monthly data</a>
-								<a class="dropdown-item pull-right" onClick="LoadDougnutData(12);" >Quarterly data</a>
-					</div>
-				</div>
-
-				<canvas id="myBarChart" width="250" height="200"> </canvas>	
-				
+			<div class="card-block">
+					<canvas id="myBarChart" width="250" height="210"> </canvas>	
+			</div>
 		</div>
-
-
-
-		</div>
-		</div>
-		</div>
+	</div>
+	</div>
 	
 </div>
 <br>
@@ -194,6 +232,7 @@ $this->pageTitle=Yii::app()->name;
 		
 	</div><!-- END OF FILTERS DIV -->
 	<br><br><br><br>
+
 		<canvas id="myChart" width="300" height="100"></canvas>
 		
 		<hr>
@@ -219,6 +258,17 @@ $this->pageTitle=Yii::app()->name;
 				</div>
   </div>
 </div>
+<!-- Calendar View -->
+<div id="CalendarView"></div>
+<div class="card text-left">
+  <div class="card-header bg-primary" style="background: #153465!important;">
+    <h4> <p class="text-white"> Calendar </p> </h4>
+  </div>
+  <div class="card-block">
+    c <br><br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><!--//template holder-->
+  </div>
+
+
 <br><br>
 
 <!-- front end scripts  -->
@@ -243,6 +293,30 @@ function ClearLineFilters()
 	document.getElementById('filterByTimeTo').value = "";
 
 };
+
+function SmoothScrollToSales()
+{
+	$('html, body').animate({
+        scrollTop: $("#noFiltersDiv").offset().top
+    }, 2000);
+
+}
+
+function SmoothScrollToCalendar()
+{
+	$('html, body').animate({
+        scrollTop: $("#CalendarView").offset().top
+    }, 2000);
+
+}
+
+function SmoothScrollToSummary()
+{
+	$('html, body').animate({
+        scrollTop: $("#salesDiv").offset().top
+    }, 2000);
+
+}
 
 </script>
 
@@ -317,11 +391,6 @@ function CreateQuickView()
                 success: function(resp){
 						//Assign Data to Chart
 						
-						//alert(resp);
-						console.log("SAVE RESPONSE: " + resp);
-
-						alert("SAVE RESPONSE: " + JSON.stringify(resp) );
-						
 
                     }
                 });
@@ -367,8 +436,6 @@ function CreateQuickViewButtons()
                     },
                 success: function(resp){
 						//Assign Data to Chart
-						 alert("RESP FOUND");
-						 alert(JSON.stringify(resp[0]));
 
 						var responseArr = [];
 						for(var i=0; i<resp.length; i++)
@@ -427,6 +494,10 @@ window.onload = function InitDashboard()
 	document.getElementById('filterByDateFrom').value = (dd);
 	document.getElementById('filterByDateTo').value = (mm);
 
+	//Init Top 3 Cards
+	LoadTotalSalesCard(4); //Calls load active users which calls load daily transactions (to avoid animation errors)
+	LoadActiveYoYoUsers();
+
 	//init avergae spend
 	LoadAverageSpendData();
 
@@ -437,6 +508,112 @@ window.onload = function InitDashboard()
 	CreateQuickViewButtons();
 
 };
+
+//Loads SAles card data for a given time period
+function LoadTotalSalesCard(length)
+{
+
+	var a = length; 
+	jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=sales/dashboard/LoadTotalSales',
+                type: "POST",
+                data: {Weeks: a},  
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+						
+						//keep adding response to total until total = resp
+						let saleslbl = $("#totalSalesCard h2").html();
+						saleslbl = saleslbl.replace("£", "");
+						saleslbl = saleslbl.replace(",","");
+						//var int = parseInt(saleslbl);
+							let $el = $("#totalSalesCard h2").html();
+								let value = resp;
+							
+							//evt.preventDefault();
+							
+							$({percentage: 0}).stop(true).animate({percentage: value}, {
+								duration : 4000,
+								easing: "easeOutExpo",
+								step: function () {
+									// percentage with 1 decimal;
+									let percentageVal = Math.round(this.percentage * 100) / 100;
+									
+									$("#totalSalesCard h2").text('£' + percentageVal);
+								}
+							}).promise().done(function () {
+								// hard set the value after animation is done to be
+								// sure the value is correct
+								$("#totalSalesCard h2").text("£" + value);
+							});
+
+
+							
+
+                    }
+                });
+
+}
+
+function LoadActiveYoYoUsers()
+{
+
+	var a=1;
+	jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=sales/dashboard/LoadActiveYoYoUsers',
+                type: "POST",
+                data: {Weeks: a},  
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+						
+						//keep adding response to total until total = resp
+						let userslbl2 = $("#totalUsersCard h2").html();
+						//var int = parseInt(userslbl);
+							let $el2 = $("#totalUsersCard h2").html();
+								let value = resp;
+							
+							//evt.preventDefault();
+							
+							$({percentage: 0}).stop(true).animate({percentage: value}, {
+								duration : 4000,
+								easing: "easeOutExpo",
+								step: function () {
+									// percentage with 1 decimal;
+									let percentageVal2 = Math.round(this.percentage);
+									
+									$("#totalUsersCard h2").text(percentageVal2);
+								}
+							}).promise().done(function () {
+								// hard set the value after animation is done to be
+								// sure the value is correct
+								$("#totalUsersCard h2").text(value);
+							});
+
+
+							//format into currency for lbl
+						
+
+                    }
+                });
+
+}
 
 //Function which takes string of selected chart items hides/shows them.
 function ApplyViewButton(values, obj)
@@ -1271,6 +1448,7 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 				fillColor: '#FF1493',
 				highlightFill: '#FF1493',
 				highlightStroke: '#FF1493',
+				fontSize: 24,
 				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
 			},
 			{
@@ -1284,6 +1462,9 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
     options: {
 		tooltips: {
 			bodyFontSize: 20,
+		},
+		legend: {
+			position: 'top',
 		},
       title: {
         display: true,
@@ -1300,7 +1481,8 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
             stepSize: 1,
             min: 0,
             autoSkip: false
-        }
+        },
+		
     }]
 }
     }

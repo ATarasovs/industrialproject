@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData', 'SaveQuickView', 'RetrieveQuickViews'),
+				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData', 'SaveQuickView', 'RetrieveQuickViews', 'LoadTotalSales', 'LoadActiveYoYoUsers'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -190,6 +190,50 @@ class DashboardController extends Controller
 		//// output some JSON instead of the usual text/html
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($lineData, JSON_FORCE_OBJECT);
+
+	}
+
+	public function actionLoadTotalSales()
+	{
+		$nWeeks = $_POST['Weeks'];
+
+		$date = date('Y-m-d H:i:s',  strtotime('-'.$nWeeks.'week'));
+		
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('Date_Time > "'.$date.'" ');
+		$search_results = Dashboard::model()->findAll($criteria);
+
+		$total_sales = 0;
+		foreach($search_results as $rec)
+		{
+			if($rec->Transaction_Type == "Payment")
+			{
+				$total_sales = $total_sales + $rec->Total_Amount;
+
+			}
+		}
+
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($total_sales, JSON_FORCE_OBJECT);
+
+	}
+
+	public function actionLoadActiveYoYoUsers()
+	{
+		//$nWeeks = $_POST['Weeks'];
+		
+		//$date = date('Y-m-d H:i:s',  strtotime('-'.$nWeeks.'week'));
+				
+		$search_results = Dashboard::model()->findAll(array(
+			'select'=>'t.New_user_id',
+			'distinct'=>true,
+		));
+		
+		$total_users = count($search_results);
+		
+		
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($total_users, JSON_FORCE_OBJECT);
 
 	}
 
