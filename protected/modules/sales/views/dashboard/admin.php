@@ -29,7 +29,10 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui');
 
 echo $URL;
 
-$this->pageTitle=Yii::app()->name;
+//$this->pageTitle=Yii::app()->name;
+
+$this->pageTitle=Yii::app()->baseUrl;
+
 ?>
 
 
@@ -267,7 +270,24 @@ $this->pageTitle=Yii::app()->name;
 				</div>
   </div>
 </div>
-<!-- Calendar View -->
+<!-- Hidden Patterns For Graphs View -->
+<div>
+</div>
+<img id="Pattern1" style="display:none;" src="http://0.gravatar.com/avatar/ca526952d47f85b2c6f4a4a953d92014?s=128&d=identicon&r=g"/>
+<img id="Pattern2" style="display:none;" src="https://line25.com/wp-content/uploads/2015/12/It-a-Geometry-Shapes.jpg"/>
+<img id="Pattern3" style="display:none;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCFwJA04y4IYUBqD65E6mxEnRyazAj7F_ht197nbwGOC9g9Q8G"/>
+<img id="Pattern4" style="display:none;" src="https://cms-assets.tutsplus.com/uploads/users/346/posts/27973/final_image/geometricpattern_final2.jpg"/>
+<img id="Pattern5" style="display:none;" src="http://img.freepik.com/free-vector/minimal-rhombus-pattern-with-dots-and-lines_1159-2413.jpg?size=338&ext=jpg"/>
+<img id="Pattern6" style="display:none;" src="https://s-media-cache-ak0.pinimg.com/originals/d7/22/51/d722517a3739dde7bbc46e299af58dcf.jpg"/>
+<img id="Pattern7" style="display:none;" src="http://slodive.com/wp-content/uploads/2013/02/black-and-white-patterns/squared.jpg"/>
+<img id="Pattern8" style="display:none;" src="http://colrd.com/misc/library/pattern/DinPattern/horton.gif"/>
+<img id="Pattern9" style="display:none;" src="http://simple-repeat.com/img/jpgimg/grid2/grid680red256.jpg"/>
+<img id="Pattern10" style="display:none;" src="http://4.bp.blogspot.com/-7vZF8swhwNs/U9-regTYTbI/AAAAAAAAAEs/PTca5aWvIFQ/s1600/pattern.jpg"/>
+<img id="Pattern11" style="display:none;" src="http://blog.imagico.de/wp-content/uploads/2015/08/triangle1.png"/>
+<img id="Pattern12" style="display:none;" src="http://lvlt.thesims3.com/sims3_asset/sims3_asset/thumb/shard000/000/063/152/06/original.jpg"/>
+<img id="Pattern13" style="display:none;" src="http://www.allpsych.uni-giessen.de/kai/Fig3.jpg"/>
+<img id="Pattern14" style="display:none;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3MIHawv5CZ5mKIkxxGv-u4jfxlSY1GXTvCsSLg8cGe31oK1LiRA"/>
+<img id="Pattern15" style="display:none;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz3O3ZpkfhvdMnZFEdyro2AM-bMsn9i7zwO_yIRNL6vq3iiRVG"/>
 
 <br><br>
 
@@ -988,20 +1008,19 @@ $(document).ready(function() {
 <!-- ############################### -->
 <!-- Initalise Doughnut -->
 <script>
+
  var ctx = document.getElementById("myDoughnutChart").getContext("2d");
 
 // Create a temporary canvas and fill it with a grid pattern
 var patternCanvas = document.createElement("canvas"),
     patternContext = patternCanvas.getContext("2d");
 
-patternCanvas.width = 10;
-patternCanvas.height = 10;
+var img=document.getElementById("Pattern3");
+var pat=patternContext.createPattern(img,"repeat");
 
-patternContext.beginPath();
-patternContext.fillStyle = "#f2cc1b";
-patternContext.fillRect(0, 0, 10, 10);
-patternContext.strokeRect(0.5, 0.5, 10, 10);
-patternContext.stroke();
+patternContext.rect(0,0,10,10);
+patternContext.fillStyle=pat;
+patternContext.fill();
 
 // Store the pattern for referencing in the Chart.js data
 var pattern = patternContext.createPattern(patternCanvas, "repeat");
@@ -1030,7 +1049,7 @@ var pattern = patternContext.createPattern(patternCanvas, "repeat");
 				 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				 backgroundColor: [
 						 "#e6194b",
-						 pattern,
+						 pat,
 						 "#ffe119",
 						 "#0082c8",
 						 "#f58231",
@@ -1043,15 +1062,12 @@ var pattern = patternContext.createPattern(patternCanvas, "repeat");
 						 "#e6beff",
 						 "#aa6e28",
 						 "#fffac8",
-						 "#800000",
-						 "#aaffc3",
-						 "#000080"
 
 						 
 				 ],
 				 hoverBackgroundColor: [
 					"#e6194b",
-					"#3cb44b",
+					pat,
 					"#ffe119",
 					"#0082c8",
 					"#f58231",
@@ -1064,11 +1080,8 @@ var pattern = patternContext.createPattern(patternCanvas, "repeat");
 					"#e6beff",
 					"#aa6e28",
 					"#fffac8",
-					"#800000",
-					"#aaffc3",
-					"#000080"
 				 ],
-				 borderWidth: 5,
+				 borderWidth: 10,
 				 borderColor: "#ffffff"
 
 		 }]
