@@ -90,56 +90,125 @@ class SiteTest extends WebTestCase
         */
         public function testSaleFilters() {
             SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=sales/sale/admin");
-            $filterElementNameArray = array(
-                "filterByYear"/*,
-                "filterByMonth"/*,
-                "filterByWeekdayFrom"/*,
-                "filterByWeekdayTo"/*,
-                "filterByDateFrom"/*,
-                "filterByDateTo"/*,
-                "filterByTimeFrom"/*,
-                "filterByTimeTo"/*,
-                "filterByTotalAmountFrom"/*,
-                "filterByTotalAmountTo"/*,
-                //"filterByRetailerName",
-                "filterByOutletName"/*,
-                "filterByTransactionType"/*,
-                "filterByUserId"*/);
             
+            //(filter_element, test_filter_value, table_element
+            $filterElementNameArray = array(
+                array("filterByYear", 2, "datetime"),
+                array("filterByMonth", 4, "datetime"),
+                array("filterByWeekdayFrom", 1, "datetime"),
+                array("filterByWeekdayTo", 6, "datetime"),
+                array("filterByOutletName", 8, "outletname"),
+                array("filterByTransactionType", 3, "transactiontype")/*,
+                array("filterByDateFrom", "", "datetime")/*,
+                array("filterByDateTo", "", "datetime")/*,
+                array("filterByTimeFrom", "", "datetime")/*,
+                array("filterByTimeTo", "", "datetime")/*,
+                array("filterByTotalAmountFrom", 5, "cashspent")/*,
+                array("filterByTotalAmountTo", 10, "cashspent")/*,
+                //array("filterByRetailerName", "Dundee Students Association", "retailername"),
+                array("filterByUserId", "dusa-5537", "userid")*/
+            );
+            
+            $weekdaysToInt = array(
+                "Monday" => 0,
+                "Tuesday" => 1,
+                "Wednesday" => 2,
+                "Thursday" => 3,
+                "Friday" => 4,
+                "Saturday" => 5,
+                "Sunday" => 6,
+            );
+            
+            //used to make sure no infinite loops happen
+            $infLoop = false;
             
             for ($i=0; $i<count($filterElementNameArray); $i++) {
-                $filter = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id($filterElementNameArray[$i]));
-                
+                SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("advancedFiltersBtn"))->click();
+                $correct = true;
+                $filter = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id($filterElementNameArray[$i][0]));
+                $valueChosen = null;
                 switch ($i) {
-                    //year
+                    //year:
                     case 0:
-                        $filter->click();
-                        $options = $filter->findElements(\Facebook\WebDriver\WebDriverBy::tagName('option'));
-                        $options[2]->click();
-                        break;
-                    //month
+                    //month:
                     case 1:
-                        break;
-                    //weekday
+                    //weekday from/to:
                     case 2:
                     case 3:
-                        break;
-                    //date
+                    //outlet:
                     case 4:
+                    //transaction type:
                     case 5:
+                        $filter->click();
+                        $options = $filter->findElements(\Facebook\WebDriver\WebDriverBy::tagName('option'));
+                        $valueChosen = $options[$filterElementNameArray[$i][1]]->getText();
+                        $options[$filterElementNameArray[$i][1]]->click();
                         break;
-                    //time
+                    //date:
                     case 6:
                     case 7:
+                        break;
+                    //time:
+                    case 8:
+                    case 9:
                         break;
                     default:
                 }
                 SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('searchBtn'))->click();
-                /*
-                for ($i=0; $i<10; $i++) {
-                    
+                
+                $tableRecords = SiteTest::$driver->findElements(\Facebook\WebDriver\WebDriverBy::className($filterElementNameArray[$i][2]));
+                
+                //If too few records, unset and try again
+                if (!isset($tableRecords) || count($tableRecords) < 10) {
+                    SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("unsetFiltersBtn"))->click();
+                    if (!$infLoop) {
+                        $infLoop = true;
+                        $i--;
+                        continue;
+                    } else {
+                        throwException("Infinite loop prevented, make sure each filter gets at least ten records on its own!");
+                    }
                 }
-                */
+                
+                $infLoop = false;
+                for ($j=0; $j<10; $j++) {
+                    switch ($i) {
+                        //year
+                        case 0:
+                            $dateTime = DateTime::createFromFormat("Y-m-d G:i:s", $tableRecords[$j]->getText());
+                            if ($dateTime->format('Y') != $valueChosen) $correct = false;
+                            break;
+                        //month
+                        case 1:
+                            $dateTime = DateTime::createFromFormat("Y-m-d G:i:s", $tableRecords[$j]->getText());
+                            if ($dateTime->format('F') != $valueChosen) $correct = false;
+                            break;
+                        //weekday from
+                        case 2:
+                            $dateTime = DateTime::createFromFormat("Y-m-d G:i:s", $tableRecords[$j]->getText());
+                            if ($weekdaysToInt[$dateTime->format('l')][1] < $weekdaysToInt[$valueChosen][1]) $correct = false;
+                            break;
+                        //weekdays to
+                        case 3:
+                            $dateTime = DateTime::createFromFormat("Y-m-d G:i:s", $tableRecords[$j]->getText());
+                            if ($weekdaysToInt[$dateTime->format('l')][1] > $weekdaysToInt[$valueChosen][1]) $correct = false;
+                            break;
+                        //outlet/transaction type
+                        case 4:
+                        case 5:
+                            if ($tableRecords[$j]->getText() != $valueChosen) $correct = false;
+                        //date
+                        case 6:
+                        case 7:
+                            break;
+                        //time
+                        case 8:
+                        case 9:
+                            break;
+                        default:
+                    }
+                }
+                $this->assertTrue($correct, $filterElementNameArray[$i][0]." did not pass");
             }
             
         }
