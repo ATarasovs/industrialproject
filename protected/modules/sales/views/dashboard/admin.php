@@ -313,12 +313,12 @@ function generatePatternsArr()
 		patternArr[i] = pat;
 	}
 
-	EnableAccessability(patternArr);
+	EnableAccessibility(patternArr);
 	
 
 }
 
-function EnableAccessability(patternArr)
+function EnableAccessibility(patternArr)
 {
 	//Doughnut
 	myDoughnutChart.data.datasets[0].backgroundColor=patternArr;
