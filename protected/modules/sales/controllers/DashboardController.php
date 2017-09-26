@@ -91,6 +91,16 @@ class DashboardController extends Controller
 		$ViewName = $_POST['ViewName'];
 		$Description = $_POST['ViewDescription'];
 
+		if($SelectedArr == ""){ $SelectedArr = null;}
+		if($WeekdayFrom == ""){ $WeekdayFrom = null;}
+		if($WeekdayTo == ""){ $WeekdayTo = null;}
+		if($TimeFrom == ""){ $TimeTo = null;}
+		if($TimeTo == ""){ $TimeTo = null;}
+		if($DateFrom == ""){ $DateFrom = null;}
+		if($DateTo == ""){ $DateTo = null;}
+		if($ViewName == ""){ $ViewName = "Un-named";}
+		if($Description == ""){ $Description = "No descrption provided";}
+
 		$return = ["UID:".$UserID, $SelectedArr, $UserID, $DateFrom, $DateTo, $WeekdayFrom, $WeekdayTo, $TimeFrom, $TimeTo, $ViewName, $Description];
 
 		//ADD TO DB RETURN BOOL
@@ -114,10 +124,8 @@ class DashboardController extends Controller
 		if($QuickView->save())
 		{
 			$return = "SAVE WORKED";
+			Yii::app()->user->setFlash('success', "Quick view saved!");
 		}
-		
-
-
 		
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($return, JSON_FORCE_OBJECT);
@@ -567,7 +575,6 @@ class DashboardController extends Controller
 	//Load average speend bar chart data
 	function loadAverageSpend($month)
 	{
-		$arrOutlets = Dashboard::model()->outletsArray();
 		
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('Date_Time > "'.$month.'" ');
@@ -578,6 +585,7 @@ class DashboardController extends Controller
 		$arrOutlets = Dashboard::model()->outletsArray();
 
 		unset($arrOutlets[0]); //remove dusa market place for now as it skews graph data 
+		unset($arrOutlets[9]);
 
 		$arrOutlets = array_values($arrOutlets);
 		
@@ -604,7 +612,8 @@ class DashboardController extends Controller
 
 					}
 				}
-				
+
+					
 				
 
 			$lineChartDataArr[] = $hourTotal;
@@ -614,7 +623,7 @@ class DashboardController extends Controller
 		//Calculate the averages for each total based on total/number of records which make up total
 		$avg = 0;
 		$averages = [];
-		for($i = 0; $i<16; $i++)
+		for($i = 0; $i<12; $i++)
 		{
 			$t1 = $lineChartDataArr[$i];
 			$t2 = $lineChartDataArr2[$i];

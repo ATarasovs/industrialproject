@@ -161,6 +161,10 @@ $this->pageTitle=Yii::app()->name;
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
 		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-credit-card" aria-hidden="true"></i> Average User Spend</p></h4>
 			<div class="card-block">
+
+			
+
+
 					<canvas id="myBarChart" width="250" height="210"> </canvas>	
 			</div>
 		</div>
@@ -170,6 +174,7 @@ $this->pageTitle=Yii::app()->name;
 </div>
 <br>
 <!-- THIRD CARD WITH DETAILED WEEKLY SALES DATA -->
+<div id="startOfSales"> </div> <!-- used for smooth scroll -->
 <div class="card text-left">
   <div class="card-header bg-primary" style="background: #153465!important;">
     <h4><p class="text-white"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Data Viewer</p> </h4>
@@ -248,26 +253,21 @@ $this->pageTitle=Yii::app()->name;
 					<button id="clearUserViews" onclick="ClearUserViews()" class="btn btn-danger"> Clear User Created Views </button> &nbsp;
 						<div id="quickviews" class="quickviews" style="display:none;">
 						<br><br>
-							<input type="text" class="form-control" id="quickViewName"> </input>
-							<br>
-							<input type="text" class="form-control" id="quickViewDescription"> </input>
-							<br>
-							<button id="New" value="New" class="btn btn-success" onclick="CreateQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>Create New</button> &nbsp;
-							<br> <br>
+							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+							<div class="input-group-addon"><i class="fa fa-font" aria-hidden="true"></i></i></div>
+								<input type="text" class="form-control" id="quickViewName" placeholder="Quick View Name"></input> &nbsp; &nbsp;
+								<br>
+								<div class="input-group-addon"><i class="fa fa-comment" aria-hidden="true"></i></i></div>
+								<input type="text" class="form-control" id="quickViewDescription" placeholder="Quick View Description"> </input> &nbsp; &nbsp;
+								<br>
+								<button id="New" value="New" class="btn btn-success" onclick="CreateQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>Create New</button> &nbsp;
+								<br> <br>
+							</div>
 						</div>
 				</div>
   </div>
 </div>
 <!-- Calendar View -->
-<div id="CalendarView"></div>
-<div class="card text-left">
-  <div class="card-header bg-primary" style="background: #153465!important;">
-    <h4> <p class="text-white"> Calendar </p> </h4>
-  </div>
-  <div class="card-block">
-    c <br><br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><!--//template holder-->
-  </div>
-
 
 <br><br>
 
@@ -297,23 +297,24 @@ function ClearLineFilters()
 function SmoothScrollToSales()
 {
 	$('html, body').animate({
-        scrollTop: $("#noFiltersDiv").offset().top
+        scrollTop: $("#startOfSales").offset().top
     }, 2000);
 
 }
 
-function SmoothScrollToCalendar()
-{
-	$('html, body').animate({
-        scrollTop: $("#CalendarView").offset().top
-    }, 2000);
-
-}
 
 function SmoothScrollToSummary()
 {
 	$('html, body').animate({
         scrollTop: $("#salesDiv").offset().top
+    }, 2000);
+
+}
+
+function SmoothScrollToCreateView()
+{
+	$('html, body').animate({
+        scrollTop: $("#myChart").offset().top
     }, 2000);
 
 }
@@ -345,6 +346,8 @@ function AddItemQuickView(val)
 //lineView = global js array which stores selecte values
 function CreateQuickView()
 {
+
+
 	var views = new Array();
 	var timeFrom = $('#filterByTimeFrom').val();
 	var timeTo = $('#filterByTimeTo').val();
@@ -389,7 +392,20 @@ function CreateQuickView()
                     }
                     },
                 success: function(resp){
-						//Assign Data to Chart
+						
+					<?php
+					Yii::app()->clientScript->registerScript(
+					'myHideEffect',
+					'$(".info").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+					CClientScript::POS_READY
+					);
+					?>
+
+					<?php if(Yii::app()->user->hasFlash('success')):?>
+					<div class="info">
+						<?php echo Yii::app()->user->getFlash('success'); ?>
+					</div>
+					<?php endif; ?>
 						
 
                     }
@@ -410,6 +426,8 @@ function CreateQuickView()
 //Function which shows/hides the quick view creator
 function SetQuickView()
 {
+	SmoothScrollToCreateView();
+
 	document.getElementById('quickviews').style.display = "inline";
 
 	document.getElementById('quickviewbutton').style.display = "none";
@@ -451,12 +469,12 @@ function CreateQuickViewButtons()
 
 
 						for(var i=0; i<respArr.length; i++)
-						{
+						{	console.log(resp[i]);
 							let button = document.createElement("button");
 							button.className = "btn btn-primary"
 							button.innerHTML = respArr[i][2];		//assign button quick view name
 							button.value = respArr[i][3];		//assign button selected/deselected item string
-							button.title = respArr[i][10];
+							button.title = respArr[i][8];
 							button.id = "user-view-btn";
 
 							let buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
@@ -485,6 +503,17 @@ function CreateQuickViewButtons()
 window.onload = function InitDashboard()
 {
 
+
+	//Init Top 3 Cards
+	LoadTotalSalesCard(4); //Calls load active users which calls load daily transactions (to avoid animation errors)
+	LoadActiveYoYoUsers();
+
+	//Init DoughnutChart with monthly data
+	LoadDougnutData(4);
+
+	//init avergae spend
+	LoadAverageSpendData();
+
 	//Init line graph with most recent week of data (minus one month right now so daata shows)
 	var today = new Date();
 	var mm = today.getFullYear()+'-'+'0'+(today.getMonth())+'-'+today.getDate();
@@ -493,16 +522,6 @@ window.onload = function InitDashboard()
 
 	document.getElementById('filterByDateFrom').value = (dd);
 	document.getElementById('filterByDateTo').value = (mm);
-
-	//Init Top 3 Cards
-	LoadTotalSalesCard(4); //Calls load active users which calls load daily transactions (to avoid animation errors)
-	LoadActiveYoYoUsers();
-
-	//init avergae spend
-	LoadAverageSpendData();
-
-	//Init DoughnutChart with monthly data
-	LoadDougnutData(4);
 
 	//Init user created quick views
 	CreateQuickViewButtons();
@@ -622,8 +641,6 @@ function ApplyViewButton(values, obj)
 	var valuesArr = $.map(obj, function(value, index) {
 		return [value];
 	});
-	
-
 
 	var result = values.slice(2, -2);
 
@@ -746,16 +763,6 @@ var myChart = new Chart(ctx, {
 			fill: false
 			}, { 
 			data: [0,0,0,0,0,0,0],
-			label: "DUSA The Union Online",
-			borderColor: "#3cb44b",
-			fill: false
-			}, { 
-			data: [0,0,0,0,0,0,0],
-			label: "Online Dundee University Students Association",
-			borderColor: "#ffe119",
-			fill: false
-			},{ 
-			data: [0,0,0,0,0,0,0],
 			label: "Premier Shop",
 			borderColor: "#0082c8",
 			fill: false
@@ -774,17 +781,11 @@ var myChart = new Chart(ctx, {
 			label: "Ninewells Shop",
 			borderColor: "#46f0f0",
 			fill: false
-			},{ 
-			data: [0,0,0,0,0,0,0],
-			label: "DOJ Catering",
-			borderColor: "#f032e6",
-			fill: false
 			},{
 			data: [0,0,0,0,0,0,0],
 			label: "College Shop",
 			borderColor: "#800000",
 			fill: false
-
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Mono",
@@ -802,7 +803,7 @@ var myChart = new Chart(ctx, {
 			fill: false
 			},{ 
 			data: [0,0,0,0,0,0,0],
-			label: "Remote Campus Shop",
+			label: "Premier Shop - Yoyo Accept",
 			borderColor: "#e6beff",
 			fill: false
 			},{ 
@@ -989,23 +990,36 @@ $(document).ready(function() {
 <script>
  var ctx = document.getElementById("myDoughnutChart").getContext("2d");
 
+// Create a temporary canvas and fill it with a grid pattern
+var patternCanvas = document.createElement("canvas"),
+    patternContext = patternCanvas.getContext("2d");
+
+patternCanvas.width = 10;
+patternCanvas.height = 10;
+
+patternContext.beginPath();
+patternContext.fillStyle = "#f2cc1b";
+patternContext.fillRect(0, 0, 10, 10);
+patternContext.strokeRect(0.5, 0.5, 10, 10);
+patternContext.stroke();
+
+// Store the pattern for referencing in the Chart.js data
+var pattern = patternContext.createPattern(patternCanvas, "repeat");
+
  var myDoughnutChart = new Chart(ctx, {
 		 type: 'doughnut',
 		 data: {
  			labels: [
 				"DUSA The Union - Marketplace",
-				"DUSA The Union Online",
-				"Online Dundee University Students Association",
 				"Premier Shop",
 				"DJCAD Cantina",
 				"Library",
 				"Ninewells Shop",
-				"DOJ Catering",
 				"College Shop",
 				"Mono",
 				"Liar Bar",
 				"Air Bar",
-				"Remote Campus Shop",
+				"Premier Shop - Yoyo Accept",
 				"Level 2, Reception",
 				"Floor Five",
 				"Dental Café",
@@ -1013,10 +1027,10 @@ $(document).ready(function() {
 			],
  datasets: [
 		 {
-				 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+				 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				 backgroundColor: [
 						 "#e6194b",
-						 "#3cb44b",
+						 pattern,
 						 "#ffe119",
 						 "#0082c8",
 						 "#f58231",
@@ -1424,18 +1438,14 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
     type: 'bar',
     data: {
 		labels: [
-				"DUSA The Union Online",
-				"Online Dundee University Students Association",
 				"Premier Shop",
 				"DJCAD Cantina",
 				"Library",
 				"Ninewells Shop",
-				"DOJ Catering",
 				"College Shop",
 				"Mono",
 				"Liar Bar",
 				"Air Bar",
-				"Remote Campus Shop",
 				"Level 2, Reception",
 				"Floor Five",
 				"Dental Café",
@@ -1449,13 +1459,13 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 				highlightFill: '#FF1493',
 				highlightStroke: '#FF1493',
 				fontSize: 24,
-				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 			},
 			{
 				label: "Previous Month Average Transaction Spend £",
 				backgroundColor: '#2D66F1',
 				fillColor: '#2D66F1',
-				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 			}  
 			]
     },
@@ -1494,8 +1504,8 @@ function LoadAverageSpendData()
 	var currentMonth = new Date();
 	var previousMonth = new Date();
 
-	currentMonth.setMonth(currentMonth.getMonth()-2);		//loads average spend from 2 and 3 months ago (as there is no current data)
-	previousMonth.setMonth(previousMonth.getMonth()-3);
+	currentMonth.setMonth(currentMonth.getMonth()-3);		//loads average spend from 2 and 3 months ago (as there is no current data)
+	previousMonth.setMonth(previousMonth.getMonth()-4);
 	
 	currentMonth = currentMonth.toISOString().split('T')[0];
 	previousMonth = previousMonth.toISOString().split('T')[0];
@@ -1525,7 +1535,6 @@ function LoadAverageSpendData()
                 success: function(resp){
 						//Assign Data to Chart
 						//alert(Object.keys(resp).length); 
-
 						console.log("SUM DAT: " + JSON.stringify(resp));
 
 						//Load Chart Data
