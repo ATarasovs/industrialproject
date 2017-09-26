@@ -105,7 +105,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
                 <select id="filterByMonth" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Month">
                     <option value="">Select month</option>
-                    <option value="1">Janurary</option>
+                    <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
                     <option value="4">April</option>

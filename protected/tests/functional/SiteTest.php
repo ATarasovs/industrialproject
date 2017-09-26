@@ -52,8 +52,6 @@ class SiteTest extends WebTestCase
             
             SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             
-            SiteTest::$driver->wait(10)->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains('My Web Application'));
-            
             $this->assertEquals('http://localhost/industrialproject/index.php?r=sales/dashboard/admin', SiteTest::$driver->getCurrentURL());
 	}
         /*
@@ -91,15 +89,15 @@ class SiteTest extends WebTestCase
         public function testSaleFilters() {
             SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=sales/sale/admin");
             
-            //(filter_element, test_filter_value, table_element
+            //(filter_element, test_filter_value_or_index, table_element
             $filterElementNameArray = array(
                 array("filterByYear", 2, "datetime"),
                 array("filterByMonth", 4, "datetime"),
                 array("filterByWeekdayFrom", 1, "datetime"),
                 array("filterByWeekdayTo", 6, "datetime"),
-                array("filterByOutletName", 8, "outletname"),
-                array("filterByTransactionType", 3, "transactiontype")/*,
-                array("filterByDateFrom", "", "datetime")/*,
+                array("filterByOutletName", 9, "outletname"),
+                array("filterByTransactionType", 3, "transactiontype"),
+                array("filterByDateFrom", "", "datetime"),
                 array("filterByDateTo", "", "datetime")/*,
                 array("filterByTimeFrom", "", "datetime")/*,
                 array("filterByTimeTo", "", "datetime")/*,
@@ -122,7 +120,7 @@ class SiteTest extends WebTestCase
             //used to make sure no infinite loops happen
             $infLoop = false;
             
-            for ($i=0; $i<count($filterElementNameArray); $i++) {
+            for ($i=6; $i<count($filterElementNameArray); $i++) {
                 SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("advancedFiltersBtn"))->click();
                 $correct = true;
                 $filter = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id($filterElementNameArray[$i][0]));
@@ -147,6 +145,8 @@ class SiteTest extends WebTestCase
                     //date:
                     case 6:
                     case 7:
+                        $filter->click();
+                        $filter->findElements(\Facebook\WebDriver\WebDriverBy::className('flatpickr-prev-month'));
                         break;
                     //time:
                     case 8:
@@ -166,7 +166,7 @@ class SiteTest extends WebTestCase
                         $i--;
                         continue;
                     } else {
-                        throwException("Infinite loop prevented, make sure each filter gets at least ten records on its own!");
+                        throwException("Infinite loop prevented, make sure each test filter finds at least ten records on its own!");
                     }
                 }
                 
@@ -197,6 +197,7 @@ class SiteTest extends WebTestCase
                         case 4:
                         case 5:
                             if ($tableRecords[$j]->getText() != $valueChosen) $correct = false;
+                            break;
                         //date
                         case 6:
                         case 7:
