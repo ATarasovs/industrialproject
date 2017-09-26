@@ -408,7 +408,7 @@ function CreateQuickView()
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        alert("else: "+e.message); // the great unknown
+                        //alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
@@ -469,7 +469,7 @@ function CreateQuickViewButtons()
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        alert("else: "+e.message); // the great unknown
+                        //alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
@@ -564,7 +564,7 @@ function LoadTotalSalesCard(length)
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        alert("else: "+e.message); // the great unknown
+                        //alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
@@ -617,7 +617,7 @@ function LoadActiveYoYoUsers()
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        alert("else: "+e.message); // the great unknown
+                        //alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
@@ -1144,7 +1144,7 @@ function LoadDougnutData(length)
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        alert("else: "+e.message); // the great unknown
+                        //alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
@@ -1286,7 +1286,7 @@ function LoadLineChartData(length, date, dateTo)
 					alert(" We have an error ");
 					alert(tStatus+"   "+e.message);
 				}else{
-						alert("else: "+e.message); // the great unknown
+						//alert("else: "+e.message); // the great unknown
 				}
 			},
 			success: function(resp){
@@ -1542,7 +1542,7 @@ function LoadAverageSpendData()
                         alert(" We have an error ");
                         alert(tStatus+"   "+e.message);
                     }else{
-                        alert("else: "+e.message); // the great unknown
+                        //alert("else: "+e.message); // the great unknown
                     }
                     },
                 success: function(resp){
