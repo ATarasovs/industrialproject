@@ -138,7 +138,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
                 <?php 
-                   echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name'));
+                   echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name', 'multiple' => 'multiple'));
                 ?>
                 <!--<input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">-->
             </div>

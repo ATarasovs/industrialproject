@@ -143,17 +143,15 @@ function search() {
     var totalAmountFrom = $("#filterByTotalAmountFrom").val();
     var totalAmountTo = $("#filterByTotalAmountTo").val();
     
-    var outletNameUrl = "";
-    
     var arrayLength = outletName.length;
     for (var i = 0; i < arrayLength; i++) {
-        outletNameUrl += "&outlet" + [i] + "=" + outletName[i];
+        var outletNameUrl =+ "&outletname=" + outletName[i];
     }
     console.log(outletNameUrl);
 
     
 
-    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + outletNameUrl + "&userid=" + userId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
+//    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&userid=" + userId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
    
 }
 

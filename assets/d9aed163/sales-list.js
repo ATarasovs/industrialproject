@@ -147,7 +147,7 @@ function search() {
     
     var arrayLength = outletName.length;
     for (var i = 0; i < arrayLength; i++) {
-        outletNameUrl += "&outlet" + [i] + "=" + outletName[i];
+        outletNameUrl += "&outletname=" + outletName[i];
     }
     console.log(outletNameUrl);
 

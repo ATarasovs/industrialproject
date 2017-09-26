@@ -77,7 +77,20 @@ class SaleController extends Controller
             $weekdayto = Yii::app()->request->getParam('weekdayto');
             $year = Yii::app()->request->getParam('year');
             $month = Yii::app()->request->getParam('month');
-            $outletname = Yii::app()->request->getParam('outlet');
+            $outletname0 = Yii::app()->request->getParam('outlet0');
+            $outletname1 = Yii::app()->request->getParam('outlet1');
+            $outletname2 = Yii::app()->request->getParam('outlet2');
+            $outletname3 = Yii::app()->request->getParam('outlet3');
+            $outletname4 = Yii::app()->request->getParam('outlet4');
+            $outletname5 = Yii::app()->request->getParam('outlet5');
+            $outletname6 = Yii::app()->request->getParam('outlet6');
+            $outletname7 = Yii::app()->request->getParam('outlet7');
+            $outletname8 = Yii::app()->request->getParam('outlet8');
+            $outletname9 = Yii::app()->request->getParam('outlet9');
+            $outletname10 = Yii::app()->request->getParam('outlet10');
+            $outletname11 = Yii::app()->request->getParam('outlet11');
+            $outletname12 = Yii::app()->request->getParam('outlet12');
+            $outletname13 = Yii::app()->request->getParam('outlet13');
             $retailername = Yii::app()->request->getParam('retailer');
             $userid = Yii::app()->request->getParam('userid');
             $transactiontype = Yii::app()->request->getParam('transactiontype');
@@ -149,8 +162,61 @@ class SaleController extends Controller
              }
 
             
-            if ($outletname != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname'");
+            if ($outletname0 != "") {
+                $criteria->compare("Outlet_Name", $outletname0, "OR");
+            }
+            
+            if ($outletname1 != "") {
+                $criteria->compare("Outlet_Name", $outletname1, "OR");
+            }
+            
+            if ($outletname2 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname2'");
+            }
+            
+            if ($outletname3 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname3'");
+            }
+            
+            if ($outletname4 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname4'");
+            }
+            
+            if ($outletname5 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname5'");
+            }
+            
+            if ($outletname6 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname6'");
+            }
+            
+            if ($outletname7 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname7'");
+            }
+            
+            
+            if ($outletname8 != "") {
+                $criteria->addCondition("Retailer_Name = '$outletname8'");
+            }
+            
+            if ($outletname9 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname9'");
+            }
+            
+            if ($outletname10 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname10'");
+            }
+            
+            if ($outletname11 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname11'");
+            }
+            
+            if ($outletname12 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname12'");
+            }
+            
+            if ($outletname13 != "") {
+                $criteria->addCondition("Outlet_Name = '$outletname13'");
             }
             
             if ($retailername != "") {
