@@ -25,7 +25,7 @@ class SiteTest extends WebTestCase
 	{
             SiteTest::$driver->get("http://localhost/industrialproject/index.php");
             SiteTest::$driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
-            
+            /*
             //Test no details
             SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username_em_'));
@@ -41,7 +41,7 @@ class SiteTest extends WebTestCase
             SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             $em = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password_em_'));
             $this->assertEquals('Incorrect username or password.', $em->getText());
-            
+            */
             //Test correct details
             $lgUser = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username'));
             $lgPass = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password'));
@@ -56,7 +56,7 @@ class SiteTest extends WebTestCase
             
             $this->assertEquals('http://localhost/industrialproject/index.php?r=sales/dashboard/admin', SiteTest::$driver->getCurrentURL());
 	}
-        
+        /*
         public function testCreateUser() {
             SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=users/user/create");
             
@@ -86,6 +86,62 @@ class SiteTest extends WebTestCase
             $results = SiteTest::$driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector("td"));
             
             $this->assertEquals("1234", $results[5]->getText());
+        }
+        */
+        public function testSaleFilters() {
+            SiteTest::$driver->get("http://localhost/industrialproject/index.php?r=sales/sale/admin");
+            $filterElementNameArray = array(
+                "filterByYear"/*,
+                "filterByMonth"/*,
+                "filterByWeekdayFrom"/*,
+                "filterByWeekdayTo"/*,
+                "filterByDateFrom"/*,
+                "filterByDateTo"/*,
+                "filterByTimeFrom"/*,
+                "filterByTimeTo"/*,
+                "filterByTotalAmountFrom"/*,
+                "filterByTotalAmountTo"/*,
+                //"filterByRetailerName",
+                "filterByOutletName"/*,
+                "filterByTransactionType"/*,
+                "filterByUserId"*/);
+            
+            
+            for ($i=0; $i<count($filterElementNameArray); $i++) {
+                $filter = SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id($filterElementNameArray[$i]));
+                
+                switch ($i) {
+                    //year
+                    case 0:
+                        $filter->click();
+                        $options = $filter->findElements(\Facebook\WebDriver\WebDriverBy::tagName('option'));
+                        $options[2]->click();
+                        break;
+                    //month
+                    case 1:
+                        break;
+                    //weekday
+                    case 2:
+                    case 3:
+                        break;
+                    //date
+                    case 4:
+                    case 5:
+                        break;
+                    //time
+                    case 6:
+                    case 7:
+                        break;
+                    default:
+                }
+                SiteTest::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('searchBtn'))->click();
+                /*
+                for ($i=0; $i<10; $i++) {
+                    
+                }
+                */
+            }
+            
         }
           
         public static function tearDownAfterClass() {
