@@ -45,7 +45,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
     </div>
     <div id="tribeDescription" class="hide">
         <?php foreach($tribes as $tribe) { ?>
-            <div class="description"><?php echo $tribe->title; ?>: <?php echo $tribe->description; ?></div>
+        <div class="description"><b><?php echo $tribe->title; ?>:</b> <?php echo $tribe->description; ?></div>
         <?php } ?>
     </div>
     <br/>
