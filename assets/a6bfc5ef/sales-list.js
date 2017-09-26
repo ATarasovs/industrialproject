@@ -51,11 +51,7 @@ function initButtons() {
     });
     
     $( "#createTribeBtn" ).click(function() {
-        $( "#createTribe" ).toggleClass( "hide" );
-    });
-    
-    $( "#tribeDescriptionsBtn" ).click(function() {
-        $( "#tribeDescription" ).toggleClass( "hide" );
+        $( "#createTribe" ).removeClass( "hide" );
     });
     
     $( "#saveTribeBtn" ).click(function() {
@@ -76,12 +72,9 @@ function initButtons() {
         var totalAmountFrom = $("#filterByTotalAmountFrom").val();
         var totalAmountTo = $("#filterByTotalAmountTo").val();
         
-        if (title == "" || description == "") {
-            alert("One of the required fields is empty. Title and description should not be empty.");
-        }
-        else {
-            location.href = saveTribeReqUrl + "&title=" + title + "&description=" + description + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&newuserid=" + newUserId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
-        }
+//        console.log(title);
+//        console.log(description);
+        location.href = saveTribeReqUrl + "&title=" + title + "&description=" + description + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&newuserid=" + newUserId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
     });
     
     $( ".tribeBtn" ).click(function() {

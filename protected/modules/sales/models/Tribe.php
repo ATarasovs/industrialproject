@@ -41,7 +41,7 @@ class Tribe extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
+			array('title, description', 'required'),
 			array('title, dateFrom, dateTo, timeFrom, timeTo, weekdayFrom, weekdayTo, year, month, totalAmountFrom, totalAmountTo, retailer, outletName, transactionType, new_user_ID, userID', 'length', 'max'=>45),
 			array('description', 'length', 'max'=>60),
 			// The following rule is used by search().

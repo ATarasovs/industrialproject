@@ -36,19 +36,17 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
 <h1>List of Sales</h1>
     <br/>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <?php foreach($tribes as $tribe) { ?>
-                <button value="<?php echo $tribe->dateFrom; ?>;<?php echo $tribe->dateTo; ?>;<?php echo $tribe->timeFrom; ?>;<?php echo $tribe->timeTo; ?>;<?php echo $tribe->weekdayFrom; ?>;<?php echo $tribe->weekdayTo; ?>;<?php echo $tribe->year; ?>;<?php echo $tribe->month; ?>;<?php echo $tribe->totalAmountFrom; ?>;<?php echo $tribe->totalAmountTo; ?>;<?php echo $tribe->retailer; ?>;<?php echo $tribe->outletName; ?>;<?php echo $tribe->transactionType; ?>;<?php echo $tribe->new_user_ID; ?>;" class="tribeBtn"><?php echo $tribe->title; ?></button>
+                <button value="<?php echo $tribe->dateFrom; ?>;<?php echo $tribe->dateTo; ?>;<?php echo $tribe->timeFrom; ?>;<?php echo $tribe->timeTo; ?>;<?php echo $tribe->weekdayFrom; ?>;<?php echo $tribe->weekdayTo; ?>;<?php echo $tribe->year; ?>;<?php echo $tribe->month; ?>;<?php echo $tribe->totalAmountFrom; ?>;<?php echo $tribe->totalAmountTo; ?>;<?php echo $tribe->retailer; ?>;<?php echo $tribe->outletName; ?>;<?php echo $tribe->transactionType; ?>;<?php echo $tribe->new_user_ID; ?>;" class="tribeBtn btn btn-primary"><?php echo $tribe->title; ?></button>
             <?php } ?>
+                <button id="tribeDescriptionsBtn" class="btn btn-info">View Descriptions</button>
         </div>
-        <div class="col-md-6">
-            <button id="createTribeBtn">Create tribe</button><br/>
-            <div class="hide" id="createTribe">
-                <input id="title" placeholder="Title"/><br/>
-                <textarea id="description" placeholder="Description"></textarea><br/>
-                <button id="saveTribeBtn">Save tribe</button>
-            </div>
-        </div>
+    </div>
+    <div id="tribeDescription" class="hide">
+        <?php foreach($tribes as $tribe) { ?>
+        <div class="description"><b><?php echo $tribe->title; ?>:</b> <?php echo $tribe->description; ?></div>
+        <?php } ?>
     </div>
     <br/>
     <div class="row">
@@ -131,45 +129,54 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             </div>
         </div>
         <div class="form-group col-md-6">
-            <div id="hidden" class="hide">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                    <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer" disabled="disabled">
-                </div>
-                <br/>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer" disabled="disabled">
+            </div>
+            <br/>
 
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                    <?php 
-                       echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name'));
-                    ?>
-                    <!--<input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">-->
-                </div>
-                <br/>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <?php 
+                   echo CHtml::dropDownList('outletName', 'outletName', $outletsArray, array('class' => 'form-control filterInput', 'id' => 'filterByOutletName', 'empty' => 'Filter by outlet name'));
+                ?>
+                <!--<input id="filterByOutletName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by outlet name">-->
+            </div>
+            <br/>
 
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                    <?php 
-                       echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
-                    ?>
-                        <!--<input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">-->
-                </div>
-                <br/>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <?php 
+                   echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
+                ?>
+                    <!--<input id="filterByTransactionType" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by transaction type">-->
+            </div>
+            <br/>
 
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                    <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
-                </div>
-
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
             </div>
         </div>
     </div>
     
     <div class="form-group col-md-6">
-        <button id="advancedFiltersBtn" class="btn btn-primary">Advanced Filters</button> &nbsp;
         <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
-        <button id="unsetFiltersBtn" class="btn btn-primary">Unset Filters</button>
+        <button id="unsetFiltersBtn" class="btn btn-danger">Unset Filters</button> &nbsp; 
+        <button id="createTribeBtn" class="btn btn-success">Create Tribe</button> &nbsp;
     </div>
+    <div class="col-md-4 hide" id="createTribe">
+        <h4> Create Tribe </h4>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <input id="title" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Title:">
+        </div> <br/>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+            <textarea id="description" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Description:"></textarea>
+        </div><br/>
+        <button id="saveTribeBtn" class="btn btn-success">Save tribe</button>
+    </div> <br/>
    
 <table id="sales" class="table">
     <thead class="thead-inverse">
