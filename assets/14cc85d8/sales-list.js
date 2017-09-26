@@ -59,48 +59,7 @@ function initButtons() {
     });
     
     $( "#saveTribeBtn" ).click(function() {
-        var title = $("#title").val();
-        var description = $("#description").val();
-        var dateFrom = $("#filterByDateFrom").val();
-        var dateTo = $("#filterByDateTo").val();
-        var timeFrom = $("#filterByTimeFrom").val();
-        var timeTo = $("#filterByTimeTo").val();
-        var weekdayFrom = $("#filterByWeekdayFrom").val();
-        var weekdayTo = $("#filterByWeekdayTo").val();
-        var year = $("#filterByYear").val(); 
-        var month = $("#filterByMonth").val();
-        var retailerName = $("#filterByRetailerName").val();
-        var outletName = $("#filterByOutletName").val();
-        var newUserId = $("#filterByUserId").val();
-        var transactionType = $("#filterByTransactionType").val();    
-        var totalAmountFrom = $("#filterByTotalAmountFrom").val();
-        var totalAmountTo = $("#filterByTotalAmountTo").val();
-        
-//        console.log(title);
-//        console.log(description);
-        location.href = saveTribeReqUrl + "&title=" + title + "&description=" + description + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&newuserid=" + newUserId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
-    });
-    
-    $( ".tribeBtn" ).click(function() {
-        var tribeID = $(this).val();
-        console.log(tribeID);
-        var splitTribe = tribeID.split(";");
-        $("#filterByDateFrom").val(splitTribe[0]);
-        $("#filterByDateTo").val(splitTribe[1]);
-        $("#filterByTimeFrom").val(splitTribe[2]);
-        $("#filterByTimeTo").val(splitTribe[3]);
-        $("#filterByWeekdayFrom").val(splitTribe[4]);
-        $("#filterByWeekdayTo").val(splitTribe[5]);
-        $("#filterByYear").val(splitTribe[6]);
-        $("#filterByMonth").val(splitTribe[7]);
-        $("#filterByTotalAmountFrom").val(splitTribe[8]);
-        $("#filterByTotalAmountTo").val(splitTribe[9]);
-        $("#filterByRetailerName").val(splitTribe[10]);
-        $("#filterByOutletName").val(splitTribe[11]);
-        $("#filterByTransactionType").val(splitTribe[12]);
-        $("#filterByUserId").val(splitTribe[13]);
-        
-        search();
+        location.href = saveTribeReqUrl;
     });
     
 }

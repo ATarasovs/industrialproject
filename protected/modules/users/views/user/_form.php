@@ -76,7 +76,7 @@
 	<div class="row buttons">
 	<div class="col-6">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-lg btn-primary btn-block')); ?>
-	</div>
+		</div>
 	</div>
 
 <?php $this->endWidget(); ?>

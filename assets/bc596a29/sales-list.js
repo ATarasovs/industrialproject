@@ -100,7 +100,7 @@ function initButtons() {
         $("#filterByTransactionType").val(splitTribe[12]);
         $("#filterByUserId").val(splitTribe[13]);
         
-        search();
+        
     });
     
 }

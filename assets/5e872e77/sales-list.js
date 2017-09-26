@@ -82,25 +82,8 @@ function initButtons() {
     });
     
     $( ".tribeBtn" ).click(function() {
-        var tribeID = $(this).val();
+        var tribeID = $("#filterID").val();
         console.log(tribeID);
-        var splitTribe = tribeID.split(";");
-        $("#filterByDateFrom").val(splitTribe[0]);
-        $("#filterByDateTo").val(splitTribe[1]);
-        $("#filterByTimeFrom").val(splitTribe[2]);
-        $("#filterByTimeTo").val(splitTribe[3]);
-        $("#filterByWeekdayFrom").val(splitTribe[4]);
-        $("#filterByWeekdayTo").val(splitTribe[5]);
-        $("#filterByYear").val(splitTribe[6]);
-        $("#filterByMonth").val(splitTribe[7]);
-        $("#filterByTotalAmountFrom").val(splitTribe[8]);
-        $("#filterByTotalAmountTo").val(splitTribe[9]);
-        $("#filterByRetailerName").val(splitTribe[10]);
-        $("#filterByOutletName").val(splitTribe[11]);
-        $("#filterByTransactionType").val(splitTribe[12]);
-        $("#filterByUserId").val(splitTribe[13]);
-        
-        search();
     });
     
 }

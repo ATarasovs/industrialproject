@@ -38,7 +38,7 @@ class SaleController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('upload', 'admin', 'view'),
+				'actions'=>array('upload', 'admin', 'view', 'savetribe'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -190,16 +190,21 @@ class SaleController extends Controller
             $pages->applyLimit($criteria);
             $sales = Sale::model()->findAll($criteria);
             
-            
-            
             $outletsArray = CHtml::listData(Outlet::model()->findAll(), 'outletName', 'outletName');
             $transactionsArray = CHtml::listData(Payment::model()->findAll(), 'transactionType', 'transactionType');
+            
+            $tribecriteria = new CDbCriteria();
+            $currenUserID = Yii::app()->user->getId();
+            $tribecriteria->addCondition("userID = '$currenUserID'");
+            $tribes = Tribe::model()->findAll($tribecriteria);
+            
 
             $this->render('admin',array(
                     'sales'=>$sales,
                     'pages' => $pages,
                     'outletsArray' => $outletsArray,
                     'transactionsArray' => $transactionsArray,
+                    'tribes' => $tribes,
             ));
 	}
         
@@ -258,6 +263,55 @@ class SaleController extends Controller
                 }
             }
             $this->render('upload', array('model'=>$model));
+        }
+        
+        public function actionSavetribe() {
+            
+            $title = Yii::app()->request->getParam('title');
+            $description = Yii::app()->request->getParam('description');
+            $datefrom = Yii::app()->request->getParam('datefrom');
+            $dateto = Yii::app()->request->getParam('dateto');
+            $timefrom = Yii::app()->request->getParam('timefrom');
+            $timeto = Yii::app()->request->getParam('timeto');
+            $weekdayfrom = Yii::app()->request->getParam('weekdayfrom');
+            $weekdayto = Yii::app()->request->getParam('weekdayto');
+            $year = Yii::app()->request->getParam('year');
+            $month = Yii::app()->request->getParam('month');
+            $outletname = Yii::app()->request->getParam('outlet');
+            $retailername = Yii::app()->request->getParam('retailer');
+            $newuserid = Yii::app()->request->getParam('newuserid');
+            $transactiontype = Yii::app()->request->getParam('transactiontype');
+            $totalamountfrom = Yii::app()->request->getParam('totalamountfrom');
+            $totalamountto = Yii::app()->request->getParam('totalamountto');
+            
+            $tribes = new Tribe();
+            
+            $tribes->title = $title;
+            $tribes->description = $description;
+            $tribes->dateFrom = $datefrom;
+            $tribes->dateTo = $dateto;
+            $tribes->timeFrom = $timefrom;
+            $tribes->timeTo = $timeto;
+            $tribes->weekdayFrom = $weekdayfrom;
+            $tribes->weekdayTo = $weekdayto;
+            $tribes->year = $year;
+            $tribes->month = $month;
+            $tribes->totalAmountFrom = $totalamountfrom;
+            $tribes->totalAmountTo = $totalamountto;
+            $tribes->retailer = $retailername;
+            $tribes->outletName = $outletname;
+            $tribes->transactionType = $transactiontype;
+            $tribes->new_user_ID = $newuserid;
+            $tribes->userID = Yii::app()->user->getId();
+            
+            if($tribes->save()) {
+		Yii::app()->user->setFlash('successTribeSave', "The tribe was save successfully! You should see the button of this tribe");
+                $this->redirect('index.php?r=sales/sale/admin');
+            }
+            else {
+                Yii::app()->user->setFlash('errorTribeSave', "There appeared an error during saving the tribe!");
+                $this->redirect('index.php?r=sales/sale/admin');
+            }
         }
 
 	/**

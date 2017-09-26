@@ -18,14 +18,42 @@ if(Yii::app()->user->hasFlash('success')) { ?>
     <div class="info">
         <?php echo Yii::app()->user->getFlash('success'); ?> <br/>
     </div>
+<?php } 
+
+if(Yii::app()->user->hasFlash('successTribeSave')) { ?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('successTribeSave'); ?> <br/>
+    </div>
+<?php } 
+
+if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('errorTribeSave'); ?> <br/>
+    </div>
 <?php } ?>
+
 
 <h1>List of Sales</h1>
     <br/>
     <div class="row">
+        <div class="col-md-6">
+            <?php foreach($tribes as $tribe) { ?>
+                <button value="<?php echo $tribe->dateFrom; ?>;<?php echo $tribe->dateTo; ?>;<?php echo $tribe->timeFrom; ?>;<?php echo $tribe->timeTo; ?>;<?php echo $tribe->weekdayFrom; ?>;<?php echo $tribe->weekdayTo; ?>;<?php echo $tribe->year; ?>;<?php echo $tribe->month; ?>;<?php echo $tribe->totalAmountFrom; ?>;<?php echo $tribe->totalAmountTo; ?>;<?php echo $tribe->retailer; ?>;<?php echo $tribe->outletName; ?>;<?php echo $tribe->transactionType; ?>;<?php echo $tribe->new_user_ID; ?>;" class="tribeBtn"><?php echo $tribe->title; ?></button>
+            <?php } ?>
+        </div>
+        <div class="col-md-6">
+            <button id="createTribeBtn">Create tribe</button><br/>
+            <div class="hide" id="createTribe">
+                <input id="title" placeholder="Title"/><br/>
+                <textarea id="description" placeholder="Description"></textarea><br/>
+                <button id="saveTribeBtn">Save tribe</button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
         <div class="form-group col-md-6">
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-
                 <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></i></div>
                 <input class="form-control" id="filterByDateFrom" name="dateFrom" placeholder="Date from:" type="text"/>
 
@@ -34,10 +62,6 @@ if(Yii::app()->user->hasFlash('success')) { ?>
 
             </div>
             <br>
-
-
-
-
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
                 <input id="filterByTimeFrom" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Time from:"> 
@@ -197,6 +221,8 @@ if(Yii::app()->user->hasFlash('success')) { ?>
 <script>
     var salesListReqUrl = '<?php print Yii::app()->createUrl('sales/sale/admin') ?>';	
     var salesViewReqUrl = '<?php print Yii::app()->createUrl('sales/sale/view') ?>';
+    var saveTribeReqUrl = '<?php print Yii::app()->createUrl('sales/sale/savetribe') ?>';
+    var userId = <?php print Yii::app()->user->getId(); ?>
 </script>
 
 <!-- Date Picker -->

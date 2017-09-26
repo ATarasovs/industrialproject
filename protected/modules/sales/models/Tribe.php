@@ -11,19 +11,19 @@
  * @property string $dateTo
  * @property string $timeFrom
  * @property string $timeTo
- * @property integer $weekdayFrom
- * @property integer $weekdayTo
+ * @property string $weekdayFrom
+ * @property string $weekdayTo
  * @property string $year
- * @property integer $month
+ * @property string $month
  * @property string $totalAmountFrom
  * @property string $totalAmountTo
  * @property string $retailer
  * @property string $outletName
  * @property string $transactionType
+ * @property string $new_user_ID
  * @property string $userID
- * @property string $username
  */
-class Saletribe extends CActiveRecord
+class Tribe extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -42,13 +42,11 @@ class Saletribe extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'required'),
-			array('weekdayFrom, weekdayTo, month', 'numerical', 'integerOnly'=>true),
-			array('title, description, year, retailer, outletName, transactionType, userID, username', 'length', 'max'=>45),
-			array('totalAmountFrom, totalAmountTo', 'length', 'max'=>12),
-			array('dateFrom, dateTo, timeFrom, timeTo', 'safe'),
+			array('title, dateFrom, dateTo, timeFrom, timeTo, weekdayFrom, weekdayTo, year, month, totalAmountFrom, totalAmountTo, retailer, outletName, transactionType, new_user_ID, userID', 'length', 'max'=>45),
+			array('description', 'length', 'max'=>60),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('filterID, title, description, dateFrom, dateTo, timeFrom, timeTo, weekdayFrom, weekdayTo, year, month, totalAmountFrom, totalAmountTo, retailer, outletName, transactionType, userID, username', 'safe', 'on'=>'search'),
+			array('filterID, title, description, dateFrom, dateTo, timeFrom, timeTo, weekdayFrom, weekdayTo, year, month, totalAmountFrom, totalAmountTo, retailer, outletName, transactionType, new_user_ID, userID', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,8 +83,8 @@ class Saletribe extends CActiveRecord
 			'retailer' => 'Retailer',
 			'outletName' => 'Outlet Name',
 			'transactionType' => 'Transaction Type',
+			'new_user_ID' => 'New User',
 			'userID' => 'User',
-			'username' => 'Username',
 		);
 	}
 
@@ -115,17 +113,17 @@ class Saletribe extends CActiveRecord
 		$criteria->compare('dateTo',$this->dateTo,true);
 		$criteria->compare('timeFrom',$this->timeFrom,true);
 		$criteria->compare('timeTo',$this->timeTo,true);
-		$criteria->compare('weekdayFrom',$this->weekdayFrom);
-		$criteria->compare('weekdayTo',$this->weekdayTo);
+		$criteria->compare('weekdayFrom',$this->weekdayFrom,true);
+		$criteria->compare('weekdayTo',$this->weekdayTo,true);
 		$criteria->compare('year',$this->year,true);
-		$criteria->compare('month',$this->month);
+		$criteria->compare('month',$this->month,true);
 		$criteria->compare('totalAmountFrom',$this->totalAmountFrom,true);
 		$criteria->compare('totalAmountTo',$this->totalAmountTo,true);
 		$criteria->compare('retailer',$this->retailer,true);
 		$criteria->compare('outletName',$this->outletName,true);
 		$criteria->compare('transactionType',$this->transactionType,true);
+		$criteria->compare('new_user_ID',$this->new_user_ID,true);
 		$criteria->compare('userID',$this->userID,true);
-		$criteria->compare('username',$this->username,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -136,7 +134,7 @@ class Saletribe extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SaleTribe the static model class
+	 * @return Tribe the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
