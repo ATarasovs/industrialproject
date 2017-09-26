@@ -51,7 +51,7 @@ function initButtons() {
     });
     
     $( "#createTribeBtn" ).click(function() {
-        $( "#createTribe" ).toggleClass( "hide" );
+        $( "#createTribe" ).removeClass( "hide" );
     });
     
     $( "#saveTribeBtn" ).click(function() {
