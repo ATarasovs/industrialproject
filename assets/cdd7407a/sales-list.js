@@ -54,10 +54,6 @@ function initButtons() {
         $( "#createTribe" ).toggleClass( "hide" );
     });
     
-    $( "#tribeDescriptionsBtn" ).click(function() {
-        $( "#tribeDescription" ).toggleClass( "hide" );
-    });
-    
     $( "#saveTribeBtn" ).click(function() {
         var title = $("#title").val();
         var description = $("#description").val();

@@ -33,6 +33,7 @@ $(document).ready(function() {
     
     initButtons();
     initKeyPress();
+    initMouseFocus();
 });
 
 function initButtons() {
@@ -52,10 +53,6 @@ function initButtons() {
     
     $( "#createTribeBtn" ).click(function() {
         $( "#createTribe" ).toggleClass( "hide" );
-    });
-    
-    $( "#tribeDescriptionsBtn" ).click(function() {
-        $( "#tribeDescription" ).toggleClass( "hide" );
     });
     
     $( "#saveTribeBtn" ).click(function() {
@@ -106,6 +103,14 @@ function initButtons() {
         search();
     });
     
+}
+
+function initMouseFocus() { 
+    $(".tribeBtn").mouseover(function() {
+    $(this).children(".description").show();
+}).mouseout(function() {
+    $(this).children(".description").hide();
+});
 }
 
 function getParameterByName(name, url) {

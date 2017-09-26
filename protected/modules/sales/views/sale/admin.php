@@ -40,7 +40,13 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             <?php foreach($tribes as $tribe) { ?>
                 <button value="<?php echo $tribe->dateFrom; ?>;<?php echo $tribe->dateTo; ?>;<?php echo $tribe->timeFrom; ?>;<?php echo $tribe->timeTo; ?>;<?php echo $tribe->weekdayFrom; ?>;<?php echo $tribe->weekdayTo; ?>;<?php echo $tribe->year; ?>;<?php echo $tribe->month; ?>;<?php echo $tribe->totalAmountFrom; ?>;<?php echo $tribe->totalAmountTo; ?>;<?php echo $tribe->retailer; ?>;<?php echo $tribe->outletName; ?>;<?php echo $tribe->transactionType; ?>;<?php echo $tribe->new_user_ID; ?>;" class="tribeBtn btn btn-primary"><?php echo $tribe->title; ?></button>
             <?php } ?>
+                <button id="tribeDescriptionsBtn" class="btn btn-info">View Descriptions</button>
         </div>
+    </div>
+    <div id="tribeDescription" class="hide">
+        <?php foreach($tribes as $tribe) { ?>
+            <div class="description"><?php echo $tribe->title; ?>: <?php echo $tribe->description; ?></div>
+        <?php } ?>
     </div>
     <br/>
     <div class="row">
@@ -156,8 +162,8 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
     
     <div class="form-group col-md-6">
         <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
-        <button id="unsetFiltersBtn" class="btn btn-primary">Unset Filters</button> &nbsp; 
-        <button id="createTribeBtn" class="btn btn-primary">Create Tribe</button> &nbsp;
+        <button id="unsetFiltersBtn" class="btn btn-danger">Unset Filters</button> &nbsp; 
+        <button id="createTribeBtn" class="btn btn-success">Create Tribe</button> &nbsp;
     </div>
     <div class="col-md-4 hide" id="createTribe">
         <h4> Create Tribe </h4>
@@ -169,7 +175,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
             <textarea id="description" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Description:"></textarea>
         </div><br/>
-        <button id="saveTribeBtn" class="btn btn-primary">Save tribe</button>
+        <button id="saveTribeBtn" class="btn btn-success">Save tribe</button>
     </div> <br/>
    
 <table id="sales" class="table">

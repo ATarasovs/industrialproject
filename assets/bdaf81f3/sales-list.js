@@ -33,6 +33,7 @@ $(document).ready(function() {
     
     initButtons();
     initKeyPress();
+    initMouseFocus();
 });
 
 function initButtons() {
