@@ -163,7 +163,10 @@ function search() {
         for (var i = 0; i < arrayLength; i++) {
             outletNameUrl += "&outlet" + [i] + "=" + outletName[i];
         }
+    console.log(outletNameUrl);
     }
+
+    
 
     location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + outletNameUrl + "&userid=" + userId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
    
