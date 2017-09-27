@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData', 'SaveQuickView', 'RetrieveQuickViews', 'LoadTotalSales', 'LoadActiveYoYoUsers'),
+				'actions'=>array('index','view', 'TestCall', 'LoadLineChartData', 'LoadAverageData', 'SaveQuickView', 'RetrieveQuickViews', 'LoadTotalSales', 'LoadActiveYoYoUsers', 'LoadAvgDailyTransactions'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -204,6 +204,7 @@ class DashboardController extends Controller
 	public function actionLoadTotalSales()
 	{
 		$nWeeks = $_POST['Weeks'];
+		//$nWeeks = ;
 
 		$date = date('Y-m-d H:i:s',  strtotime('-'.$nWeeks.'week'));
 		
@@ -223,6 +224,35 @@ class DashboardController extends Controller
 
 		header('Content-Type: application/json; charset="UTF-8"');
 		echo CJSON::encode($total_sales, JSON_FORCE_OBJECT);
+
+	}
+
+	public function actionLoadAvgDailyTransactions()
+	{
+		$nWeeks = $_POST['Weeks'];
+
+		$date = date('Y-m-d H:i:s',  strtotime('-'.$nWeeks.'week'));
+
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('Date_Time > "'.$date.'" ');
+
+		//GET DATES FROM DATE
+		//$nWeeks = $_POST['Weeks'];
+		$nDays = ($nWeeks*7); //weeks in days
+		
+		$search_results = Dashboard::model()->findAll($criteria);
+
+		//Get Total Transactions for each date
+
+		$totalTrans = count($search_results);
+
+		$average = ($totalTrans/$nDays);
+		$avg = round($average, 2);		
+
+		
+
+		header('Content-Type: application/json; charset="UTF-8"');
+		echo CJSON::encode($avg, JSON_FORCE_OBJECT);
 
 	}
 

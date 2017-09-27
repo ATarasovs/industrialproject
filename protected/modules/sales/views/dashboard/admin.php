@@ -83,10 +83,10 @@ $this->pageTitle=Yii::app()->baseUrl;
 		</div> -->
 			<div class="card-block bg-success">
 			<h3 class="card-title">Total Sales</h3>
-			<div id="totalSalesCard"> <h2>£00,00.00</h2> </div>
+			<div id="totalSalesCard">  <div id="totalSalesCardLoader"> </div><h2></h2> </div>
 			<p class="card-text">Use the buttons below to navigate to different analytics</p>
-				<button class="btn btn-primary active">Current Semester</button>
-				<button class="btn btn-primary">All-Time</button>
+				<button id='totalSalesCurrentMonth' class="btn btn-primary active" onclick="LoadTotalSalesCard(4)">Current Month</button>
+				<button id='totalSalesCurrentQuarter' class="btn btn-primary" onclick="LoadTotalSalesCard(12)">Current Quarter</button>
 			</div>
 		</div>
 	</div>
@@ -98,10 +98,9 @@ $this->pageTitle=Yii::app()->baseUrl;
 		</div> -->
 		<div class="card-block bg-info">
 		<h3 class="card-title">Active UoD YoYo Users</h3>
-		<div id="totalUsersCard"> <h2>0</h2> </div>
+		<div id="totalUsersCard">  <div id="totalUsersCardLoader"> </div><h2></h2> </div>
 		<p class="card-text">Use the buttons below to navigate to different analytics</p>
-			<button class="btn btn-primary">Current Semester</button>
-			<button class="btn btn-primary active">All-Time</button>
+			<button id ='totalUsersCurrentQuarter' class="btn btn-primary active" onclick="LoadActiveYoYoUsers(8)">All-time</button>
 		</div>
 	</div>
 </div>
@@ -113,10 +112,10 @@ $this->pageTitle=Yii::app()->baseUrl;
 	</div> -->
 	<div class="card-block bg-warning">
 	<h3 class="card-title">Average # Daily Transactions</h3>
-	<h2 class="card-title">128.3</h2>
+	<div id="averageTransCard"> <div id="averageTransLoader"> </div><h2> </h2> </div>
 	<p class="card-text">Use the buttons below to navigate to different analytics</p>
-		<button class="btn btn-primary">Current Semester</button>
-		<button class="btn btn-primary active">All-Time</button>
+		<button id='averageTransCurrentMonth' class="btn btn-primary" onclick="LoadAverageTrans(4)">Current Month</button>
+		<button id='averageTransCurrentQuarter' class="btn btn-primary active" onclick="LoadAverageTrans(18)">Current Quarter</button>
 	</div>
 </div>
 </div>
@@ -615,6 +614,7 @@ window.onload = function InitDashboard()
 	//Init Top 3 Cards
 	LoadTotalSalesCard(4); //Calls load active users which calls load daily transactions (to avoid animation errors)
 	LoadActiveYoYoUsers();
+	LoadAverageTrans(18);
 
 	//Init DoughnutChart with monthly data
 	LoadDougnutData(4);
@@ -639,6 +639,17 @@ window.onload = function InitDashboard()
 //Loads SAles card data for a given time period
 function LoadTotalSalesCard(length)
 {
+	document.getElementById('totalSalesCardLoader').innerHTML = '<i class="fa fa-spin fa-spinner" aria-hidden="true"></i>'; 
+
+	if(length > 4)
+	{
+		document.getElementById('totalSalesCurrentMonth').className = "btn btn-primary";
+		document.getElementById('totalSalesCurrentQuarter').className = "btn btn-primary active";
+	} else 
+	{
+		document.getElementById('totalSalesCurrentMonth').className = "btn btn-primary active";
+		document.getElementById('totalSalesCurrentQuarter').className = "btn btn-primary";
+	}
 
 	var a = length; 
 	jQuery.ajax({
@@ -665,7 +676,7 @@ function LoadTotalSalesCard(length)
 							let $el = $("#totalSalesCard h2").html();
 								let value = resp;
 							
-							//evt.preventDefault();
+							document.getElementById('totalSalesCardLoader').innerHTML = ''; 
 							
 							$({percentage: 0}).stop(true).animate({percentage: value}, {
 								duration : 4000,
@@ -690,8 +701,75 @@ function LoadTotalSalesCard(length)
 
 }
 
+function LoadAverageTrans(length)
+{
+	document.getElementById('averageTransLoader').innerHTML = '<i class="fa fa-spin fa-spinner" aria-hidden="true"></i>'; 
+
+	if(length > 4)
+	{
+		document.getElementById('averageTransCurrentMonth').className = "btn btn-primary";
+		document.getElementById('averageTransCurrentQuarter').className = "btn btn-primary active";
+	} else 
+	{
+		document.getElementById('averageTransCurrentMonth').className = "btn btn-primary active";
+		document.getElementById('averageTransCurrentQuarter').className = "btn btn-primary";
+	}
+
+	var a=length;
+	jQuery.ajax({
+                // The url must be appropriate for your configuration;
+                // this works with the default config of 1.1.11
+                url: 'index.php?r=sales/dashboard/LoadAvgDailyTransactions',
+                type: "POST",
+                data: {Weeks: a},  
+                error: function(xhr,tStatus,e){
+                    if(!xhr){
+                        alert(" We have an error ");
+                        alert(tStatus+"   "+e.message);
+                    }else{
+                        //alert("else: "+e.message); // the great unknown
+                    }
+                    },
+                success: function(resp){
+
+					console.log("###avg :" + resp );
+						
+						//keep adding response to total until total = resp
+						let userslbl2 = $("#averageTransCard h2").html();
+						//var int = parseInt(userslbl);
+							let $el2 = $("#averageTranssCard h2").html();
+								let value = resp;
+							
+								document.getElementById('averageTransLoader').innerHTML = ''; 
+							
+							$({percentage: 0}).stop(true).animate({percentage: value}, {
+								duration : 4000,
+								easing: "easeOutExpo",
+								step: function () {
+									// percentage with 1 decimal;
+									let percentageVal2 = Math.round(this.percentage);
+									
+									$("#averageTransCard h2").text(percentageVal2);
+								}
+							}).promise().done(function () {
+								// hard set the value after animation is done to be
+								// sure the value is correct
+								$("#averageTransCard h2").text(value);
+							});
+
+
+							//format into currency for lbl
+						
+
+                    }
+                });
+
+}
+
 function LoadActiveYoYoUsers()
 {
+	document.getElementById('totalUsersCardLoader').innerHTML = '<i class="fa fa-spin fa-spinner" aria-hidden="true"></i>'; 
+	
 
 	var a=1;
 	jQuery.ajax({
@@ -717,6 +795,7 @@ function LoadActiveYoYoUsers()
 								let value = resp;
 							
 							//evt.preventDefault();
+							document.getElementById('totalUsersCardLoader').innerHTML = ''; 
 							
 							$({percentage: 0}).stop(true).animate({percentage: value}, {
 								duration : 4000,
