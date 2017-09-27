@@ -2694,3 +2694,21 @@ Stack trace:
 REQUEST_URI=/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&outlet0=DJCAD%20Cantina&outlet1=Air%20Bar&outlet2=Floor%20Five&outlet3=Library&outlet4=Dental%20Caf%C3%A9&userid=&transactiontype=&totalamountfrom=&totalamountto=
 HTTP_REFERER=http://localhost/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&outlet0=Floor%20Five&userid=&transactiontype=&totalamountfrom=&totalamountto=
 ---
+2017/09/27 10:46:36 [error] [php] reset() expects parameter 1 to be array, string given (C:\wamp64\www\web\framework\db\schema\CDbCriteria.php:280)
+Stack trace:
+#0 C:\wamp64\www\web\framework\web\actions\CInlineAction.php(49): SaleController->actionAdmin()
+#1 C:\wamp64\www\web\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(134): SaleController->runAction()
+#3 C:\wamp64\www\web\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\wamp64\www\web\framework\web\CController.php(1148): CAccessControlFilter->filter()
+#5 C:\wamp64\www\web\framework\web\filters\CInlineFilter.php(58): SaleController->filterAccessControl()
+#6 C:\wamp64\www\web\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#7 C:\wamp64\www\web\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\wamp64\www\web\framework\web\CController.php(265): SaleController->runActionWithFilters()
+#9 C:\wamp64\www\web\framework\web\CWebApplication.php(282): SaleController->run()
+#10 C:\wamp64\www\web\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\wamp64\www\web\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#12 C:\wamp64\www\web\index.php(13): CWebApplication->run()
+REQUEST_URI=/web/index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&outlet0=DJCAD%20Cantina&outlet1=Air%20Bar&userid=&transactiontype=&totalamountfrom=&totalamountto=
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (166)
+in C:\wamp64\www\web\index.php (13)

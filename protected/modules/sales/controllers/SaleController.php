@@ -160,64 +160,10 @@ class SaleController extends Controller
              if($month != ""){
              	 $criteria->addCondition("Month(Date_Time) = '$month'");
              }
-
-            
-            if ($outletname0 != "") {
-                $criteria->compare("Outlet_Name", $outletname0, "OR");
-            }
-            
-            if ($outletname1 != "") {
-                $criteria->compare("Outlet_Name", $outletname1, "OR");
-            }
-            
-            if ($outletname2 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname2'");
-            }
-            
-            if ($outletname3 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname3'");
-            }
-            
-            if ($outletname4 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname4'");
-            }
-            
-            if ($outletname5 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname5'");
-            }
-            
-            if ($outletname6 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname6'");
-            }
-            
-            if ($outletname7 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname7'");
-            }
-            
-            
-            if ($outletname8 != "") {
-                $criteria->addCondition("Retailer_Name = '$outletname8'");
-            }
-            
-            if ($outletname9 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname9'");
-            }
-            
-            if ($outletname10 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname10'");
-            }
-            
-            if ($outletname11 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname11'");
-            }
-            
-            if ($outletname12 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname12'");
-            }
-            
-            if ($outletname13 != "") {
-                $criteria->addCondition("Outlet_Name = '$outletname13'");
-            }
+             
+             if($outletname0 != "") {
+                $criteria->addInCondition('Outlet_Name',array($outletname0, $outletname1, $outletname2, $outletname3, $outletname4, $outletname5, $outletname6, $outletname7, $outletname8, $outletname9, $outletname10, $outletname11, $outletname12, $outletname13));
+             }
             
             if ($retailername != "") {
                 $criteria->addCondition("Retailer_Name = '$retailername'");
