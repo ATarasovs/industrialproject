@@ -66,9 +66,6 @@ Yii::app()->clientScript->registerScriptFile(
 	echo CHtml::link('<i class="fa fa-file-text-o" aria-hidden="true"></i> Sales',array('/sales/sale/admin'), array('class'=>'nav-link')); 
 	?>
 	</li>
-	<li class="nav-item">
-	<?php echo CHtml::link('<i class="fa fa-question-circle"></i> About',array('#'), array('class'=>'nav-link')); ?>
-	</li>
   <?php if (!Yii::app()->user->isGuest) { ?>
 	<li class="nav-item dropdown">
 	<a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Manage Users </a>
