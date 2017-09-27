@@ -9,7 +9,7 @@ $(document).ready(function() {
     var yearParam = getParameterByName('year');
     var monthParam = getParameterByName('month');
     var retailerNameParam = getParameterByName('retailer');
-//    var userIdParam = getParameterByName('userid');
+    var userIdParam = getParameterByName('userid');
     var transactionTypeParam = getParameterByName('transactiontype');
     var totalAmountFromParam = getParameterByName('totalamountfrom');
     var totalAmountToParam = getParameterByName('totalamountto');
@@ -27,39 +27,8 @@ $(document).ready(function() {
     }
     
     var selectedOutlet = document.createElement('small');
-    selectedOutlet.innerHTML = "" + outletNameParam;
+    selectedOutlet.innerHTML = "" + outletNameParam
     document.getElementById('outletnameinfo').appendChild(selectedOutlet);
-    
-    var userIdParam = "";
-    if(getParameterByName('userid0')!=null && getParameterByName('userid')!="") {
-        $("#useridinfo").removeClass("hide");
-        userIdParam = "<span class='badge badge-primary'>" + getParameterByName('userid0') + "</span> ";
-    }
-    
-    for (var i=1; i<=4; i++) {
-        if(getParameterByName('userid' + i)!=null) {
-            userIdParam += "<span class='badge badge-primary'>" + getParameterByName('userid' + i)  + "</span> ";      
-        }
-    }
-    
-    var selectedUser = document.createElement('small');
-    selectedUser.innerHTML = "" + userIdParam;
-    document.getElementById('useridinfo').appendChild(selectedUser);
-    
-    var userIdParams = "";
-    if(getParameterByName('userid0')!=null && getParameterByName('userid')!="") {
-        userIdParams = getParameterByName('userid0') + " ";   
-    }
-    
-    for (var i=1; i<=4; i++) {
-        if(getParameterByName('userid' + i)!=null) {
-            userIdParams += getParameterByName('userid' + i) + " ";     
-        }
-    }
-    
-    var userIdParamsMod = userIdParams.slice(0, -1);
-    
-    
     
     $("#filterByDateFrom").val(dateFromParam);
     $("#filterByDateTo").val(dateToParam);
@@ -70,7 +39,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
-    $("#filterByUserId").val(userIdParamsMod);
+    $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
     $("#filterByTotalAmountTo").val(totalAmountToParam);
@@ -190,30 +159,31 @@ function search() {
     var userIdUrl = "";
     if (userIds != null && userIds != "") {
         var arrayLength = userIds.length;
-        if(arrayLength>5)
+        if(arrayLength>4)
         {
             alert("Maximum amount of users should be not more than 5!")
-            return;
         }
         else {
             for (var i = 0; i < arrayLength; i++) {
                 userIdUrl += "&userid" + [i] + "=" + userIds[i];
             }
-        }
+            console.log(userIdUrl);
+            
+            var outletNameUrl = "";
 
-    }
-    console.log(userIdUrl);
-    var outletNameUrl = "";
-    
-    if (outletName != null && outletName != "") {
-        var arrayLength = outletName.length;
-        for (var i = 0; i < arrayLength; i++) {
-            outletNameUrl += "&outlet" + [i] + "=" + outletName[i];
-        }
-    }
+            if (outletName != null && outletName != "") {
+                var arrayLength = outletName.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    outletNameUrl += "&outlet" + [i] + "=" + outletName[i];
+                }
+            }
 
-    location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + outletNameUrl + userIdUrl + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
+            location.href = salesListReqUrl + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + outletNameUrl + userIdUrl + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
    
+        }
+
+    }
+    
 }
 
 

@@ -48,16 +48,14 @@ $(document).ready(function() {
     
     var userIdParams = "";
     if(getParameterByName('userid0')!=null && getParameterByName('userid')!="") {
-        userIdParams = getParameterByName('userid0') + " ";   
+        userIdParams = getParameterByName('userid0');
     }
     
     for (var i=1; i<=4; i++) {
         if(getParameterByName('userid' + i)!=null) {
-            userIdParams += getParameterByName('userid' + i) + " ";     
+            userIdParams += getParameterByName('userid' + i);      
         }
     }
-    
-    var userIdParamsMod = userIdParams.slice(0, -1);
     
     
     
@@ -70,7 +68,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
-    $("#filterByUserId").val(userIdParamsMod);
+    $("#filterByUserId").val(userIdParams);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
     $("#filterByTotalAmountTo").val(totalAmountToParam);

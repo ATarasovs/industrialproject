@@ -46,21 +46,6 @@ $(document).ready(function() {
     selectedUser.innerHTML = "" + userIdParam;
     document.getElementById('useridinfo').appendChild(selectedUser);
     
-    var userIdParams = "";
-    if(getParameterByName('userid0')!=null && getParameterByName('userid')!="") {
-        userIdParams = getParameterByName('userid0') + " ";   
-    }
-    
-    for (var i=1; i<=4; i++) {
-        if(getParameterByName('userid' + i)!=null) {
-            userIdParams += getParameterByName('userid' + i) + " ";     
-        }
-    }
-    
-    var userIdParamsMod = userIdParams.slice(0, -1);
-    
-    
-    
     $("#filterByDateFrom").val(dateFromParam);
     $("#filterByDateTo").val(dateToParam);
     $("#filterByTimeFrom").val(timeFromParam);
@@ -70,7 +55,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
-    $("#filterByUserId").val(userIdParamsMod);
+    $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
     $("#filterByTotalAmountTo").val(totalAmountToParam);

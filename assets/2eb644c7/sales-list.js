@@ -9,7 +9,7 @@ $(document).ready(function() {
     var yearParam = getParameterByName('year');
     var monthParam = getParameterByName('month');
     var retailerNameParam = getParameterByName('retailer');
-//    var userIdParam = getParameterByName('userid');
+    var userIdParam = getParameterByName('userid');
     var transactionTypeParam = getParameterByName('transactiontype');
     var totalAmountFromParam = getParameterByName('totalamountfrom');
     var totalAmountToParam = getParameterByName('totalamountto');
@@ -27,39 +27,8 @@ $(document).ready(function() {
     }
     
     var selectedOutlet = document.createElement('small');
-    selectedOutlet.innerHTML = "" + outletNameParam;
+    selectedOutlet.innerHTML = "" + outletNameParam
     document.getElementById('outletnameinfo').appendChild(selectedOutlet);
-    
-    var userIdParam = "";
-    if(getParameterByName('userid0')!=null && getParameterByName('userid')!="") {
-        $("#useridinfo").removeClass("hide");
-        userIdParam = "<span class='badge badge-primary'>" + getParameterByName('userid0') + "</span> ";
-    }
-    
-    for (var i=1; i<=4; i++) {
-        if(getParameterByName('userid' + i)!=null) {
-            userIdParam += "<span class='badge badge-primary'>" + getParameterByName('userid' + i)  + "</span> ";      
-        }
-    }
-    
-    var selectedUser = document.createElement('small');
-    selectedUser.innerHTML = "" + userIdParam;
-    document.getElementById('useridinfo').appendChild(selectedUser);
-    
-    var userIdParams = "";
-    if(getParameterByName('userid0')!=null && getParameterByName('userid')!="") {
-        userIdParams = getParameterByName('userid0') + " ";   
-    }
-    
-    for (var i=1; i<=4; i++) {
-        if(getParameterByName('userid' + i)!=null) {
-            userIdParams += getParameterByName('userid' + i) + " ";     
-        }
-    }
-    
-    var userIdParamsMod = userIdParams.slice(0, -1);
-    
-    
     
     $("#filterByDateFrom").val(dateFromParam);
     $("#filterByDateTo").val(dateToParam);
@@ -70,7 +39,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
-    $("#filterByUserId").val(userIdParamsMod);
+    $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
     $("#filterByTotalAmountTo").val(totalAmountToParam);
@@ -193,7 +162,6 @@ function search() {
         if(arrayLength>5)
         {
             alert("Maximum amount of users should be not more than 5!")
-            return;
         }
         else {
             for (var i = 0; i < arrayLength; i++) {

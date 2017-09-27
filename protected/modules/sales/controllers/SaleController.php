@@ -92,7 +92,11 @@ class SaleController extends Controller
             $outletname12 = Yii::app()->request->getParam('outlet12');
             $outletname13 = Yii::app()->request->getParam('outlet13');
             $retailername = Yii::app()->request->getParam('retailer');
-            $userid = Yii::app()->request->getParam('userid');
+            $userid0 = Yii::app()->request->getParam('userid0');
+            $userid1 = Yii::app()->request->getParam('userid1');
+            $userid2 = Yii::app()->request->getParam('userid2');
+            $userid3 = Yii::app()->request->getParam('userid3');
+            $userid4 = Yii::app()->request->getParam('userid4');
             $transactiontype = Yii::app()->request->getParam('transactiontype');
             $totalamountfrom = Yii::app()->request->getParam('totalamountfrom');
             $totalamountto = Yii::app()->request->getParam('totalamountto');
@@ -169,8 +173,8 @@ class SaleController extends Controller
                 $criteria->addCondition("Retailer_Name = '$retailername'");
             }
             
-            if ($userid != "") {
-                $criteria->addCondition("New_user_id = '$userid'");
+            if($userid0 != "") {
+                $criteria->addInCondition('New_user_id',array($userid0, $userid1, $userid2, $userid3, $userid4));
             }
             
             if ($transactiontype != "") {

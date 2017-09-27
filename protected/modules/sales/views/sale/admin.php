@@ -151,7 +151,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 ?>
             </div>
             <br/>
-
+            <div id="useridinfo" class="hide"></div>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
                 <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
