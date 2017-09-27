@@ -278,3 +278,110 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
         </script>
 
 
+        <!-- Radar Chart --> 
+        <div class=row>
+            <div class="col-md-9">
+                <div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
+                <h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white">Temp Radar</p></h4>
+                    <div class="card-block">
+
+                    <!-- Chart Canvas -->
+                    <div class="radarContain">
+                    <canvas id="radarChart" width="100" height="50"></canvas>
+                    <div>
+
+                    <button class="btn btn-primary" onclick="setRadarLabels()"> test functions </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        
+        <!-- Radar Init Script -->
+        <script>
+            //Init chart data
+            var marksData = {
+            labels: [
+                "DUSA The Union - Marketplace",
+				"Premier Shop",
+				"DJCAD Cantina",
+				"Library",
+				"Ninewells Shop",
+				"College Shop",
+				"Mono",
+				"Liar Bar",
+				"Air Bar",
+				"Premier Shop - Yoyo Accept",
+				"Level 2, Reception",
+				"Floor Five",
+				"Dental Café",
+				"Food on Four",
+                ],
+            datasets: [{
+                label: "Student A",
+                backgroundColor: "rgba(200,0,0,0.2)",
+                data: [0,4,10,4,2,6,1,0,6,3,7,18,3,0]   //2D array of number of transactions for each outlet
+            }, {
+                label: "Student B",
+                backgroundColor: "rgba(0,0,200,0.2)",
+                data: [1,14,22,5,2,27,4,15,0,16,0,3,23,0]
+            }]
+            };
+
+            var options = {
+                scale: {
+                    pointLabels: {
+                        fontSize: 18, //label size
+                    },
+                },
+                tooltips: {
+					bodyFontSize: 16, //tooltip size
+				},
+            };
+
+            //Create Chart
+            var ctx = document.getElementById("radarChart").getContext('2d');
+
+            var radarChart = new Chart(ctx, {
+            type: 'radar',
+            data: marksData,
+            options: options
+            });
+
+        </script>
+
+        <script>
+            function setRadarLabels()
+            {
+                radarChart.data.labels = ["Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test"];
+                radarChart.update();
+                setRadarData();
+
+            }
+
+
+            function setRadarData()
+            {
+                radarChart.data.datasets[0].data = [1,14,12,15,12,21,14,15,10,16,3,13,13,5];
+                radarChart.update();
+
+                addRadarDataSet();
+
+            }
+
+            function addRadarDataSet()
+            {
+                radarChart.data.datasets.push({
+                    label: 'Student C',
+                    backgroundColor: "rgba(0,0,200,0.2)",
+                    data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+                });
+                radarChart.update();
+
+            }
+
+        </script>
+
+
+
