@@ -17,7 +17,7 @@ $(document).ready(function() {
     var outletNameParam = "";
     if(getParameterByName('outlet0')!=null && getParameterByName('outlet0')!="") {
         $("#outletnameinfo").removeClass("hide");
-        outletNameParam = "<span class='badge badge-primary'>" + getParameterByName('outlet0') + "</span> ";
+        outletNameParam = "Selected locations: " + "<span class='badge badge-primary'>" + getParameterByName('outlet0') + "</span> ";
     }
     
     for (var i=1; i<=13; i++) {
@@ -26,6 +26,7 @@ $(document).ready(function() {
         }
     }
     
+    console.log(outletNameParam);
     var selectedOutlet = document.createElement('small');
     selectedOutlet.innerHTML = "" + outletNameParam
     document.getElementById('outletnameinfo').appendChild(selectedOutlet);
@@ -39,6 +40,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
+//    $("#filterByOutletName").val(outletNameParam);
     $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);

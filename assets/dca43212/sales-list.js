@@ -9,27 +9,14 @@ $(document).ready(function() {
     var yearParam = getParameterByName('year');
     var monthParam = getParameterByName('month');
     var retailerNameParam = getParameterByName('retailer');
+    var outletNameParam = getParameterByName('outlet0');
+    outletNameParam += getParameterByName('outlet1');
     var userIdParam = getParameterByName('userid');
     var transactionTypeParam = getParameterByName('transactiontype');
     var totalAmountFromParam = getParameterByName('totalamountfrom');
     var totalAmountToParam = getParameterByName('totalamountto');
-    
-    var outletNameParam = "";
-    if(getParameterByName('outlet0')!=null && getParameterByName('outlet0')!="") {
-        $("#outletnameinfo").removeClass("hide");
-        outletNameParam = "<span class='badge badge-primary'>" + getParameterByName('outlet0') + "</span> ";
-    }
-    
-    for (var i=1; i<=13; i++) {
-        if(getParameterByName('outlet' + i)!=null) {
-            outletNameParam += "<span class='badge badge-primary'>" + getParameterByName('outlet' + i)  + "</span> ";      
-        }
-    }
-    
-    var selectedOutlet = document.createElement('small');
-    selectedOutlet.innerHTML = "" + outletNameParam
-    document.getElementById('outletnameinfo').appendChild(selectedOutlet);
-    
+    console.log(outletNameParam);
+//    $("#filterBySaleId").val(saleIdParam);
     $("#filterByDateFrom").val(dateFromParam);
     $("#filterByDateTo").val(dateToParam);
     $("#filterByTimeFrom").val(timeFromParam);
@@ -39,6 +26,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
+    $("#filterByOutletName").val(outletNameParam);
     $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);

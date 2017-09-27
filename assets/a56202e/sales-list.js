@@ -20,12 +20,15 @@ $(document).ready(function() {
         outletNameParam = "<span class='badge badge-primary'>" + getParameterByName('outlet0') + "</span> ";
     }
     
+    
+    
     for (var i=1; i<=13; i++) {
         if(getParameterByName('outlet' + i)!=null) {
             outletNameParam += "<span class='badge badge-primary'>" + getParameterByName('outlet' + i)  + "</span> ";      
         }
     }
     
+    console.log(outletNameParam);
     var selectedOutlet = document.createElement('small');
     selectedOutlet.innerHTML = "" + outletNameParam
     document.getElementById('outletnameinfo').appendChild(selectedOutlet);
@@ -39,6 +42,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
+//    $("#filterByOutletName").val(outletNameParam);
     $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
