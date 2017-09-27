@@ -65,7 +65,8 @@ $this->pageTitle=Yii::app()->baseUrl;
     <button class="btn btn-primary" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Viewer</button>
 	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Summary Data</button>
 	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Average Transaction Spend</button>
-	<button class="btn btn-success" onclick ="generatePatternsArr()"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button>
+	<!-- <button class="btn btn-success" onclick ="generatePatternsArr();"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button> -->
+	<button class="btn btn-success" onclick ="generatePatternsArr();" id="accessButton"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button>
   </div>
   <!-- <div class="card-footer text-muted" style="background: #153465!important;">
     -
@@ -297,6 +298,22 @@ $this->pageTitle=Yii::app()->baseUrl;
 
 function generatePatternsArr()
 {
+	
+	window.accessEnable = !window.accessEnable;
+
+	if(window.accessEnable == true){
+		
+		document.getElementById('accessButton').innerHTML = "<i class='fa fa-low-vision' aria-hidden='true'></i> Disable Accessibility Mode";
+		document.getElementById('accessButton').className = "btn btn-danger";
+
+	} else 
+	{
+		document.getElementById('accessButton').innerHTML = "<i class='fa fa-low-vision' aria-hidden='true'></i>Enable Accessibility Mode";
+		document.getElementById('accessButton').className = "btn btn-success";
+	}
+
+
+	//Generate Patterns
 	patternArr = [];
 
 	// Create a temporary canvas and fill it with a grid pattern
@@ -314,34 +331,50 @@ function generatePatternsArr()
 		patternArr[i] = pat;
 	}
 
-	EnableAccessibility(patternArr);
-	
+
+	//Store Original Background colours
+	if(window.accessEnable == true)
+	{
+		origColoursArr = myDoughnutChart.data.datasets[0].backgroundColor;
+	}
+
+
+	if(window.accessEnable ==true)
+	{
+		EnableAccessibility(patternArr);
+	} else 
+	{
+		EnableAccessibility(origColoursArr);
+	}
 
 }
 
 function EnableAccessibility(patternArr)
 {
-	//Doughnut
-	myDoughnutChart.data.datasets[0].backgroundColor=patternArr;
-	myDoughnutChart.data.datasets[0].hoverBackgroundColor=patternArr;
-	myDoughnutChart.update();
+
+		//Doughnut
+		myDoughnutChart.data.datasets[0].backgroundColor=patternArr;
+		myDoughnutChart.data.datasets[0].hoverBackgroundColor=patternArr;
+		myDoughnutChart.update();
+		
+		//Bar
+		myBarChart.data.datasets[0].backgroundColor = patternArr[1];
+		myBarChart.data.datasets[1].backgroundColor = patternArr[2];
+		myBarChart.options.tooltips.displayColors = !myBarChart.options.tooltips.displayColors
+		myBarChart.update();
 	
+	
+		//Line
+		for(var i=0; i<14; i++)
+		{
+			myChart.data.datasets[i].fill = true;
+			myChart.data.datasets[i].backgroundColor =patternArr[i];
+			myChart.options.tooltips.displayColors = !myChart.options.tooltips.displayColors;
+	
+		}
+	
+		myChart.update();
 
-	//Bar
-	myBarChart.data.datasets[0].backgroundColor = patternArr[1];
-	myBarChart.data.datasets[1].backgroundColor = patternArr[2];
-	myBarChart.update();
-
-
-	//Line
-	for(var i=0; i<14; i++)
-	{
-		myChart.data.datasets[i].fill = true;
-		myChart.data.datasets[i].backgroundColor =patternArr[i];
-
-	}
-
-	myChart.update();
 
 }
 
@@ -575,8 +608,9 @@ function CreateQuickViewButtons()
 //Function which inits the dashboard 
 window.onload = function InitDashboard()
 {
-
-	
+	window.accessEnable = true;
+	//generatePatternsArr(false);
+		
 
 	//Init Top 3 Cards
 	LoadTotalSalesCard(4); //Calls load active users which calls load daily transactions (to avoid animation errors)
@@ -1501,17 +1535,17 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 			datasets:[
 			{
 				label: "Current Month Average Transaction Spend £",
-				backgroundColor: '#FF1493',
-				fillColor: '#FF1493',
-				highlightFill: '#FF1493',
-				highlightStroke: '#FF1493',
+				backgroundColor: '#e6194b',
+				fillColor: '#e6194b',
+				highlightFill: '#e6194b',
+				highlightStroke: '#e6194b',
 				fontSize: 24,
 				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 			},
 			{
 				label: "Previous Month Average Transaction Spend £",
-				backgroundColor: '#2D66F1',
-				fillColor: '#2D66F1',
+				backgroundColor: '#3cb44b',
+				fillColor: '#3cb44b',
 				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 			}  
 			]

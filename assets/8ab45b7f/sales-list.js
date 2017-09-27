@@ -9,27 +9,26 @@ $(document).ready(function() {
     var yearParam = getParameterByName('year');
     var monthParam = getParameterByName('month');
     var retailerNameParam = getParameterByName('retailer');
+    var outletNameParam = getParameterByName('outlet0');
+//    outletNameParam += '; ' + getParameterByName('outlet1');
+//    outletNameParam += '; ' + getParameterByName('outlet2');
+//    outletNameParam += '; ' + getParameterByName('outlet3');
+//    outletNameParam += '; ' + getParameterByName('outlet4');
+//    outletNameParam += '; ' + getParameterByName('outlet5');
+//    outletNameParam += '; ' + getParameterByName('outlet6');
+//    outletNameParam += '; ' + getParameterByName('outlet7');
+//    outletNameParam += '; ' + getParameterByName('outlet8');
+//    outletNameParam += '; ' + getParameterByName('outlet9');
+//    outletNameParam += '; ' + getParameterByName('outlet10');
+//    outletNameParam += '; ' + getParameterByName('outlet11');
+//    outletNameParam += '; ' + getParameterByName('outlet12');
+    outletNameParam += '; ' + getParameterByName('outlet13');
     var userIdParam = getParameterByName('userid');
     var transactionTypeParam = getParameterByName('transactiontype');
     var totalAmountFromParam = getParameterByName('totalamountfrom');
     var totalAmountToParam = getParameterByName('totalamountto');
-    
-    var outletNameParam = "";
-    if(getParameterByName('outlet0')!=null && getParameterByName('outlet0')!="") {
-        $("#outletnameinfo").removeClass("hide");
-        outletNameParam = "<span class='badge badge-primary'>" + getParameterByName('outlet0') + "</span> ";
-    }
-    
-    for (var i=1; i<=13; i++) {
-        if(getParameterByName('outlet' + i)!=null) {
-            outletNameParam += "<span class='badge badge-primary'>" + getParameterByName('outlet' + i)  + "</span> ";      
-        }
-    }
-    
-    var selectedOutlet = document.createElement('small');
-    selectedOutlet.innerHTML = "" + outletNameParam
-    document.getElementById('outletnameinfo').appendChild(selectedOutlet);
-    
+    console.log(outletNameParam);
+//    $("#filterBySaleId").val(saleIdParam);
     $("#filterByDateFrom").val(dateFromParam);
     $("#filterByDateTo").val(dateToParam);
     $("#filterByTimeFrom").val(timeFromParam);

@@ -26,6 +26,7 @@ $(document).ready(function() {
         }
     }
     
+    console.log(outletNameParam);
     var selectedOutlet = document.createElement('small');
     selectedOutlet.innerHTML = "" + outletNameParam
     document.getElementById('outletnameinfo').appendChild(selectedOutlet);
@@ -39,6 +40,7 @@ $(document).ready(function() {
     $("#filterByYear").val(yearParam); 
     $("#filterByMonth").val(monthParam); 
     $("#filterByRetailerName").val(retailerNameParam);
+//    $("#filterByOutletName").val(outletNameParam);
     $("#filterByUserId").val(userIdParam);
     $("#filterByTransactionType").val(transactionTypeParam);
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
