@@ -13,6 +13,7 @@ class SaleController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+        private $graphData;
 
 	/**
 	 * @return array action filters
@@ -203,7 +204,7 @@ class SaleController extends Controller
 
             if($userid0 != "")
             {
-                $graphData = Sale::model()->findAll($criteria);
+                $this->$graphData = Sale::model()->findAll($criteria);
             }
             
             
@@ -265,7 +266,7 @@ class SaleController extends Controller
                     
                     $totalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
                     $spendtotalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
-                    foreach($graphData as $rec) //loop through search results
+                    foreach($this->$graphData as $rec) //loop through search results
                     {
                         if($rec->New_user_id == $user)
                         {
@@ -408,7 +409,39 @@ class SaleController extends Controller
             $tribes->new_user_ID = $newuserid;
             $tribes->userID = Yii::app()->user->getId();
             
+            
+            
             if($tribes->save()) {
+                $tribeIDs = array();
+                foreach($this->$graphData as $rec) {
+                    $tribeIDs[] = $rec->New_user_id;
+                }
+                $tribeUniqueIDs = array_unique($tribeIDs);
+                $customer = new Customer();
+                
+                $tribeIDcriteria = new CDbCriteria();
+                $tribeIDcriteria->addCondition("userID = '$currenUserID'");
+                $tribeIDSearch = Tribe::model()->findAll($tribecriteria);
+                
+                //Get filterID
+                $filterID = 0;
+                for ($i=0; $i<count($tribeIDSearch); $i++) {
+                    if ($filterID <= $tribeIDSearch->filterID) {
+                        $filterID = $tribeIDSearch->filterID;
+                    }
+                }
+                
+                //Save tribe members
+                foreach($tribeUniqueIDs as $ID) {
+                    $customer->filterID = $filterID;
+                    $customer->customerID = $ID;
+                    
+                    if (!$customer->save()) {
+                        Yii::app()->user->setFlash('errorTribeSave', "There appeared an error during saving the tribe!");
+                        $this->redirect('index.php?r=sales/sale/admin');
+                    }
+                }
+                
 		Yii::app()->user->setFlash('successTribeSave', "The tribe was save successfully! You should see the button of this tribe");
                 $this->redirect('index.php?r=sales/sale/admin');
             }
