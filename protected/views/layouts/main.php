@@ -45,14 +45,12 @@ Yii::app()->clientScript->registerScriptFile(
 
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary" style="background: #153465!important;">
 
-<img src="https://www.dusa.co.uk/wp-content/uploads/2016/12/uniondusaLogoSmall.png" width="200" onerror="this.src='your.png'">&nbsp;&nbsp;
-
 <div class="container">
 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
 
-<a class="navbar-brand" href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> Dusa Analytics</a>
+<a class="navbar-brand" href="<?php echo Yii::app()->baseUrl ?>/index.php?r=sales/dashboard/admin"><i class="fa fa-bar-chart" aria-hidden="true"></i> Dusa Analytics</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
   <ul class="navbar-nav mr-auto">
