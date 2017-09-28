@@ -129,9 +129,12 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             </div>
         </div>
         <div class="form-group col-md-6">
+            
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <input id="filterByRetailerName" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by retailer" disabled="disabled">
+                <?php 
+                   echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
+                ?>
             </div>
             <br/>
             
@@ -145,13 +148,6 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             </div>
             <br/>
 
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                <?php 
-                   echo CHtml::dropDownList('transactionType', 'transactionType',$transactionsArray, array('class' => 'form-control filterInput', 'id' => 'filterByTransactionType', 'empty' => 'Filter by transaction type'));
-                ?>
-            </div>
-            <br/>
             <div id="useridinfo" class="hide"></div>
             <small><b>You may select up to 5 users by adding "space" between user IDs</b></small>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">

@@ -76,13 +76,13 @@ Yii::app()->clientScript->registerScriptFile(
 	<?php echo CHtml::link('<i class="fa fa-cloud-upload"></i> Upload',array('/sales/sale/upload'), array('class'=>'nav-link')); ?>
 	</li>
 	</ul>
-	<?php echo CHtml::link('<i class="fa fa-sign-out"></i> Logout',array('/site/logout'), array('class'=>'btn btn-outline-danger my-2 my-sm-0')); ?>
+	<?php echo CHtml::link('<i class="fa fa-sign-out"></i> Logout',array('/site/logout'), array('class'=>'btn btn-danger my-2 my-sm-0')); ?>
 
 <?php
 } else { 
 	?>
 	</ul>
-	<?php echo CHtml::link('<i class="fa fa-sign-in"></i> Login',array('/site/login'), array('class'=>'btn btn-outline-success my-2 my-sm-0')); ?>
+	<?php echo CHtml::link('<i class="fa fa-sign-in"></i> Login',array('/site/login'), array('class'=>'btn btn-success my-2 my-sm-0')); ?>
 	<?php
 	}
 	?>
