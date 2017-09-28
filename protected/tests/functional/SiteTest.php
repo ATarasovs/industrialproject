@@ -8,7 +8,7 @@ require_once($variable);
 /*
  * Test all major functionality
  * To run, go to CLI, cd to project/vendor/selenium_bins and enter 'java -jar selenium-server-standalone-3.5.3.jar -port 5555 -enablePassThrough false'
- * Then run the test (change URL if needed)
+ * Then run the test (change URL if needed). If you are using Netbeans, make sure you have the development version, phpunit won't work otherwise.
  * 
  */
 class SiteTest extends WebTestCase
