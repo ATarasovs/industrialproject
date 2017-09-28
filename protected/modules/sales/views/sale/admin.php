@@ -283,7 +283,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
 
         <!-- Radar Chart --> 
         <div class=row id="radarChartB" style="display:none;">
-            <div class="col-md-7">
+            <div class="col-md-9">
                 <div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
                 <h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white">Outlet Transaction Map</p></h4>
                     <div class="card-block">

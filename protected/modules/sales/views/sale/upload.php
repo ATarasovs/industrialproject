@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h2 class="display-3">File Upload</h2>
+  <h2 class="display-3"><i class="fa fa-cloud-upload" aria-hidden="true"></i> File Upload</h2>
   <p class="lead">Adding data to the system is easy.</p>
   <hr class="my-4">
   <p>To add new data to the system, simply attach the xls file below and click upload! <br/><small>(Also you may use drag & drop function)</small></p>
@@ -18,6 +18,8 @@
     echo $form->fileField($model, 'file');
     echo $form->error($model, 'file');
     // ...
+    ?>
+    <?php
     echo CHtml::submitButton('Upload', array('class'=>'btn btn-primary'));
     $this->endWidget();
     ?>
