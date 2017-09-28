@@ -1,13 +1,10 @@
-<?php
-/* @var $this UserController */
-/* @var $model User */
-
-$this->breadcrumbs=array(
-	'Manage users'=>array('admin'),
-	'Create',
-);
-?>
-
-<h1>Create User</h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<div style="margin-top:3%"class="container" align="center" >
+    <div class="col-md-10" align="center">
+        <div class="jumbotron centered" align="center">
+          <h2 class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Create user</h2>
+          <br><br>
+                   
+          <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+        </div>
+    </div>
+</div>

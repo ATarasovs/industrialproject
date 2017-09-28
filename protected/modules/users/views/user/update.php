@@ -1,13 +1,10 @@
-<?php
-/* @var $this UserController */
-/* @var $model User */
-
-$this->breadcrumbs=array(
-	'Manage users'=>array('admin'),
-	'Update',
-);
-?>
-
-<h1>Update user: <?php echo $model->username; ?></h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<div style="margin-top:3%"class="container" align="center" >
+    <div class="col-md-10" align="center">
+        <div class="jumbotron centered" align="center">
+          <h2 class=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update user: <?php echo $model->username; ?></h2>
+          <br><br>
+                   
+          <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+        </div>
+    </div>
+</div>

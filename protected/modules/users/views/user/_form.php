@@ -17,7 +17,7 @@
 
 	<div class="form">
 
-	<div class="row align-items-center">
+	<div class="">
 		<div class="col-6">
 		<?php echo $form->labelEx($model,'username', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->textField($model,'username',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
@@ -25,7 +25,7 @@
 		</div>
 	</div>
 
-	<div class="row align-items-center">
+	<div class="">
 	<div class="col-6">
 		<?php echo $form->labelEx($model,'password', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->passwordField($model,'password',array('class'=>'form-control', 'id'=>'password', 'size'=>32,'maxlength'=>32)); ?>
@@ -33,7 +33,7 @@
 		</div>
 	</div>
         
-        <div class="row align-items-center">
+        <div class="">
 		<div class="col-6">
 		<?php echo $form->labelEx($model,'forename', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->textField($model,'forename',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
@@ -41,7 +41,7 @@
 		</div>
 	</div>
         
-        <div class="row align-items-center">
+        <div class="">
 		<div class="col-6">
 		<?php echo $form->labelEx($model,'surname', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->textField($model,'surname',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
@@ -49,7 +49,7 @@
 		</div>
 	</div>
         
-        <div class="row align-items-center">
+        <div class="">
 		<div class="col-6">
 		<?php echo $form->labelEx($model,'email', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->textField($model,'email',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
@@ -57,7 +57,7 @@
 		</div>
 	</div>
         
-        <div class="row align-items-center">
+        <div class="">
 		<div class="col-6">
 		<?php echo $form->labelEx($model,'position', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->textField($model,'position',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
@@ -65,15 +65,15 @@
 		</div>
 	</div>
         
-        <div class="row align-items-center">
+        <div class="">
 		<div class="col-6">
 		<?php echo $form->labelEx($model,'phone', array('class'=>'form-signin-heading')); ?>
 		<?php echo $form->textField($model,'phone',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'phone'); ?>
 		</div>
 	</div>
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-	<div class="row buttons">
+	<p class="note">Fields with <span class="required">*</span> are required.</p><br/>
+	<div class="">
 	<div class="col-6">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-lg btn-primary btn-block')); ?>
 		</div>
