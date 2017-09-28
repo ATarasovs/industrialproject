@@ -74,10 +74,10 @@
 	</div>
            
 	<div class="">
-	<div class="col-6">
-            <span class="left"><p class="note">Fields with <span class="required">*</span> are required.</p><br/></span>
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-lg btn-primary btn-block')); ?>
-		</div>
+            <div class="col-6">
+                <span class="left"><p class="note">Fields with <span class="required">*</span> are required.</p><br/></span>
+                    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-lg btn-primary btn-block')); ?>
+            </div>
 	</div>
 
 <?php $this->endWidget(); ?>
