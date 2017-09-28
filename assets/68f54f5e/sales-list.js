@@ -90,10 +90,10 @@ $(document).ready(function() {
     var outletsParamArr = outletsParam.split(";");
     var outletsParamArrMod = outletsParamArr.slice(0, -1);
     console.log(outletsParamArrMod);
-    if((outletsParamArrMod == 0 || outletsParamArrMod.length >= 3) && userIdParamsMod != 0)
-    {
-        $("#generateChartBtn").removeClass("invisible");
-    }
+//    if((outletsParamArrMod == 0 || outletsParamArrMod.length >= 3) && userIdParamsMod != 0)
+//    {
+//        $("#generateChartBtn").removeClass("invisible");
+//    }
     
     
     initButtons();
