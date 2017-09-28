@@ -62,11 +62,12 @@ $this->pageTitle=Yii::app()->baseUrl;
   <div class="card-block">
     <h4 class="card-title">DUSA Analytics Dashboard</h4>
     <p class="card-text">Use the buttons below to navigate to different analytics</p>
-    <button class="btn btn-primary" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Viewer</button>
-	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Summary Data</button>
-	<button class="btn btn-primary" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Average Transaction Spend</button>
+    <button class="btn btn-primary btn-lg" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Data Viewer Viewer</button>
+	<button class="btn btn-primary btn-lg" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Summary Data</button>
+	<button class="btn btn-primary btn-lg" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Average Transaction Spend</button>
 	<!-- <button class="btn btn-success" onclick ="generatePatternsArr();"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button> -->
-	<button class="btn btn-success" onclick ="generatePatternsArr();" id="accessButton"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button>
+	<button class="btn btn-success btn-lg" onclick ="generatePatternsArr();" id="accessButton"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Colour Deficiency Mode</button>
+	<br><br>
   </div>
   <!-- <div class="card-footer text-muted" style="background: #153465!important;">
     -
@@ -81,7 +82,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 		<!-- <div class="card-header bg-primary" style="background: #153465!important;">
 			<h4> <p class="text-white"></p> </h4>
 		</div> -->
-			<div class="card-block bg-success">
+			<div class="card-block bg-info">
 			<h3 class="card-title">Total Sales</h3>
 			<div id="totalSalesCard">  <div id="totalSalesCardLoader"> </div><h2></h2> </div>
 			<p class="card-text">Use the buttons below to navigate to different analytics</p>
@@ -110,7 +111,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 	<!-- <div class="card-header bg-primary" style="background: #153465!important;">
 		<h4> <p class="text-white"></p> </h4>
 	</div> -->
-	<div class="card-block bg-warning">
+	<div class="card-block bg-info">
 	<h3 class="card-title">Average # Daily Transactions</h3>
 	<div id="averageTransCard"> <div id="averageTransLoader"> </div><h2> </h2> </div>
 	<p class="card-text">Use the buttons below to navigate to different analytics</p>
@@ -196,7 +197,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 	<!-- FILTERS HIDDEN DIV -->
 	<div id="filtersDiv"  style="display:none;" class="pull-left" >
 	<div class="form-inline">
-	<br><br>
+	
 		<button type="button" name="answer" class="btn btn-danger pull-right" id="filtersButton" onclick="hideDiv()"><i class="fa fa-minus-square" aria-hidden="true"></i> Hide Filters</button>&nbsp; 
 
 		<!-- Time to/from -->
@@ -241,20 +242,24 @@ $this->pageTitle=Yii::app()->baseUrl;
 		
 	</div><!-- END OF FILTERS DIV -->
 	<br><br><br><br>
-
+		<h5>To disable outlet views, simply click on any of the text items below* <h5>
 		<canvas id="myChart" width="300" height="100"></canvas>
 		
 		<hr>
 				<h6>Quick views:</h6>
 				<div class="mmenuLine pull-left">
-					<button id="ShopsLine" type="button" value="Shops" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Shops</button>
-					<button id="NightlifeLine" type="button" value="Nightlife" class="btn btn-primary"><i class="fa fa-glass" aria-hidden="true"></i> Nightlife</button>
-					<button id="Food" type="button" value="Food" class="btn btn-primary"><i class="fa fa-cutlery" aria-hidden="true"></i> Food</button>
-					<button id="ServicesLine" type="button" value="Services" class="btn btn-primary"><i class="fa fa-wrench" aria-hidden="true"></i> Services</button>
-					<span id="userCreatedViews"> </span>
-					<span id="quickviewbutton" class="quickviews" style="display:inline;"><button id="New" value="New" class="btn btn-success" onclick="SetQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>New Quickview</button> &nbsp; </span>
-					<button id="ResetLine" type="button" value="Reset" class="btn btn-danger pull-right"> Reset</button>
+					<button id="ShopsLine" onclick="clearLineQuickView(1);" type="button" value="Shops" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Shops</button>
+					<button id="NightlifeLine" onclick="clearLineQuickView(2);" type="button" value="Nightlife" class="btn btn-primary"><i class="fa fa-glass" aria-hidden="true"></i> Nightlife</button>
+					<button id="Food" onclick="clearLineQuickView(3);" type="button" value="Food" class="btn btn-primary"><i class="fa fa-cutlery" aria-hidden="true"></i> Food</button>
+					<button id="ServicesLine" onclick="clearLineQuickView(4);" type="button" value="Services" class="btn btn-primary"><i class="fa fa-wrench" aria-hidden="true"></i> Services</button> &nbsp;
+					<button id="ResetLine" onclick="clearLineQuickView(5);" type="button" value="Reset" class="btn btn-danger pull-right"> Reset</button>
+					<hr>
+					<span id="userCreatedViews">
+
+					<span id="quickviewbutton" class="quickviews" style="display:inline;"><button id="New" value="New" class="btn btn-success" onclick="SetQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>New Quickview</button> </span>
 					<button id="clearUserViews" onclick="ClearUserViews()" class="btn btn-danger"> Clear User Created Views </button> &nbsp;
+					 
+					 </span>
 						<div id="quickviews" class="quickviews" style="display:none;">
 						<br><br>
 							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -264,13 +269,18 @@ $this->pageTitle=Yii::app()->baseUrl;
 								<div class="input-group-addon"><i class="fa fa-comment" aria-hidden="true"></i></i></div>
 								<input type="text" class="form-control" id="quickViewDescription" placeholder="Quick View Description"> </input> &nbsp; &nbsp;
 								<br>
-								<button id="New" value="New" class="btn btn-success" onclick="CreateQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>Create New</button> &nbsp;
+								<button id="New" value="New" class="btn btn-success" onclick="CreateQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Save</button> &nbsp;
 								<br> <br>
 							</div>
 						</div>
 				</div>
   </div>
 </div>
+
+<!-- Back To Navigation Bar -->
+<br>
+<button class="btn btn-primary btn-block" onclick="SmoothScrollToNav()"> Back to navigation <i class="fa fa-arrow-up" aria-hidden="true"></i></button
+
 <!-- Hidden Patterns For Graphs View -->
 <div>
 </div>
@@ -302,13 +312,13 @@ function generatePatternsArr()
 
 	if(window.accessEnable == true){
 		
-		document.getElementById('accessButton').innerHTML = "<i class='fa fa-low-vision' aria-hidden='true'></i> Disable Accessibility Mode";
-		document.getElementById('accessButton').className = "btn btn-danger";
+		document.getElementById('accessButton').innerHTML = "<i class='fa fa-low-vision' aria-hidden='true'></i> Disable Colour Deficiency Mode";
+		document.getElementById('accessButton').className = "btn btn-danger btn-lg";
 
 	} else 
 	{
-		document.getElementById('accessButton').innerHTML = "<i class='fa fa-low-vision' aria-hidden='true'></i>Enable Accessibility Mode";
-		document.getElementById('accessButton').className = "btn btn-success";
+		document.getElementById('accessButton').innerHTML = "<i class='fa fa-low-vision' aria-hidden='true'></i>Enable Colour Deficiency Mode";
+		document.getElementById('accessButton').className = "btn btn-success btn-lg";
 	}
 
 
@@ -335,31 +345,54 @@ function generatePatternsArr()
 	if(window.accessEnable == true)
 	{
 		origColoursArr = myDoughnutChart.data.datasets[0].backgroundColor;
+		origStrokeArr = myDoughnutChart.data.datasets[0].fill; 
 	}
 
 
 	if(window.accessEnable ==true)
 	{
-		EnableAccessibility(patternArr);
+		EnableAccessibility(patternArr, true);
 	} else 
 	{
-		EnableAccessibility(origColoursArr);
+		EnableAccessibility(origColoursArr, false);
 	}
 
 }
 
-function EnableAccessibility(patternArr)
+function EnableAccessibility(patternArr, access)
 {
 
 		//Doughnut
 		myDoughnutChart.data.datasets[0].backgroundColor=patternArr;
 		myDoughnutChart.data.datasets[0].hoverBackgroundColor=patternArr;
+		if(access == true)
+		{
+		myDoughnutChart.data.datasets[0].borderColor= "#000000";
+		myDoughnutChart.data.datasets[0].borderwidth = 3;
+		} else if (access == false) 
+		{
+		myDoughnutChart.data.datasets[0].borderColor= "#ffffff";
+		myDoughnutChart.data.datasets[0].borderwidth = 5;
+		}
 		myDoughnutChart.update();
 		
 		//Bar
 		myBarChart.data.datasets[0].backgroundColor = patternArr[1];
 		myBarChart.data.datasets[1].backgroundColor = patternArr[2];
 		myBarChart.options.tooltips.displayColors = !myBarChart.options.tooltips.displayColors
+		if(access == true)
+		{
+		myBarChart.data.datasets[0].borderColor= "#000000";
+		myBarChart.data.datasets[0].borderwidth = 3;
+		myBarChart.data.datasets[1].borderColor= "#000000";
+		myBarChart.data.datasets[1].borderwidth = 3;
+		} else if (access == false) 
+		{
+		myBarChart.data.datasets[0].borderColor= "#ffffff";
+		myBarChart.data.datasets[0].borderwidth = 5;
+		myBarChart.data.datasets[1].borderColor= "#ffffff";
+		myBarChart.data.datasets[1].borderwidth = 5;
+		}
 		myBarChart.update();
 	
 	
@@ -368,6 +401,7 @@ function EnableAccessibility(patternArr)
 		{
 			myChart.data.datasets[i].fill = !myChart.data.datasets[i].fill;
 			myChart.data.datasets[i].backgroundColor =patternArr[i];
+			myChart.data.datasets[i].borderColor =patternArr[i];
 			myChart.options.tooltips.displayColors = !myChart.options.tooltips.displayColors;
 	
 		}
@@ -403,6 +437,14 @@ function SmoothScrollToSales()
 {
 	$('html, body').animate({
         scrollTop: $("#startOfSales").offset().top
+    }, 2000);
+
+}
+
+function SmoothScrollToNav()
+{
+	$('html, body').animate({
+        scrollTop: $("#navtop").offset().top
     }, 2000);
 
 }
@@ -451,8 +493,6 @@ function AddItemQuickView(val)
 //lineView = global js array which stores selecte values
 function CreateQuickView()
 {
-
-
 	var views = new Array();
 	var timeFrom = $('#filterByTimeFrom').val();
 	var timeTo = $('#filterByTimeTo').val();
@@ -570,21 +610,23 @@ function CreateQuickViewButtons()
 
 						 var respArr = responseArr;
 						//Reset quickviews section for line graph
-						document.getElementById('userCreatedViews').innerHTML = "";
+						//document.getElementById('userCreatedViews').innerHTML = "";
 
 
 						for(var i=0; i<respArr.length; i++)
 						{	console.log(resp[i]);
 							let button = document.createElement("button");
-							button.className = "btn btn-primary"
+							button.className = "btn btn-info"
 							button.innerHTML = respArr[i][2];		//assign button quick view name
 							button.value = respArr[i][3];		//assign button selected/deselected item string
 							button.title = respArr[i][8];
 							button.id = "user-view-btn";
 
 							let buttonLoc = document.getElementById('userCreatedViews');	//Add button to location
-							buttonLoc.append(button);
-							buttonLoc.append(' ');
+							//buttonLoc.append(button);
+							$(buttonLoc).prepend(button);
+							$(buttonLoc).prepend(' ');
+							//buttonLoc.append(' ');
 
 							let jsonString = respArr[i][3];
 							let restOfObj = resp[i];
@@ -607,8 +649,10 @@ function CreateQuickViewButtons()
 //Function which inits the dashboard 
 window.onload = function InitDashboard()
 {
-	window.accessEnable = false;
-	//generatePatternsArr(false);
+	window.accessEnable = true;
+	origColoursArr = myDoughnutChart.data.datasets[0].backgroundColor;
+	origStrokeArr = myDoughnutChart.data.datasets[0].fill; 
+	generatePatternsArr();
 		
 
 	//Init Top 3 Cards
@@ -947,57 +991,57 @@ var myChart = new Chart(ctx, {
 			data: [0,0,0,0,0,0,0],
 			label: "DUSA The Union - Marketplace",
 			borderColor: "#e6194b",
-			fill: false
+			fill: true
 			}, { 
 			data: [0,0,0,0,0,0,0],
 			label: "Premier Shop",
 			borderColor: "#0082c8",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "DJCAD Cantina",
 			borderColor: "#f58231",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Library",
 			borderColor: "#911eb4",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Ninewells Shop",
 			borderColor: "#46f0f0",
-			fill: false
+			fill: true
 			},{
 			data: [0,0,0,0,0,0,0],
 			label: "College Shop",
 			borderColor: "#800000",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Mono",
 			borderColor: "#d2f53c",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Liar Bar",
 			borderColor: "#fabebe",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Air Bar",
 			borderColor: "#008080",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Premier Shop - Yoyo Accept",
 			borderColor: "#e6beff",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Level 2, Reception",
 			borderColor: "#aa6e28",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Floor Five",
@@ -1007,12 +1051,12 @@ var myChart = new Chart(ctx, {
 			data: [0,0,0,0,0,0,0],
 			label: "Dental Café",
 			borderColor: "#aaffc3",
-			fill: false
+			fill: true
 			},{ 
 			data: [0,0,0,0,0,0,0],
 			label: "Food on Four",
 			borderColor: "#000080",
-			fill: false
+			fill: true
 			}, 
 	]
 	},
@@ -1074,55 +1118,58 @@ var myChart = new Chart(ctx, {
 <!-- Line Graph Quick View Buttons -->
 <script>
 $(document).ready(function() {
-	$('.mmenuLine').delegate(".btn", "click", function() {
-        var id = $(this).attr('id') // or this.id
-        if ( id == "ShopsLine" ) {
+	
 
-						myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+
+});
+
+function clearLineQuickView(id)
+{
+        if ( id == 2 ) {
+			//shops
+						myChart.data.datasets[0].hidden = !myChart.data.datasets[0].hidden;
 						myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
 						myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+						myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
 						myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
 						myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
-						myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
 						myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
-						myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
-						myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+						myChart.data.datasets[12].hidden = !myChart.data.datasets[13].hidden;
 						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
-						myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
 
 						myChart.update();
 
-        } else if ( id == "NightlifeLine"){
+        } else if ( id == 1){
 
 							
-					myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
-					myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
-					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
-					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
-					myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
-					myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
-					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
-					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
-					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
-					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
-					myChart.update();
+			myChart.data.datasets[0].hidden = !myChart.data.datasets[3].hidden;
+			myChart.data.datasets[2].hidden = !myChart.data.datasets[4].hidden;
+			myChart.data.datasets[3].hidden = !myChart.data.datasets[6].hidden;
+			myChart.data.datasets[6].hidden = !myChart.data.datasets[7].hidden;
+			myChart.data.datasets[7].hidden = !myChart.data.datasets[8].hidden;
+			myChart.data.datasets[8].hidden = !myChart.data.datasets[9].hidden;
+			myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+			myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+			myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+			myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+			myChart.update();
 
 
-				} else if ( id == "ServicesLine"){
+				} else if ( id == 3){
 
-					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
-					myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
-					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
-					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
-					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
-					myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+					myChart.data.datasets[0].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[2].hidden = !myChart.data.datasets[4].hidden;
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[7].hidden;
+					myChart.data.datasets[7].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[9].hidden;
 					myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
 					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
 					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
-					myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
+					myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
 					myChart.update();
 
-				} else if (id == "Food")
+				} else if (id == 4)
 				{
 					myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
 					myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
@@ -1136,10 +1183,9 @@ $(document).ready(function() {
 					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
 					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
 					myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
-					myChart.data.datasets[14].hidden = !myChart.data.datasets[14].hidden;
 					myChart.update();
 
-				} else if ( id == "ResetLine"){
+				} else if ( id == 5){
 
 						Reset();
 
@@ -1158,10 +1204,9 @@ $(document).ready(function() {
 					myChart.update();
 
 				} 
-    });
 
+}
 
-});
 </script> 
 
 <!-- ############################### -->
@@ -1228,8 +1273,8 @@ $(document).ready(function() {
 					"#aa6e28",
 					"#fffac8",
 				 ],
-				 borderWidth: 10,
-				 borderColor: "#ffffff"
+				 borderWidth: 5,
+				 borderColor: "#FFFFFF",
 
 		 }]
 },
@@ -1248,12 +1293,12 @@ $(document).ready(function() {
 				},
 				 elements: {
 						 arc: {
-								 borderColor: "#000000"
+								 borderColor: "#000000",
 						 }
 				 }, 
 				 title: {
                 display: true,
-                text: ' '
+                text: 'Sales Data Summary'
         	},
 				 cutoutPercentage: 50
 		 },
@@ -1540,56 +1585,97 @@ function LoadLineChartData(length, date, dateTo)
 <!-- Dougnut Quick View Buttons -->
 <script>
 jQuery(document).ready(function() {
-	$('.mmenu').delegate(".btn", "click", function() {
-        var id = $(this).attr('id') // or this.id
-        if ( id == "Shops" ) {
 
-						myDoughnutChart.getDatasetMeta(0).data[2].hidden = !myDoughnutChart.getDatasetMeta(0).data[2].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[3].hidden = !myDoughnutChart.getDatasetMeta(0).data[3].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[4].hidden = !myDoughnutChart.getDatasetMeta(0).data[4].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[5].hidden = !myDoughnutChart.getDatasetMeta(0).data[5].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[7].hidden = !myDoughnutChart.getDatasetMeta(0).data[7].hidden;
-						myDoughnutChart.update();
-
-        } else if ( id == "Nightlife"){
-
-						myDoughnutChart.getDatasetMeta(0).data[0].hidden = !myDoughnutChart.getDatasetMeta(0).data[0].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[1].hidden = !myDoughnutChart.getDatasetMeta(0).data[1].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[3].hidden = !myDoughnutChart.getDatasetMeta(0).data[3].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[6].hidden = !myDoughnutChart.getDatasetMeta(0).data[6].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[7].hidden = !myDoughnutChart.getDatasetMeta(0).data[7].hidden;
-						myDoughnutChart.update();
-
-
-				} else if ( id == "Services"){
-
-						myDoughnutChart.getDatasetMeta(0).data[0].hidden = !myDoughnutChart.getDatasetMeta(0).data[0].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[1].hidden = !myDoughnutChart.getDatasetMeta(0).data[1].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[2].hidden = !myDoughnutChart.getDatasetMeta(0).data[2].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[4].hidden = !myDoughnutChart.getDatasetMeta(0).data[4].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[5].hidden = !myDoughnutChart.getDatasetMeta(0).data[5].hidden;
-						myDoughnutChart.getDatasetMeta(0).data[6].hidden = !myDoughnutChart.getDatasetMeta(0).data[6].hidden;
-						myDoughnutChart.update();
-
-				} else if ( id == "Reset"){
-
-						Reset();
-
-				} 
-
-				function Reset(){
-
-					for(var i=0; i<17; i++){
-						myDoughnutChart.getDatasetMeta(0).data[i].hidden = false;
-					}
-
-						myDoughnutChart.update();
-
-				} 
-    });
 
 
 });
+public function clearDoughnut()
+{
+	function clearLineQuickView(id)
+{
+        if ( id == 1 ) {
+			//shops
+						myChart.data.datasets[0].hidden = !myChart.data.datasets[0].hidden;
+						myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+						myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+						myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+						myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+						myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+						myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+						myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+						myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+						myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+
+						myChart.update();
+
+        } else if ( id == 2){
+
+							
+					myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+					myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+					myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+					myChart.update();
+
+
+				} else if ( id == 3){
+
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[4].hidden = !myChart.data.datasets[4].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[7].hidden = !myChart.data.datasets[7].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+					myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+					myChart.update();
+
+				} else if (id == 4)
+				{
+					myChart.data.datasets[0].hidden = (!myChart.data.datasets[0].hidden);
+					myChart.data.datasets[1].hidden = !myChart.data.datasets[1].hidden;
+					myChart.data.datasets[2].hidden = !myChart.data.datasets[2].hidden;
+					myChart.data.datasets[3].hidden = !myChart.data.datasets[3].hidden;
+					myChart.data.datasets[5].hidden = !myChart.data.datasets[5].hidden;
+					myChart.data.datasets[6].hidden = !myChart.data.datasets[6].hidden;
+					myChart.data.datasets[8].hidden = !myChart.data.datasets[8].hidden;
+					myChart.data.datasets[9].hidden = !myChart.data.datasets[9].hidden;
+					myChart.data.datasets[10].hidden = !myChart.data.datasets[10].hidden;
+					myChart.data.datasets[11].hidden = !myChart.data.datasets[11].hidden;
+					myChart.data.datasets[12].hidden = !myChart.data.datasets[12].hidden;
+					myChart.data.datasets[13].hidden = !myChart.data.datasets[13].hidden;
+					myChart.update();
+
+				} else if ( id == 5){
+
+						Reset();
+
+				}
+
+				function Reset(){
+
+					window.lineView.length = 0;
+
+					myChart.data.datasets.forEach((dataset) => {
+						
+						dataset.hidden = false;
+						
+					});
+
+					myChart.update();
+
+				} 
+
+}
+}
+
 </script> 
 
 <!-- BAR CHART -->
@@ -1619,13 +1705,13 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 				highlightFill: '#e6194b',
 				highlightStroke: '#e6194b',
 				fontSize: 24,
-				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+				//data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 			},
 			{
 				label: "Previous Month Average Transaction Spend £",
 				backgroundColor: '#3cb44b',
 				fillColor: '#3cb44b',
-				data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+				//data: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 			}  
 			]
     },

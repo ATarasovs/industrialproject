@@ -11,12 +11,12 @@ return array(
 	'charset' => 'utf8',
 );
 
-//return array(
-//	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-////	 uncomment the following lines to use a MySQL database
-//	'connectionString' => 'mysql:host=localhost;dbname=mydb',
-//	'emulatePrepare' => true,
-//	'username' => 'root',
-//	'password' => 'root',
-//	'charset' => 'utf8',
-//);
+// return array(
+// 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+// //	 uncomment the following lines to use a MySQL database
+// 	'connectionString' => 'mysql:host=localhost;dbname=team8',
+// 	'emulatePrepare' => true,
+// 	'username' => 'root',
+// 	'password' => '',
+// 	'charset' => 'utf8',
+// );
