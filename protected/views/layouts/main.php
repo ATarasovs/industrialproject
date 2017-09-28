@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScriptFile(
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
-
+<div id="navtop"> </div>
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary" style="background: #153465!important;">
 
 <div class="container">
