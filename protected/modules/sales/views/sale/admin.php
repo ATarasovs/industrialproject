@@ -427,6 +427,9 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             function generateChart()
             {
                 document.getElementById('radarChartB').style.display = "block";
+                document.getElementById('generateChartBtn').style.display = "none";
+
+                
 
                 setRadarLabels();
 
