@@ -2,7 +2,7 @@
   <h2 class="display-3">File Upload</h2>
   <p class="lead">Adding data to the system is easy.</p>
   <hr class="my-4">
-  <p>To add new data to the system, simply attach the xls file below and click upload!</p>
+  <p>To add new data to the system, simply attach the xls file below and click upload! <br/><small>(Also you may use drag & drop function)</small></p>
   <p class="lead">
   <br><br>
     <?php
