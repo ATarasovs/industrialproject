@@ -29,7 +29,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->redirect('index.php?r=sales/dashboard/admin');
+		$this->redirect(    'index.php?r=sales/dashboard/admin');
 	}
 
 	/**
@@ -77,6 +77,9 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+            
+                $this->layout = "//layouts/login";
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request
