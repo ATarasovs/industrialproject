@@ -136,6 +136,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             <br/>
             
             <div id="outletnameinfo" class="hide"></div>
+            <small><b>You can select multiple locations by pressing Ctrl button and selecting a location.</b></small>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
                 <?php 
@@ -152,6 +153,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             </div>
             <br/>
             <div id="useridinfo" class="hide"></div>
+            <small><b>You may select up to 5 users by adding "space" between user IDs</b></small>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
                 <input id="filterByUserId" type="text" class="form-control filterInput" id="inlineFormInputGroup" placeholder="Filter by user ID">
