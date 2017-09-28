@@ -62,7 +62,7 @@ $this->pageTitle=Yii::app()->baseUrl;
   <div class="card-block">
     <h4 class="card-title">DUSA Analytics Dashboard</h4>
     <p class="card-text">Use the buttons below to navigate to different analytics</p>
-    <button class="btn btn-primary btn-lg" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Data Viewer Viewer</button>
+    <button class="btn btn-primary btn-lg" onclick="SmoothScrollToSales()"><i class="fa fa-line-chart" aria-hidden="true"></i> Sales Data Viewer</button>
 	<button class="btn btn-primary btn-lg" onclick ="SmoothScrollToSummary()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Summary Data</button>
 	<button class="btn btn-primary btn-lg" onclick ="SmoothScrollToSummary()"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Average Transaction Spend</button>
 	<!-- <button class="btn btn-success" onclick ="generatePatternsArr();"><i class="fa fa-low-vision" aria-hidden="true"></i> Enable Accessibility Mode</button> -->
@@ -98,7 +98,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 			<h4> <p class="text-white"></p> </h4>
 		</div> -->
 		<div class="card-block bg-info">
-		<h3 class="card-title">Active UoD YoYo Users</h3>
+		<h3 class="card-title">Active UoD Yoyo Users</h3>
 		<div id="totalUsersCard">  <div id="totalUsersCardLoader"> </div><h2></h2> </div>
 		<p class="card-text">Use the buttons below to navigate to different analytics</p>
 			<button id ='totalUsersCurrentQuarter' class="btn btn-primary active" onclick="LoadActiveYoYoUsers(8)">All-time</button>
@@ -1724,7 +1724,7 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 		},
       title: {
         display: true,
-        text: 'Sales totals YoYo Wallet vs Other'
+        text: 'Sales totals Yoyo Wallet vs Other'
       },
 	  scales: {
     xAxes: [{

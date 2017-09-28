@@ -283,22 +283,37 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
 
         <!-- Radar Chart --> 
         <div class=row id="radarChartB" style="display:none;">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
                 <h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white">Outlet Transaction Map</p></h4>
-                    <div class="card-block">
-                    <!-- Chart Canvas -->
-                    <div class="radarContain">
-                    <canvas id="radarChart" width="150" height="100"></canvas>
-                    <div>
-
-                    
-
+                        <div class="card-block">
+                        <!-- Chart Canvas -->
+                        <div class="radarContain">
+                        <canvas id="radarChart" width="150" height="100"></canvas>
+                        <div>
                     </div>
                 </div>
             </div>
         </div>
-        <br><br><br>
+        <br>
+        <button class="btn btn-primary btn-block" onclick="scrollToSales()"> View sales totals </button>
+        <br><br>
+        <!-- Bar Chart --> 
+            <div class="col-md-12" id="barChartTop">
+                <div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
+                <h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white">Outlet Totals</p></h4>
+                        <div class="card-block">
+                        <!-- Chart Canvas -->
+                        <div class="barChartContain">
+                        <canvas id="myBarChart" width="150" height="100"></canvas>
+                        <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-primary btn-block" onclick="scrollToTop()"> Back to top </button>
+        <br><br>
         
         <!-- Radar Init Script -->
         <script>
@@ -337,7 +352,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 },
                 title: {
                     display: true,
-                    text: 'Outlet Transaction Spread',
+                    // text: 'Outlet Transaction Spread',
                     fontSize: 26,
                 }
             };
@@ -351,6 +366,61 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             options: options
             });
 
+        </script>
+
+        <!-- BAR CHAR INIT -->
+        <script>
+        var myBarChart = new Chart(document.getElementById("myBarChart"), {
+        type: 'bar',
+        data: {
+            labels: [
+                    "Premier Shop",
+                    "DJCAD Cantina",
+                    "Library",
+                    "Ninewells Shop",
+                    "College Shop",
+                    "Mono",
+                    "Liar Bar",
+                    "Air Bar",
+                    "Level 2, Reception",
+                    "Floor Five",
+                    "Dental Café",
+                    "Food on Four",
+                ],
+                datasets:[
+                 
+                ]
+        },
+        options: {
+            tooltips: {
+                bodyFontSize: 20,
+            },
+            legend: {
+                position: 'top',
+            },
+        title: {
+            display: true,
+            text: 'Sales totals YoYo Wallet vs Other'
+        },
+        scales: {
+        xAxes: [{
+            stacked: false,
+            beginAtZero: true,
+            scaleLabel: {
+                labelString: 'Month'
+            },
+            ticks: {
+                stepSize: 1,
+                min: 0,
+                autoSkip: false
+            },
+            
+        }]
+    }
+        }
+    });
+            
+                
         </script>
 
         <script>
@@ -376,6 +446,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 <?php } ?>
 
                 radarChart.data.labels = labelsArr;
+                myBarChart.data.labels = labelsArr;
                 radarChart.update();
                 setRadarData();
 
@@ -394,7 +465,15 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 var counter = 0;
                 <?php foreach($userTotals as $total) { ?>
                     addRadarDataSet(<?php echo json_encode($total); ?>, userIDs[counter]);
-                    //radarChart.data.datasets[0].data = <?php echo json_encode($total); ?>;
+                    counter++;
+                <?php } ?>
+
+                var counter = 0;
+
+                
+
+                <?php foreach($userSales as $sales) { ?>
+                    addBarDataSet(<?php echo json_encode($sales); ?>, userIDs[counter]);
                     counter++;
                 <?php } ?>
                 
@@ -405,6 +484,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             function addRadarDataSet(dataSet, userid)
             {
                 var rgb = getRandomRgb();
+
                 radarChart.data.datasets.push({
                     label: userid,
                     backgroundColor: rgb,
@@ -414,6 +494,37 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 });
                 radarChart.update();
 
+            }
+
+            function scrollToSales()
+            {
+                $('html, body').animate({
+                    scrollTop: $("#barChartTop").offset().top
+                }, 2000);
+
+            }
+
+            function scrollToTop()
+            {
+                $('html, body').animate({
+                    scrollTop: $("#navtop").offset().top
+                }, 2000);
+
+            }
+
+            function addBarDataSet(dataSet, userid)
+            {
+                var rgb = getRandomRgb();
+
+                myBarChart.data.datasets.push({
+                    label: userid,
+                    backgroundColor: rgb,
+                    borderColor: rgb,
+                    borderWidth: 5,
+                    data: dataSet
+                });
+
+                myBarChart.update();
             }
 
             function getRandomRgb() {

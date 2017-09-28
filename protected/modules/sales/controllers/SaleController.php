@@ -228,6 +228,7 @@ class SaleController extends Controller
             $userTotals = [];
             $outletsA= [];
             $users=[];
+            $userSpendTotals = [];
             if($userid0 != "")
             {
                 $arrAllOutlets = [$outletname0, $outletname1, $outletname2, $outletname3, $outletname4, $outletname5, $outletname6, $outletname7, $outletname8, $outletname9, $outletname10, $outletname11, $outletname12, $outletname13];
@@ -258,10 +259,12 @@ class SaleController extends Controller
                 }
 
                 $userTotals = [];
+                $userSpendTotals = [];
                 foreach($users as $user)
                 {
                     
                     $totalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
+                    $spendtotalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
                     foreach($graphData as $rec) //loop through search results
                     {
                         if($rec->New_user_id == $user)
@@ -271,17 +274,24 @@ class SaleController extends Controller
                             for($i=0; $i<count($outletsA); $i++)
                             {
                                 if($rec->Outlet_Name == $outletsA[$i]){
+                                    //Increase tally for transaction spread
                                     $val = $totalsArr[$i];
                                     $totalsArr[$i] = ($val+1);
+
+                                    //Increase total spend for outlet
+                                    $val = $spendtotalsArr[$i];
+                                    $spendtotalsArr[$i] = ($val + $rec->Total_Amount);
+
+
                                 }
                             } 
 
                         }
-                        
-                        
         
                     }
                     $userTotals[] = $totalsArr; //add users total to total array
+                    $userSpendTotals[] = $spendtotalsArr;
+
 
                 }
 
@@ -295,6 +305,7 @@ class SaleController extends Controller
                     'tribes' => $tribes,
                     'outletsArr' => $outletsArr,
                     'userTotals' => $userTotals,
+                    'userSales' => $userSpendTotals,
                     'users' => $users, 
                     'outletsA' => $outletsA,
 
