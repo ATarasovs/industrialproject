@@ -200,6 +200,13 @@ class SaleController extends Controller
             
             
             $criteria->order = 'Date_Time DESC';
+
+            if($userid0 != "")
+            {
+                $graphData = Sale::model()->findAll($criteria);
+            }
+            
+            
             $count=Sale::model()->count($criteria);
             $pages=new CPagination($count);
             $pages->pageSize=10;
@@ -213,7 +220,72 @@ class SaleController extends Controller
             $currenUserID = Yii::app()->user->getId();
             $tribecriteria->addCondition("userID = '$currenUserID'");
             $tribes = Tribe::model()->findAll($tribecriteria);
-            
+
+            //GRAPH GENERATION - only if DUSA UID IS NOT NULL
+            //get list of outlets, push to array
+            $outletsArr = [];
+            $totalsArr = [];
+            $userTotals = [];
+            $outletsA= [];
+            $users=[];
+            if($userid0 != "")
+            {
+                $arrAllOutlets = [$outletname0, $outletname1, $outletname2, $outletname3, $outletname4, $outletname5, $outletname6, $outletname7, $outletname8, $outletname9, $outletname10, $outletname11, $outletname12, $outletname13];
+                $outletsA = [];
+
+                foreach($arrAllOutlets as $outlet)
+                {
+                   $key = array_search($outlet, $outletsArray);
+                   if($key != null)
+                   {
+                       $outletsA[] = $key;
+                   }
+                }
+                if(count($outletsA) ==0)
+                {
+                    $outletsA = array_values($outletsArray);
+                }
+
+                              
+                //Count outlet totals for each user
+                $users = [];
+                $_users = [$userid0, $userid1, $userid2, $userid3, $userid4];
+                foreach($_users as $user)
+                {
+                    if(strlen($user) == 9){ //count 9 = valid id
+                        $users[] = $user;
+                    } 
+                }
+
+                $userTotals = [];
+                foreach($users as $user)
+                {
+                    
+                    $totalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
+                    foreach($graphData as $rec) //loop through search results
+                    {
+                        if($rec->New_user_id == $user)
+                        {
+                            
+                            //$key = array_search($rec->Outlet_Name, $outletsA);
+                            for($i=0; $i<count($outletsA); $i++)
+                            {
+                                if($rec->Outlet_Name == $outletsA[$i]){
+                                    $val = $totalsArr[$i];
+                                    $totalsArr[$i] = ($val+1);
+                                }
+                            } 
+
+                        }
+                        
+                        
+        
+                    }
+                    $userTotals[] = $totalsArr; //add users total to total array
+
+                }
+
+            }
 
             $this->render('admin',array(
                     'sales'=>$sales,
@@ -221,6 +293,11 @@ class SaleController extends Controller
                     'outletsArray' => $outletsArray,
                     'transactionsArray' => $transactionsArray,
                     'tribes' => $tribes,
+                    'outletsArr' => $outletsArr,
+                    'userTotals' => $userTotals,
+                    'users' => $users, 
+                    'outletsA' => $outletsA,
+
             ));
 	}
         

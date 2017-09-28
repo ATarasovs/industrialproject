@@ -297,7 +297,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 
 function generatePatternsArr()
 {
-	
+		
 	window.accessEnable = !window.accessEnable;
 
 	if(window.accessEnable == true){
@@ -366,7 +366,7 @@ function EnableAccessibility(patternArr)
 		//Line
 		for(var i=0; i<14; i++)
 		{
-			myChart.data.datasets[i].fill = true;
+			myChart.data.datasets[i].fill = !myChart.data.datasets[i].fill;
 			myChart.data.datasets[i].backgroundColor =patternArr[i];
 			myChart.options.tooltips.displayColors = !myChart.options.tooltips.displayColors;
 	
@@ -607,7 +607,7 @@ function CreateQuickViewButtons()
 //Function which inits the dashboard 
 window.onload = function InitDashboard()
 {
-	window.accessEnable = true;
+	window.accessEnable = false;
 	//generatePatternsArr(false);
 		
 
@@ -1024,12 +1024,12 @@ var myChart = new Chart(ctx, {
 					AddItemQuickView(item.datasetIndex);
 					myChart.data.datasets[item.datasetIndex].hidden = !myChart.data.datasets[item.datasetIndex].hidden;
 					myChart.update();
-                },
+                	},
 					labels:{
 						fontSize: 16,
 
 					},
-						position: 'top',
+					position: 'top',
 				},
 				tooltips: {
 					callbacks: {

@@ -163,6 +163,11 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
         <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
         <button id="unsetFiltersBtn" class="btn btn-danger">Unset Filters</button> &nbsp; 
         <button id="createTribeBtn" class="btn btn-success">Create Tribe</button> &nbsp;
+
+        <?php if((count($users) > 0) && count($outletsA > 2) ){ ?>
+        <button class="btn btn-info" onclick="generateChart()"> Generate Chart </button>
+        <?php } ?>
+
     </div>
     <div class="col-md-4 hide" id="createTribe">
         <h4> Create Tribe </h4>
@@ -174,6 +179,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
             <textarea id="description" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Description:"></textarea>
         </div><br/>
+        
         <button id="saveTribeBtn" class="btn btn-success">Save tribe</button>
     </div> <br/>
    
@@ -278,18 +284,17 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
 
 
         <!-- Radar Chart --> 
-        <div class=row>
-            <div class="col-md-9">
+        <div class=row id="radarChartB" style="display:none;">
+            <div class="col-md-7">
                 <div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
-                <h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white">Temp Radar</p></h4>
+                <h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white">Outlet Transaction Map</p></h4>
                     <div class="card-block">
-
                     <!-- Chart Canvas -->
                     <div class="radarContain">
-                    <canvas id="radarChart" width="100" height="50"></canvas>
+                    <canvas id="radarChart" width="150" height="100"></canvas>
                     <div>
 
-                    <button class="btn btn-primary" onclick="setRadarLabels()"> test functions </button>
+                    
 
                     </div>
                 </div>
@@ -317,15 +322,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
 				"Dental Café",
 				"Food on Four",
                 ],
-            datasets: [{
-                label: "Student A",
-                backgroundColor: "rgba(200,0,0,0.2)",
-                data: [0,4,10,4,2,6,1,0,6,3,7,18,3,0]   //2D array of number of transactions for each outlet
-            }, {
-                label: "Student B",
-                backgroundColor: "rgba(0,0,200,0.2)",
-                data: [1,14,22,5,2,27,4,15,0,16,0,3,23,0]
-            }]
+
             };
 
             var options = {
@@ -337,6 +334,14 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
                 tooltips: {
 					bodyFontSize: 16, //tooltip size
 				},
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Outlet Transaction Spread',
+                    fontSize: 26,
+                }
             };
 
             //Create Chart
@@ -351,33 +356,74 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
         </script>
 
         <script>
+            function generateChart()
+            {
+                document.getElementById('radarChartB').style.display = "block";
+
+                setRadarLabels();
+
+                $('html, body').animate({
+                    scrollTop: $("#radarChartB").offset().top
+                }, 2000);
+
+
+            }
+
             function setRadarLabels()
             {
-                radarChart.data.labels = ["Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test"];
+                labelsArr = [];
+
+                <?php foreach($outletsA as $outlet) { ?>
+                    labelsArr[labelsArr.length] ="<?php echo $outlet; ?>";
+                <?php } ?>
+
+                radarChart.data.labels = labelsArr;
                 radarChart.update();
                 setRadarData();
+
 
             }
 
 
             function setRadarData()
             {
-                radarChart.data.datasets[0].data = [1,14,12,15,12,21,14,15,10,16,3,13,13,5];
-                radarChart.update();
+                //Get usernames
+                userIDs =[];
+                <?php foreach($users as $user) { ?>
+                    userIDs[userIDs.length] ="<?php echo $user; ?>";
+                <?php } ?>
 
-                addRadarDataSet();
+                var counter = 0;
+                <?php foreach($userTotals as $total) { ?>
+                    addRadarDataSet(<?php echo json_encode($total); ?>, userIDs[counter]);
+                    //radarChart.data.datasets[0].data = <?php echo json_encode($total); ?>;
+                    counter++;
+                <?php } ?>
+                
+                radarChart.update();
 
             }
 
-            function addRadarDataSet()
+            function addRadarDataSet(dataSet, userid)
             {
+                var rgb = getRandomRgb();
                 radarChart.data.datasets.push({
-                    label: 'Student C',
-                    backgroundColor: "rgba(0,0,200,0.2)",
-                    data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+                    label: userid,
+                    backgroundColor: rgb,
+                    borderColor: rgb,
+                    borderWidth: 5,
+                    data: dataSet
                 });
                 radarChart.update();
 
+            }
+
+            function getRandomRgb() {
+                var num = Math.round(0xffffff * Math.random());
+                var r = num >> 16;
+                var g = num >> 8 & 255;
+                var b = num & 255;
+                return 'rgba(' + r + ', ' + g + ', ' + b + ',0.3)';
             }
 
         </script>
