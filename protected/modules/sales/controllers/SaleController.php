@@ -13,7 +13,6 @@ class SaleController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-        private $graphData;
 
 	/**
 	 * @return array action filters
@@ -68,6 +67,255 @@ class SaleController extends Controller
 	 */
 	public function actionAdmin()
 	{
+            /*
+            $criteria = new CDbCriteria();
+            
+            $datefrom = Yii::app()->request->getParam('datefrom');
+            $dateto = Yii::app()->request->getParam('dateto');
+            $timefrom = Yii::app()->request->getParam('timefrom');
+            $timeto = Yii::app()->request->getParam('timeto');
+            $weekdayfrom = Yii::app()->request->getParam('weekdayfrom');
+            $weekdayto = Yii::app()->request->getParam('weekdayto');
+            $year = Yii::app()->request->getParam('year');
+            $month = Yii::app()->request->getParam('month');
+            $outletname0 = Yii::app()->request->getParam('outlet0');
+            $outletname1 = Yii::app()->request->getParam('outlet1');
+            $outletname2 = Yii::app()->request->getParam('outlet2');
+            $outletname3 = Yii::app()->request->getParam('outlet3');
+            $outletname4 = Yii::app()->request->getParam('outlet4');
+            $outletname5 = Yii::app()->request->getParam('outlet5');
+            $outletname6 = Yii::app()->request->getParam('outlet6');
+            $outletname7 = Yii::app()->request->getParam('outlet7');
+            $outletname8 = Yii::app()->request->getParam('outlet8');
+            $outletname9 = Yii::app()->request->getParam('outlet9');
+            $outletname10 = Yii::app()->request->getParam('outlet10');
+            $outletname11 = Yii::app()->request->getParam('outlet11');
+            $outletname12 = Yii::app()->request->getParam('outlet12');
+            $outletname13 = Yii::app()->request->getParam('outlet13');
+            $retailername = Yii::app()->request->getParam('retailer');
+            $userid0 = Yii::app()->request->getParam('userid0');
+            $userid1 = Yii::app()->request->getParam('userid1');
+            $userid2 = Yii::app()->request->getParam('userid2');
+            $userid3 = Yii::app()->request->getParam('userid3');
+            $userid4 = Yii::app()->request->getParam('userid4');
+            $transactiontype = Yii::app()->request->getParam('transactiontype');
+            $totalamountfrom = Yii::app()->request->getParam('totalamountfrom');
+            $totalamountto = Yii::app()->request->getParam('totalamountto');
+
+
+            //Date Filtering
+            if ($datefrom != "" && $dateto !="") {
+            	if ($datefrom != $dateto){
+            		if($datefrom < $dateto){
+                		$criteria->addCondition("DATE(Date_Time) >= '$datefrom' and DATE(Date_Time) <= '$dateto'");
+            		} elseif ($datefrom > $dateto){
+            			$criteria->addCondition("DATE(Date_Time) >= '$dateto' and DATE(Date_Time) <= '$datefrom'");
+            		}
+            	} elseif ($datefrom = $dateto) {
+            			$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
+            	}
+              }  else{
+              	if ($datefrom != ""){
+              		$criteria->addCondition("DATE(Date_Time) = '$datefrom'");
+              	} elseif ( $dateto != ""){
+            	 	$criteria->addCondition("DATE(Date_Time) = '$dateto'");
+              	}            
+             }
+
+            //Time From Filtering
+            if ($timefrom != "" && $timeto !="") {
+            	if($timefrom != $timeto){
+	            	if($timefrom < $timeto){
+	                	$criteria->addCondition("TIME(Date_Time) >= '$timefrom' and TIME(Date_Time) <= '$timeto'");
+	            	} elseif ($timefrom > $timeto){
+	            		$criteria->addCondition("TIME(Date_Time) NOT BETWEEN  '$timeto' AND '$timefrom'");
+	            	}
+            	} else {
+            		$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+            	}
+            } elseif ($timefrom != ""){
+             	$criteria->addCondition("TIME(Date_Time) = '$timefrom'");
+            } elseif ($timeto != ""){
+             	$criteria->addCondition("TIME(Date_Time) = '$timeto'");
+            }
+            
+            //Weekday Filtering
+            if ($weekdayfrom != "" && $weekdayto !="") {
+            	if ($weekdayfrom != $weekdayto){
+	            	if ($weekdayfrom < $weekdayto){
+	                $criteria->addCondition("WEEKDAY(Date_Time) >= '$weekdayfrom' and WEEKDAY(Date_Time) <= '$weekdayto'");
+	                } elseif ($weekdayfrom > $weekdayto){
+	            		$criteria->addCondition("WEEKDAY(Date_Time) NOT BETWEEN  '$weekdayto' AND '$weekdayfrom'");
+	            	}
+	            } else {
+	            	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
+	            }
+             }  elseif ($weekdayfrom != ""){
+             	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayfrom'");
+             } elseif ($weekdayto != ""){
+             	$criteria->addCondition("WEEKDAY(Date_Time) = '$weekdayto'");
+             }
+
+             //Year Filtering
+             if($year !=""){
+             	$criteria->addCondition("Year(Date_Time) = '$year'");
+             }
+
+             //Month Filtering
+             if($month != ""){
+             	 $criteria->addCondition("Month(Date_Time) = '$month'");
+             }
+             
+             if($outletname0 != "") {
+                $criteria->addInCondition('Outlet_Name',array($outletname0, $outletname1, $outletname2, $outletname3, $outletname4, $outletname5, $outletname6, $outletname7, $outletname8, $outletname9, $outletname10, $outletname11, $outletname12, $outletname13));
+             }
+            
+            if ($retailername != "") {
+                $criteria->addCondition("Retailer_Name = '$retailername'");
+            }
+            
+            if($userid0 != "") {
+                $criteria->addInCondition('New_user_id',array($userid0, $userid1, $userid2, $userid3, $userid4));
+            }
+            
+            if ($transactiontype != "") {
+                $criteria->addCondition("Transaction_Type = '$transactiontype'");
+            }
+            
+            if ($transactiontype != "") {
+                $criteria->addCondition("Transaction_Type = '$transactiontype'");
+            }
+            
+            if ($totalamountfrom != "" && $totalamountto != "") {
+                $criteria->addCondition("Total_Amount >= '$totalamountfrom' and Total_Amount <= '$totalamountto'");
+            }
+            
+            if ($totalamountfrom != "") {
+                $criteria->addCondition("Total_Amount >= '$totalamountfrom'");
+            }
+            
+            if ($totalamountto != "") {
+                $criteria->addCondition("Total_Amount <= '$totalamountto'");
+            }
+            
+            
+            
+            $criteria->order = 'Date_Time DESC';*/
+
+            $criteria = $this->getCriteria();
+            $userid0 = Yii::app()->request->getParam('userid0');
+            if($userid0 != "")
+            {
+                $graphData = Sale::model()->findAll($criteria);
+            }
+            
+            
+            $count=Sale::model()->count($criteria);
+            $pages=new CPagination($count);
+            $pages->pageSize=10;
+            $pages->applyLimit($criteria);
+            $sales = Sale::model()->findAll($criteria);
+            
+            $outletsArray = CHtml::listData(Outlet::model()->findAll(), 'outletName', 'outletName');
+            $transactionsArray = CHtml::listData(Payment::model()->findAll(), 'transactionType', 'transactionType');
+            
+            $tribecriteria = new CDbCriteria();
+            $currenUserID = Yii::app()->user->getId();
+            $tribecriteria->addCondition("userID = '$currenUserID'");
+            $tribes = Tribe::model()->findAll($tribecriteria);
+
+            //GRAPH GENERATION - only if DUSA UID IS NOT NULL
+            //get list of outlets, push to array
+            $outletsArr = [];
+            $totalsArr = [];
+            $userTotals = [];
+            $outletsA= [];
+            $users=[];
+            $userSpendTotals = [];
+            if($userid0 != "")
+            {
+                $arrAllOutlets = [$outletname0, $outletname1, $outletname2, $outletname3, $outletname4, $outletname5, $outletname6, $outletname7, $outletname8, $outletname9, $outletname10, $outletname11, $outletname12, $outletname13];
+                $outletsA = [];
+
+                foreach($arrAllOutlets as $outlet)
+                {
+                   $key = array_search($outlet, $outletsArray);
+                   if($key != null)
+                   {
+                       $outletsA[] = $key;
+                   }
+                }
+                if(count($outletsA) ==0)
+                {
+                    $outletsA = array_values($outletsArray);
+                }
+
+                              
+                //Count outlet totals for each user
+                $users = [];
+                $_users = [$userid0, $userid1, $userid2, $userid3, $userid4];
+                foreach($_users as $user)
+                {
+                    if(strlen($user) == 9){ //count 9 = valid id
+                        $users[] = $user;
+                    } 
+                }
+
+                $userTotals = [];
+                $userSpendTotals = [];
+                foreach($users as $user)
+                {
+                    
+                    $totalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
+                    $spendtotalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
+                    foreach($graphData as $rec) //loop through search results
+                    {
+                        if($rec->New_user_id == $user)
+                        {
+                            
+                            //$key = array_search($rec->Outlet_Name, $outletsA);
+                            for($i=0; $i<count($outletsA); $i++)
+                            {
+                                if($rec->Outlet_Name == $outletsA[$i]){
+                                    //Increase tally for transaction spread
+                                    $val = $totalsArr[$i];
+                                    $totalsArr[$i] = ($val+1);
+
+                                    //Increase total spend for outlet
+                                    $val = $spendtotalsArr[$i];
+                                    $spendtotalsArr[$i] = ($val + $rec->Total_Amount);
+
+
+                                }
+                            } 
+
+                        }
+        
+                    }
+                    $userTotals[] = $totalsArr; //add users total to total array
+                    $userSpendTotals[] = $spendtotalsArr;
+
+
+                }
+
+            }
+
+            $this->render('admin',array(
+                    'sales'=>$sales,
+                    'pages' => $pages,
+                    'outletsArray' => $outletsArray,
+                    'transactionsArray' => $transactionsArray,
+                    'tribes' => $tribes,
+                    'outletsArr' => $outletsArr,
+                    'userTotals' => $userTotals,
+                    'userSales' => $userSpendTotals,
+                    'users' => $users, 
+                    'outletsA' => $outletsA,
+
+            ));
+	}
+        
+        public function getCriteria() {
             $criteria = new CDbCriteria();
             
             $datefrom = Yii::app()->request->getParam('datefrom');
@@ -201,117 +449,9 @@ class SaleController extends Controller
             
             
             $criteria->order = 'Date_Time DESC';
-
-            if($userid0 != "")
-            {
-                $this->$graphData = Sale::model()->findAll($criteria);
-            }
             
-            
-            $count=Sale::model()->count($criteria);
-            $pages=new CPagination($count);
-            $pages->pageSize=10;
-            $pages->applyLimit($criteria);
-            $sales = Sale::model()->findAll($criteria);
-            
-            $outletsArray = CHtml::listData(Outlet::model()->findAll(), 'outletName', 'outletName');
-            $transactionsArray = CHtml::listData(Payment::model()->findAll(), 'transactionType', 'transactionType');
-            
-            $tribecriteria = new CDbCriteria();
-            $currenUserID = Yii::app()->user->getId();
-            $tribecriteria->addCondition("userID = '$currenUserID'");
-            $tribes = Tribe::model()->findAll($tribecriteria);
-
-            //GRAPH GENERATION - only if DUSA UID IS NOT NULL
-            //get list of outlets, push to array
-            $outletsArr = [];
-            $totalsArr = [];
-            $userTotals = [];
-            $outletsA= [];
-            $users=[];
-            $userSpendTotals = [];
-            if($userid0 != "")
-            {
-                $arrAllOutlets = [$outletname0, $outletname1, $outletname2, $outletname3, $outletname4, $outletname5, $outletname6, $outletname7, $outletname8, $outletname9, $outletname10, $outletname11, $outletname12, $outletname13];
-                $outletsA = [];
-
-                foreach($arrAllOutlets as $outlet)
-                {
-                   $key = array_search($outlet, $outletsArray);
-                   if($key != null)
-                   {
-                       $outletsA[] = $key;
-                   }
-                }
-                if(count($outletsA) ==0)
-                {
-                    $outletsA = array_values($outletsArray);
-                }
-
-                              
-                //Count outlet totals for each user
-                $users = [];
-                $_users = [$userid0, $userid1, $userid2, $userid3, $userid4];
-                foreach($_users as $user)
-                {
-                    if(strlen($user) == 9){ //count 9 = valid id
-                        $users[] = $user;
-                    } 
-                }
-
-                $userTotals = [];
-                $userSpendTotals = [];
-                foreach($users as $user)
-                {
-                    
-                    $totalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
-                    $spendtotalsArr = array_fill(0,count($outletsA), 0); //populate array of same length as outlets with 0s
-                    foreach($this->$graphData as $rec) //loop through search results
-                    {
-                        if($rec->New_user_id == $user)
-                        {
-                            
-                            //$key = array_search($rec->Outlet_Name, $outletsA);
-                            for($i=0; $i<count($outletsA); $i++)
-                            {
-                                if($rec->Outlet_Name == $outletsA[$i]){
-                                    //Increase tally for transaction spread
-                                    $val = $totalsArr[$i];
-                                    $totalsArr[$i] = ($val+1);
-
-                                    //Increase total spend for outlet
-                                    $val = $spendtotalsArr[$i];
-                                    $spendtotalsArr[$i] = ($val + $rec->Total_Amount);
-
-
-                                }
-                            } 
-
-                        }
-        
-                    }
-                    $userTotals[] = $totalsArr; //add users total to total array
-                    $userSpendTotals[] = $spendtotalsArr;
-
-
-                }
-
-            }
-
-            $this->render('admin',array(
-                    'sales'=>$sales,
-                    'pages' => $pages,
-                    'outletsArray' => $outletsArray,
-                    'transactionsArray' => $transactionsArray,
-                    'tribes' => $tribes,
-                    'outletsArr' => $outletsArr,
-                    'userTotals' => $userTotals,
-                    'userSales' => $userSpendTotals,
-                    'users' => $users, 
-                    'outletsA' => $outletsA,
-
-            ));
-	}
+            return $criteria;
+        }
         
         public function actionUpload()
         {
@@ -413,16 +553,21 @@ class SaleController extends Controller
             
             if($tribes->save()) {
                 $tribeIDs = array();
-                foreach($this->$graphData as $rec) {
-                    $tribeIDs[] = $rec->New_user_id;
+                
+                $sales = Sale::model()->findAll($this->getCriteria());
+                
+                foreach($sales as $sale) {
+                    $tribeIDs[] = $sale->New_user_id;
                 }
                 $tribeUniqueIDs = array_unique($tribeIDs);
-                $customer = new Customer();
                 
+                $currenUserID = Yii::app()->user->getId();
                 $tribeIDcriteria = new CDbCriteria();
                 $tribeIDcriteria->addCondition("userID = '$currenUserID'");
-                $tribeIDSearch = Tribe::model()->findAll($tribecriteria);
+                $tribeIDcriteria->order = 'filterID DESC';
+                $filterID = Tribe::model()->find($tribeIDcriteria);
                 
+                /*
                 //Get filterID
                 $filterID = 0;
                 for ($i=0; $i<count($tribeIDSearch); $i++) {
@@ -430,10 +575,12 @@ class SaleController extends Controller
                         $filterID = $tribeIDSearch->filterID;
                     }
                 }
+                */
                 
                 //Save tribe members
                 foreach($tribeUniqueIDs as $ID) {
-                    $customer->filterID = $filterID;
+                    $customer = new Customer();
+                    $customer->filterID = $filterID->filterID;
                     $customer->customerID = $ID;
                     
                     if (!$customer->save()) {

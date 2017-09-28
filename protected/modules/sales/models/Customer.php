@@ -22,7 +22,14 @@ class Customer extends CActiveRecord
 	 */
 	public function rules()
 	{
-		
+		return array(
+			array('customerID, filterID', 'required'),
+			array('customerID', 'length', 'max'=>10),
+			array('filterID', 'length', 'max'=>11),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('filterID, customerID', 'safe', 'on'=>'search'),
+		);
 	}
 
 	/**
