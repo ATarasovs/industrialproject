@@ -5,10 +5,6 @@
 
 /* @var $this UserController */
 /* @var $model User */
-
-$this->breadcrumbs=array(
-	'Manage users',
-);
 ?>
 
 <h1>Manage Users</h1>

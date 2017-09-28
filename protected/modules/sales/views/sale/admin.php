@@ -10,10 +10,6 @@
 /* @var $this SaleController */
 /* @var $model Sale */
 
-$this->breadcrumbs=array(
-	'Sales list',
-);
-
 if(Yii::app()->user->hasFlash('success')) { ?>
     <div class="info">
         <?php echo Yii::app()->user->getFlash('success'); ?> <br/>
