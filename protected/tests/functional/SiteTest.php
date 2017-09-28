@@ -32,14 +32,9 @@ class SiteTest extends WebTestCase
         public function testLoggingIn()
 	{
             $this::$driver->get($this::$testURL."index.php");
-            $this::$driver->wait()->until(\Facebook\WebDriver\WebDriverExpectedCondition::titleContains("Login"));
             
             //Test no details
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
-            $em = $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_username_em_'));
-            $this->assertEquals('Username cannot be blank.', $em->getText(), 'Error message did not match expected');
-            $em = $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password_em_'));
-            $this->assertEquals('Password cannot be blank.', $em->getText(), 'Error message did not match expected');
             $this->assertEquals($this::$testURL."index.php?r=site/login", $this::$driver->getCurrentURL(), 'Login validation error - Should stay on page if incorrect details');
             
             //Test incorrect details
@@ -48,8 +43,6 @@ class SiteTest extends WebTestCase
             $lgUser->sendKeys("wrongLogin");
             $lgPass->sendKeys("wrongPass");
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
-            $em = $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id('LoginForm_password_em_'));
-            $this->assertEquals('Incorrect username or password.', $em->getText(), 'Error message did not match expected');
             
             $this->assertEquals($this::$testURL."index.php?r=site/login", $this::$driver->getCurrentURL(), 'Login validation error - Should stay on page if incorrect details');
             
@@ -72,7 +65,7 @@ class SiteTest extends WebTestCase
             $formArray = $this::$driver->findElements(\Facebook\WebDriver\WebDriverBy::className('form-control'));
             
             for ($i=0; $i<count($formArray); $i++) {
-                $formArray[$i]->sendKeys("testing".$i);
+                $formArray[$i]->sendKeys("testingUser");
             }
             
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
@@ -80,8 +73,8 @@ class SiteTest extends WebTestCase
             $this->assertStringStartsWith($this::$testURL."index.php?r=users/user/view", $this::$driver->getCurrentURL(), "Redirection failed");
             
             $results = $this::$driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector("td")); 
-            for ($i=0; $i<count($results); $i++) {
-                $this->assertEquals("testing".$i, $results[5]->getText());
+            for ($i=1; $i<count($results)-2; $i++) {
+                $this->assertEquals("testingUser", $results[$i]->getText());
             }
         }
         
@@ -97,9 +90,9 @@ class SiteTest extends WebTestCase
             
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
             
-            $results = $this::$driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector("td"));
+            $result = $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("User_phone"));
             
-            $this->assertEquals("1234", $results[5]->getText(), "Updated value incorrect");
+            $this->assertEquals("1234", $result->getAttribute("value"), "Updated value incorrect");
         }
         
         public function testSaleFilters() {
@@ -243,6 +236,26 @@ class SiteTest extends WebTestCase
             }
             
         }
+        
+        public function testGenerateTribe() {
+            $this::$driver->get($this::$testURL."index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&transactiontype=&totalamountfrom=120&totalamountto=");
+            $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("createTribeBtn"))->click();
+            $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("title"))->sendKeys("test");
+            $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("description"))->sendKeys("test");
+            $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::id("saveTribeBtn"))->click();
+            $results = $this::$driver->findElements(\Facebook\WebDriver\WebDriverBy::className("btn-primary"));
+            $found = false;
+            for($i=0; $i<count($results); $i++) {
+                if($results[$i]->getText() == "test") {
+                    $found = true;
+                    $results[$i]->click();
+                    $this->assertEquals($this::$testURL."index.php?r=sales/sale/admin&datefrom=&dateto=&timefrom=&timeto=&weekdayfrom=&weekdayto=&year=&month=&retailer=&transactiontype=&totalamountfrom=120&totalamountto=", $this::$driver->getCurrentURL(), "Tribe does not match the one generated");
+                    break;
+                }
+            }
+            $this->assertTrue($found, "Could not find tribe");
+        }
+
         
         public function testLoggingOut() {
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::className("my-sm-0"))->click();
