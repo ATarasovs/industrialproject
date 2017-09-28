@@ -166,10 +166,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
 		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-credit-card" aria-hidden="true"></i> Average User Transaction Spend</p></h4>
 			<div class="card-block">
-
-			
-
-
+			<br><br>
 					<canvas id="myBarChart" width="250" height="210"> </canvas>	
 			</div>
 		</div>
@@ -1365,6 +1362,12 @@ function Reset(){
 							//Get label
 							var lbl = data.labels[tooltipItem.index];
 
+							if(lbl == "DUSA The Union - Marketplace")
+							{
+								lbl = "Marketplace";
+
+							}
+
 							//get the current items value
 							var currentValue = dataset.data[tooltipItem.index];
 					  
@@ -1374,6 +1377,10 @@ function Reset(){
 				 },
 				 legend: {
 						position: 'top',
+						labels:{
+						fontSize: 14,
+
+					},
 				},
 				 elements: {
 						 arc: {
@@ -1799,6 +1806,10 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 		},
 		legend: {
 			position: 'top',
+			labels:{
+						fontSize: 16,
+
+					},
 		},
       title: {
         display: true,
