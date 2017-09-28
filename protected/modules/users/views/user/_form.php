@@ -19,7 +19,7 @@
 
 	<div class="">
 		<div class="col-6">
-		<?php echo $form->labelEx($model,'username', array('class'=>'form-signin-heading')); ?>
+                    <span class="left"><?php echo $form->labelEx($model,'username', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->textField($model,'username',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'username'); ?>
 		</div>
@@ -27,7 +27,7 @@
 
 	<div class="">
 	<div class="col-6">
-		<?php echo $form->labelEx($model,'password', array('class'=>'form-signin-heading')); ?>
+            <span class="left"><?php echo $form->labelEx($model,'password', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->passwordField($model,'password',array('class'=>'form-control', 'id'=>'password', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'password'); ?>
 		</div>
@@ -35,7 +35,7 @@
         
         <div class="">
 		<div class="col-6">
-		<?php echo $form->labelEx($model,'forename', array('class'=>'form-signin-heading')); ?>
+                    <span class="left"><?php echo $form->labelEx($model,'forename', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->textField($model,'forename',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'forename'); ?>
 		</div>
@@ -43,7 +43,7 @@
         
         <div class="">
 		<div class="col-6">
-		<?php echo $form->labelEx($model,'surname', array('class'=>'form-signin-heading')); ?>
+                    <span class="left"><?php echo $form->labelEx($model,'surname', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->textField($model,'surname',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'surname'); ?>
 		</div>
@@ -51,7 +51,7 @@
         
         <div class="">
 		<div class="col-6">
-		<?php echo $form->labelEx($model,'email', array('class'=>'form-signin-heading')); ?>
+                    <span class="left"><?php echo $form->labelEx($model,'email', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->textField($model,'email',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'email'); ?>
 		</div>
@@ -59,7 +59,7 @@
         
         <div class="">
 		<div class="col-6">
-		<?php echo $form->labelEx($model,'position', array('class'=>'form-signin-heading')); ?>
+                    <span class="left"><?php echo $form->labelEx($model,'position', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->textField($model,'position',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'position'); ?>
 		</div>
@@ -67,14 +67,15 @@
         
         <div class="">
 		<div class="col-6">
-		<?php echo $form->labelEx($model,'phone', array('class'=>'form-signin-heading')); ?>
+                    <span class="left"><?php echo $form->labelEx($model,'phone', array('class'=>'form-signin-heading')); ?></span>
 		<?php echo $form->textField($model,'phone',array('class'=>'form-control', 'size'=>32,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'phone'); ?>
 		</div>
 	</div>
-	<p class="note">Fields with <span class="required">*</span> are required.</p><br/>
+           
 	<div class="">
 	<div class="col-6">
+            <span class="left"><p class="note">Fields with <span class="required">*</span> are required.</p><br/></span>
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-lg btn-primary btn-block')); ?>
 		</div>
 	</div>
