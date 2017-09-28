@@ -164,7 +164,7 @@ $this->pageTitle=Yii::app()->baseUrl;
     <div class="col-sm-7">
 	<br>
 		<div class="card"> <!-- SECOND CARD WITH UNSUSED CHART -->
-		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-credit-card" aria-hidden="true"></i> Average User Spend</p></h4>
+		<h4 class="card-header bg-primary" style="background: #153465!important;"><p class="text-white"><i class="fa fa-credit-card" aria-hidden="true"></i> Average User Transaction Spend</p></h4>
 			<div class="card-block">
 
 			
@@ -1104,7 +1104,7 @@ var myChart = new Chart(ctx, {
 			xAxes: [{
 				scaleLabel: {
 					display: true,
-					labelString: "Day of the week",
+					labelString: "Time",
 					fontColor: "blue"
 				}
 			}]
@@ -1358,8 +1358,18 @@ function Reset(){
 				 tooltips: {
 					bodyFontSize: 20,
 					callbacks: {
-//						label: function(tooltipItems, data) {
-//						}
+						label: function(tooltipItem, data) {
+							//get the concerned dataset
+							var dataset = data.datasets[tooltipItem.datasetIndex];
+							
+							//Get label
+							var lbl = data.labels[tooltipItem.index];
+
+							//get the current items value
+							var currentValue = dataset.data[tooltipItem.index];
+					  
+							return lbl + ": £" + currentValue;
+						  }
 					},
 				 },
 				 legend: {
