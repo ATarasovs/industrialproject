@@ -296,7 +296,7 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
             </div>
         </div>
         <br>
-        <button class="btn btn-primary btn-block" onclick="scrollToSales()"> View sales totals </button>
+        <button class="btn btn-primary btn-block" onclick="scrollToSales()"> View outlet totals </button>
         <br><br>
         <!-- Bar Chart --> 
             <div class="col-md-12" id="barChartTop">
