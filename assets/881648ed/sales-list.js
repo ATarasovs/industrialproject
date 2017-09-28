@@ -90,10 +90,7 @@ $(document).ready(function() {
     var outletsParamArr = outletsParam.split(";");
     var outletsParamArrMod = outletsParamArr.slice(0, -1);
     console.log(outletsParamArrMod);
-    if(outletsParamArrMod.length >= 3)
-    {
-        $("#generateChartBtn").removeClass("invisible");
-    }
+//    if(userIdParamsArr)
     
     
     initButtons();

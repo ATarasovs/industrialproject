@@ -159,15 +159,11 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
         </div>
     </div>
     
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12s">
         <button id="searchBtn" class="btn btn-primary">Search</button> &nbsp; 
         <button id="unsetFiltersBtn" class="btn btn-danger">Unset Filters</button> &nbsp; 
         <button id="createTribeBtn" class="btn btn-success">Create Tribe</button> &nbsp;
-
-        <?php if((count($users) > 0) && count($outletsA > 2) ){ ?>
-        <button class="btn btn-info" onclick="generateChart()"> Generate Chart </button>
-        <?php } ?>
-
+        <button id="generateChartBtn" class="btn btn-info invisible" onclick="generateChart()"> Generate Chart </button>
     </div>
     <div class="col-md-4 hide" id="createTribe">
         <h4> Create Tribe </h4>

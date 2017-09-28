@@ -26,17 +26,6 @@ $(document).ready(function() {
         }
     }
     
-    var outletsParam = "";
-    if(getParameterByName('outlet0')!=null && getParameterByName('outlet0')!="") {
-        outletsParam = getParameterByName('outlet0') + ";";
-    }
-    
-    for (var i=1; i<=13; i++) {
-        if(getParameterByName('outlet' + i)!=null) {
-            outletsParam += getParameterByName('outlet' + i) + ";";      
-        }
-    }
-    
     var selectedOutlet = document.createElement('small');
     selectedOutlet.innerHTML = "" + outletNameParam;
     document.getElementById('outletnameinfo').appendChild(selectedOutlet);
@@ -86,14 +75,10 @@ $(document).ready(function() {
     $("#filterByTotalAmountFrom").val(totalAmountFromParam);
     $("#filterByTotalAmountTo").val(totalAmountToParam);
     
-    console.log(outletsParam);
-    var outletsParamArr = outletsParam.split(";");
-    var outletsParamArrMod = outletsParamArr.slice(0, -1);
-    console.log(outletsParamArrMod);
-    if(outletsParamArrMod.length >= 3)
-    {
-        $("#generateChartBtn").removeClass("invisible");
-    }
+    console.log(outletNameParam);
+    var userIdParamsArr = userIdParamsMod.split(" ");
+    console.log(userIdParamsArr);
+    if(userIdParamsArr)
     
     
     initButtons();

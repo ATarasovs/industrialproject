@@ -87,13 +87,9 @@ $(document).ready(function() {
     $("#filterByTotalAmountTo").val(totalAmountToParam);
     
     console.log(outletsParam);
-    var outletsParamArr = outletsParam.split(";");
-    var outletsParamArrMod = outletsParamArr.slice(0, -1);
-    console.log(outletsParamArrMod);
-    if(outletsParamArrMod.length >= 3)
-    {
-        $("#generateChartBtn").removeClass("invisible");
-    }
+    var userIdParamsArr = userIdParamsMod.split(" ");
+    console.log(userIdParamsArr);
+    if(userIdParamsArr)
     
     
     initButtons();

@@ -88,12 +88,8 @@ $(document).ready(function() {
     
     console.log(outletsParam);
     var outletsParamArr = outletsParam.split(";");
-    var outletsParamArrMod = outletsParamArr.slice(0, -1);
-    console.log(outletsParamArrMod);
-    if(outletsParamArrMod.length >= 3)
-    {
-        $("#generateChartBtn").removeClass("invisible");
-    }
+    console.log(outletsParamArr);
+//    if(userIdParamsArr)
     
     
     initButtons();

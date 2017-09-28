@@ -28,12 +28,12 @@ $(document).ready(function() {
     
     var outletsParam = "";
     if(getParameterByName('outlet0')!=null && getParameterByName('outlet0')!="") {
-        outletsParam = getParameterByName('outlet0') + ";";
+        outletsParam = getParameterByName('outlet0') + " ";
     }
     
     for (var i=1; i<=13; i++) {
         if(getParameterByName('outlet' + i)!=null) {
-            outletsParam += getParameterByName('outlet' + i) + ";";      
+            outletsParam += getParameterByName('outlet' + i) + " ";      
         }
     }
     
@@ -87,13 +87,9 @@ $(document).ready(function() {
     $("#filterByTotalAmountTo").val(totalAmountToParam);
     
     console.log(outletsParam);
-    var outletsParamArr = outletsParam.split(";");
-    var outletsParamArrMod = outletsParamArr.slice(0, -1);
-    console.log(outletsParamArrMod);
-    if(outletsParamArrMod.length >= 3)
-    {
-        $("#generateChartBtn").removeClass("invisible");
-    }
+    var userIdParamsArr = userIdParamsMod.split(" ");
+    console.log(userIdParamsArr);
+    if(userIdParamsArr)
     
     
     initButtons();
