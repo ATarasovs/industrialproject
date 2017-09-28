@@ -67,8 +67,8 @@ class SaleController extends Controller
 	 */
 	public function actionAdmin()
 	{
-            /*
-            $criteria = new CDbCriteria();
+            
+            //$criteria = new CDbCriteria();
             
             $datefrom = Yii::app()->request->getParam('datefrom');
             $dateto = Yii::app()->request->getParam('dateto');
@@ -101,8 +101,8 @@ class SaleController extends Controller
             $transactiontype = Yii::app()->request->getParam('transactiontype');
             $totalamountfrom = Yii::app()->request->getParam('totalamountfrom');
             $totalamountto = Yii::app()->request->getParam('totalamountto');
-
-
+            
+            /*
             //Date Filtering
             if ($datefrom != "" && $dateto !="") {
             	if ($datefrom != $dateto){

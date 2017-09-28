@@ -72,7 +72,7 @@ class SiteTest extends WebTestCase
             $formArray = $this::$driver->findElements(\Facebook\WebDriver\WebDriverBy::className('form-control'));
             
             for ($i=0; $i<count($formArray); $i++) {
-                $formArray[$i]->sendKeys("testing".$i);
+                $formArray[$i]->sendKeys("testingUser");
             }
             
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::name('yt0'))->click();
@@ -80,8 +80,8 @@ class SiteTest extends WebTestCase
             $this->assertStringStartsWith($this::$testURL."index.php?r=users/user/view", $this::$driver->getCurrentURL(), "Redirection failed");
             
             $results = $this::$driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector("td")); 
-            for ($i=0; $i<count($results); $i++) {
-                $this->assertEquals("testing".$i, $results[5]->getText());
+            for ($i=1; $i<count($results)-2; $i++) {
+                $this->assertEquals("testingUser", $results[$i]->getText());
             }
         }
         
@@ -244,6 +244,11 @@ class SiteTest extends WebTestCase
             
         }
         
+        public function testGenerateTribe() {
+            
+        }
+
+
         public function testLoggingOut() {
             $this::$driver->findElement(\Facebook\WebDriver\WebDriverBy::className("my-sm-0"))->click();
             $this->assertEquals($this::$testURL."index.php?r=site/login", $this::$driver->getCurrentURL(), 'Not redirected correctly');
