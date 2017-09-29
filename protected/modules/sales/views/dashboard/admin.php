@@ -251,12 +251,14 @@ $this->pageTitle=Yii::app()->baseUrl;
 					<button id="ServicesLine" onclick="clearLineQuickView(4);" type="button" value="Services" class="btn btn-primary"><i class="fa fa-wrench" aria-hidden="true"></i> Services</button> &nbsp;
 					<button id="ResetLine" onclick="clearLineQuickView(5);" type="button" value="Reset" class="btn btn-danger pull-right"> Reset</button>
 					<hr>
+					<div id="outletWarning" style="display:none"><h4><span class="badge badge-warning">At least 1 outlet filter must be selected!</span></h4> </div>
+					<div id="quickviewSuccess" style="display:none"><h4><span class="badge badge-success">Quickview created!</span></h4> </div>
 					<span id="userCreatedViews">
-
 						
 						</span>
 						<span id="quickviewbutton" class="quickviews" style="display:inline;"><button id="New" value="New" class="btn btn-success" onclick="SetQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>New Quickview</button> </span>
 						<div id="quickviews" class="quickviews" style="display:none;">
+
 						<br><br>
 							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 							<div class="input-group-addon"><i class="fa fa-font" aria-hidden="true"></i></i></div>
@@ -456,9 +458,9 @@ function SmoothScrollToSummary()
 
 function SmoothScrollToCreateView()
 {
-	$('html, body').animate({
-        scrollTop: $("#myChart").offset().top
-    }, 2000);
+	// $('html, body').animate({
+    //     scrollTop: $("#myChart").offset().top
+    // }, 2000);
 
 }
 
@@ -508,7 +510,7 @@ function CreateQuickView()
 
 	if(window.lineView.length < 1)
 	{
-		alert("No filters selected");
+		document.getElementById('outletWarning').style.display="inline";
 		return;
 	}
 
@@ -534,7 +536,8 @@ function CreateQuickView()
                     },
                 success: function(resp){
 						
-					
+					document.getElementById('quickviewSuccess').style.display="inline";
+					document.getElementById('outletWarning').style.display="none";
 						
 
                     }
