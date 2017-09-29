@@ -77,7 +77,7 @@ Yii::app()->clientScript->registerScriptFile(
 	</li>
         
         <li class="nav-item">
-	<?php echo CHtml::link('<i class="fa fa-ambulance"></i> Help',array('/sales/tutorial/index'), array('class'=>'nav-link')); ?>
+	<?php echo CHtml::link('<i class="fa fa-question"></i> Help',array('/sales/tutorial/index'), array('class'=>'nav-link')); ?>
 	</li>
 	</ul>
 

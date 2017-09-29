@@ -1,7 +1,7 @@
 <div style="margin-top:3%"class="container" align="center" >
     <div class="col-md-10" align="center">
         <div class="jumbotron centered">
-            <h1><i class="fa fa-ambulance" aria-hidden="true"></i> Tutorial</h1><br/>
+            <h1><i class="fa fa-question-circle" aria-hidden="true"></i> Tutorial</h1><br/>
             <iframe width="640px" height="400" src="https://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
             <div class="col-6">
                 <br/> 
