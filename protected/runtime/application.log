@@ -3128,3 +3128,6 @@ in C:\wamp64\www\web\index.php (13)
 2017/09/29 01:08:31 [warning] [application] Failed to set unsafe attribute "file" of "Uploadfile".
 in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (320)
 in C:\wamp64\www\web\index.php (13)
+2017/09/29 03:54:26 [warning] [application] Failed to set unsafe attribute "file" of "Uploadfile".
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (320)
+in C:\wamp64\www\web\index.php (13)
