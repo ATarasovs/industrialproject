@@ -3,7 +3,7 @@
         <div class="jumbotron centered">
             <h1><i class="fa fa-question-circle" aria-hidden="true"></i> Tutorial</h1><br/>
             <div class="col-8">
-                <form action="https://drive.google.com/file/d/0B1y3r0LCfa0kRXRXaFJXMG9lRDQ/view?usp=sharing">
+                <form action="https://drive.google.com/file/d/0B3ct7FhnXX7uVzhnYldqRjN5Skk/view">
                     <button class = "btn btn-lg btn-primary btn-block" id ="backBtn">View user manual</button><BR/>
                 </form>
             </div>
