@@ -3116,3 +3116,15 @@ Stack trace:
 REQUEST_URI=/web/index.php?r=users/sale/admin
 HTTP_REFERER=http://localhost/web/index.php?r=sales/sale/view&id=3629
 ---
+2017/09/29 01:06:48 [warning] [application] Failed to set unsafe attribute "file" of "Uploadfile".
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (320)
+in C:\wamp64\www\web\index.php (13)
+2017/09/29 01:07:57 [warning] [application] Failed to set unsafe attribute "file" of "Uploadfile".
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (320)
+in C:\wamp64\www\web\index.php (13)
+2017/09/29 01:08:14 [warning] [application] Failed to set unsafe attribute "file" of "Uploadfile".
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (320)
+in C:\wamp64\www\web\index.php (13)
+2017/09/29 01:08:31 [warning] [application] Failed to set unsafe attribute "file" of "Uploadfile".
+in C:\wamp64\www\web\protected\modules\sales\controllers\SaleController.php (320)
+in C:\wamp64\www\web\index.php (13)

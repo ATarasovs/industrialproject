@@ -90,9 +90,11 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
     	<div class="row">
             <?php echo $form->textField( $model,'username', array('class'=>'form-control', 'placeholder'=>'Username', 'required'=>'required')); ?>
         </div>
+        <h5><?php echo $form->error($model,'username'); ?></h5>
         <div class="row">
             <?php echo $form->passwordField( $model,'password', array('class'=>'form-control', 'placeholder'=>'Password', 'required'=>'required'    )); ?>
 	</div>
+        <h5><?php echo $form->error($model,'password'); ?></h5>
         <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary btn-block btn-large')); ?>
         <?php $this->endWidget(); ?>
         <h5>Please login to out system to see the latest data of YOYO Wallet.</h5>
