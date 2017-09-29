@@ -101,7 +101,7 @@ $this->pageTitle=Yii::app()->baseUrl;
 		<h3 class="card-title">Active UoD Yoyo Users</h3>
 		<div id="totalUsersCard">  <div id="totalUsersCardLoader"> </div><h2></h2> </div>
 		<p class="card-text">Use the buttons below to navigate to different analytics</p>
-			<button id ='totalUsersCurrentQuarter' class="btn btn-primary active" onclick="LoadActiveYoYoUsers(8)">All-time</button>
+			<button id ='totalUsersCurrentQuarter' class="btn btn-primary active" onclick="LoadActiveYoYoUsers(8)">Refresh</button>
 		</div>
 	</div>
 </div>
