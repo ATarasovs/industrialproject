@@ -253,10 +253,9 @@ $this->pageTitle=Yii::app()->baseUrl;
 					<hr>
 					<span id="userCreatedViews">
 
-					<span id="quickviewbutton" class="quickviews" style="display:inline;"><button id="New" value="New" class="btn btn-success" onclick="SetQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>New Quickview</button> </span>
-					<button id="clearUserViews" onclick="ClearUserViews()" class="btn btn-danger"> Clear User Created Views </button> &nbsp;
-					 
-					 </span>
+						
+						</span>
+						<span id="quickviewbutton" class="quickviews" style="display:inline;"><button id="New" value="New" class="btn btn-success" onclick="SetQuickView()" ><i class="fa fa-plus-circle" aria-hidden="true"></i>New Quickview</button> </span>
 						<div id="quickviews" class="quickviews" style="display:none;">
 						<br><br>
 							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -535,19 +534,7 @@ function CreateQuickView()
                     },
                 success: function(resp){
 						
-					<?php
-					Yii::app()->clientScript->registerScript(
-					'myHideEffect',
-					'$(".info").animate({opacity: 1.0}, 3000).fadeOut("slow");',
-					CClientScript::POS_READY
-					);
-					?>
-
-					<?php if(Yii::app()->user->hasFlash('success')):?>
-					<div class="info">
-						<?php echo Yii::app()->user->getFlash('success'); ?>
-					</div>
-					<?php endif; ?>
+					
 						
 
                     }
@@ -599,21 +586,22 @@ function CreateQuickViewButtons()
                 success: function(resp){
 						//Assign Data to Chart
 
+						console.log("RESP LEN: " + resp.length);
 						var responseArr = [];
 						for(var i=0; i<resp.length; i++)
 						{
 						 responseArr[responseArr.length] = $.map(resp[i], function(el) { return el });
 						}
 
-						 console.log("MAPPED AR: " + responseArr[0]);
-
 						 var respArr = responseArr;
-						//Reset quickviews section for line graph
-						//document.getElementById('userCreatedViews').innerHTML = "";
+
+						$("#userCreatedViews").html("");
+						
 
 
 						for(var i=0; i<respArr.length; i++)
-						{	console.log(resp[i]);
+						{	
+							console.log(resp[i]);
 							let button = document.createElement("button");
 							button.className = "btn btn-info"
 							button.innerHTML = respArr[i][2];		//assign button quick view name
@@ -633,6 +621,8 @@ function CreateQuickViewButtons()
 							button.addEventListener ("click", function() {
 								ApplyViewButton(jsonString, restOfObj);
 							});
+
+							
 						}
                     }
                 });
@@ -676,6 +666,7 @@ window.onload = function InitDashboard()
 
 	//Init user created quick views
 	CreateQuickViewButtons();
+	
 
 };
 
@@ -926,8 +917,9 @@ function ApplyViewButton(values, obj)
 //Clears user stored views
 function ClearUserViews()
 {
-	alert("clear");
-	document.getElementById('userCreatedViews').innerHTML = "";
+
+
+
 
 	//call function which deletes user created views
 
