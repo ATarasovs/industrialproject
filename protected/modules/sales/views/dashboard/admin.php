@@ -1808,7 +1808,7 @@ var myBarChart = new Chart(document.getElementById("myBarChart"), {
 		},
       title: {
         display: true,
-        text: 'Sales totals Yoyo Wallet vs Other'
+        text: 'Average User Spend Data'
       },
 	  scales: {
     xAxes: [{

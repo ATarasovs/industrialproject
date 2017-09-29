@@ -389,6 +389,11 @@ if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
         },
         options: {
             tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return "£" + Number(tooltipItem.yLabel);
+                    },
+                },
                 bodyFontSize: 20,
             },
             legend: {
