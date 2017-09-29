@@ -2875,3 +2875,536 @@ Stack trace:
 #16 {main}
 REQUEST_URI=/web/index.php?r=sales/sale/upload
 ---
+2017/09/29 00:48:17 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+ in C:\Apache24\htdocs\industrialproject\framework\db\CDbConnection.php:399
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\CDbConnection.php(347): CDbConnection->open()
+#1 C:\Apache24\htdocs\industrialproject\framework\db\CDbConnection.php(325): CDbConnection->setActive(true)
+#2 C:\Apache24\htdocs\industrialproject\framework\base\CModule.php(394): CDbConnection->init()
+#3 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(459): CModule->getComponent('db')
+#4 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(639): CApplication->getDb()
+#5 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(672): CActiveRecord->getDbConnection()
+#6 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1477): CActiveRecord->getCommandBuilder()
+#7 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(243): CActiveRecord->findAll(Object(CDbCriteria))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadAvgDailyTransactions()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadAvgDailyTra...')
+#18 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#19 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#20 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadAvgDailyTransactions
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:22:35 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+ in C:\Apache24\htdocs\industrialproject\framework\db\CDbConnection.php:399
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\CDbConnection.php(347): CDbConnection->open()
+#1 C:\Apache24\htdocs\industrialproject\framework\db\CDbConnection.php(325): CDbConnection->setActive(true)
+#2 C:\Apache24\htdocs\industrialproject\framework\base\CModule.php(394): CDbConnection->init()
+#3 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(459): CModule->getComponent('db')
+#4 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(639): CApplication->getDb()
+#5 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(672): CActiveRecord->getDbConnection()
+#6 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1477): CActiveRecord->getCommandBuilder()
+#7 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(213): CActiveRecord->findAll(Object(CDbCriteria))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadTotalSales()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadTotalSales')
+#18 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#19 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#20 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadTotalSales
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (213)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(213): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadTotalSales()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadTotalSales')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadTotalSales
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (266)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(266): CActiveRecord->findAll(Array)
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadActiveYoYoUsers()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadActiveYoYoU...')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadActiveYoYoUsers
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (243)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(243): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadAvgDailyTransactions()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadAvgDailyTra...')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadAvgDailyTransactions
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (651)
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (163)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(651): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(163): DashboardController->loadAverageSpend('2017-06-00')
+#6 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadAverageData()
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadAverageData')
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#17 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadAverageData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (603)
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (194)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(603): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(194): DashboardController->loadLineChartData(6, '2017-08-23', '2017-08-29', '', '', '', '')
+#6 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadLineChartData()
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadLineChartDa...')
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#17 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadLineChartData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (287)
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (73)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(287): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(73): DashboardController->loadSumData('4')
+#6 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionTestCall()
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('TestCall')
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#17 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/TestCall
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `quickview`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (142)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:03 [error] [exception.CDbException] CDbException: The table "quickview" for active record class "Quickview" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Quickview))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(142): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionRetrieveQuickViews()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('RetrieveQuickVi...')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/RetrieveQuickViews
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (213)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(213): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadTotalSales()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadTotalSales')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadTotalSales
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (266)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(266): CActiveRecord->findAll(Array)
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadActiveYoYoUsers()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadActiveYoYoU...')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadActiveYoYoUsers
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (603)
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (194)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(603): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(194): DashboardController->loadLineChartData(6, '2017-08-23', '2017-08-29', '', '', '', '')
+#6 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadLineChartData()
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadLineChartDa...')
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#17 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadLineChartData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (243)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(243): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadAvgDailyTransactions()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadAvgDailyTra...')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadAvgDailyTransactions
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (287)
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (73)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(287): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(73): DashboardController->loadSumData('4')
+#6 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionTestCall()
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('TestCall')
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#17 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/TestCall
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `sales`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (651)
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (163)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "sales" for active record class "Dashboard" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Dashboard))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(651): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(163): DashboardController->loadAverageSpend('2017-06-00')
+#6 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadAverageData()
+#7 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadAverageData')
+#16 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#17 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#18 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadAverageData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `quickview`.
+in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php (142)
+in C:\Apache24\htdocs\industrialproject\index.php (13)
+2017/09/29 01:23:07 [error] [exception.CDbException] CDbException: The table "quickview" for active record class "Quickview" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(Quickview))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1358): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1478): CActiveRecord->query(Object(CDbCriteria), true)
+#4 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(142): CActiveRecord->findAll(Object(CDbCriteria))
+#5 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionRetrieveQuickViews()
+#6 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#10 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('RetrieveQuickVi...')
+#15 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#16 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#17 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/RetrieveQuickViews
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:23:26 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in C:\Apache24\htdocs\industrialproject\protected\components\UserIdentity.php (38)
+in C:\Apache24\htdocs\industrialproject\protected\models\LoginForm.php (54)
+in C:\Apache24\htdocs\industrialproject\protected\controllers\SiteController.php (94)
+2017/09/29 01:23:26 [error] [exception.CDbException] CDbException: The table "user" for active record class "User" cannot be found in the database. in C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php:2390
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(413): CActiveRecordMetaData->__construct(Object(User))
+#1 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(663): CActiveRecord->getMetaData()
+#2 C:\Apache24\htdocs\industrialproject\framework\db\ar\CActiveRecord.php(1526): CActiveRecord->getTableSchema()
+#3 C:\Apache24\htdocs\industrialproject\protected\components\UserIdentity.php(38): CActiveRecord->findByAttributes(Array)
+#4 C:\Apache24\htdocs\industrialproject\protected\models\LoginForm.php(54): UserIdentity->authenticate()
+#5 C:\Apache24\htdocs\industrialproject\framework\validators\CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#6 C:\Apache24\htdocs\industrialproject\framework\validators\CValidator.php(201): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#7 C:\Apache24\htdocs\industrialproject\framework\base\CModel.php(159): CValidator->validate(Object(LoginForm), Array)
+#8 C:\Apache24\htdocs\industrialproject\protected\controllers\SiteController.php(94): CModel->validate()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('login')
+#14 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#15 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#16 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/industrialproject/index.php?r=site/login
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=site/login
+---
+2017/09/29 01:24:37 [error] [exception.Error] Error: Call to a member function getAttributes() on array in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php:344
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(191): DashboardController->loadDailyLineChartData('2017-08-29', '', '')
+#1 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadLineChartData()
+#2 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#3 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#6 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadLineChartDa...')
+#11 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#12 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#13 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadLineChartData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:27:05 [error] [exception.Error] Error: Call to a member function getAttributes() on array in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php:344
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(191): DashboardController->loadDailyLineChartData('2017-08-29', '', '')
+#1 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadLineChartData()
+#2 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#3 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#6 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadLineChartDa...')
+#11 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#12 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#13 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadLineChartData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---
+2017/09/29 01:29:58 [error] [exception.Error] Error: Call to a member function getAttributes() on array in C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php:344
+Stack trace:
+#0 C:\Apache24\htdocs\industrialproject\protected\modules\sales\controllers\DashboardController.php(191): DashboardController->loadDailyLineChartData('2017-08-29', '', '')
+#1 C:\Apache24\htdocs\industrialproject\framework\web\actions\CInlineAction.php(49): DashboardController->actionLoadLineChartData()
+#2 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#3 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(1148): CFilter->filter(Object(CFilterChain))
+#6 C:\Apache24\htdocs\industrialproject\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#7 C:\Apache24\htdocs\industrialproject\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\Apache24\htdocs\industrialproject\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(282): CController->run('LoadLineChartDa...')
+#11 C:\Apache24\htdocs\industrialproject\framework\web\CWebApplication.php(141): CWebApplication->runController('sales/dashboard...')
+#12 C:\Apache24\htdocs\industrialproject\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#13 C:\Apache24\htdocs\industrialproject\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/industrialproject/index.php?r=sales/dashboard/LoadLineChartData
+HTTP_REFERER=http://localhost/industrialproject/index.php?r=sales/dashboard/admin
+---

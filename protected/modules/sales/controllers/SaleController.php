@@ -203,7 +203,6 @@ class SaleController extends Controller
             $criteria->order = 'Date_Time DESC';*/
 
             $criteria = $this->getCriteria();
-            $userid0 = Yii::app()->request->getParam('userid0');
             if($userid0 != "")
             {
                 $graphData = Sale::model()->findAll($criteria);

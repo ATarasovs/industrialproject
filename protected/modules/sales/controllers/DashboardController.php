@@ -312,7 +312,6 @@ class DashboardController extends Controller
 
 	public function loadDailyLineChartData($date, $timefrom, $timeto)
 	{
-
 		$criteria = new CDbCriteria();
 
 		if($date != "")
@@ -336,9 +335,49 @@ class DashboardController extends Controller
 		} elseif ($timeto != ""){
 			 $criteria->addCondition("TIME(Date_Time) = '$timeto'");
 		}
-
-		$search_results = Dashboard::model()->findAll($criteria);
-
+                
+                //Get tribe
+                $tribeID = 22;  //get from page
+                $tribeCriteria = new CDbCriteria();
+                $tribeCriteria->addCondition("filterID = '$tribeID'");
+                $customer = Customer::model()->findAll($tribeCriteria);
+                $customer_array = $customer->getAttributes();
+                
+		$search_results_data = Dashboard::model()->findAll($criteria);
+                $search_results = $search_results_data->getAttributes();
+                //remove records that don't match up
+                $search_results['New_user_id'] = array_intersect($search_results['New_user_id'], $customer_array['customerID']);
+                
+                for ($i=0; $i<count($search_results['New_user_id']); $i++) {
+                    if (!array_key_exists($i, $search_results['New_user_id'])) {
+                        unset($search_results['sales_id'][$i]);
+                        unset($search_results['Date_Time'][$i]);
+                        unset($search_results['Retailer_Ref'][$i]);
+                        unset($search_results['Outlet_Ref'][$i]);
+                        unset($search_results['Retailer_Name'][$i]);
+                        unset($search_results['Outlet_Name'][$i]);
+                        unset($search_results['Transaction_Type'][$i]);
+                        unset($search_results['Cash_Spent'][$i]);
+                        unset($search_results['Discount_Amount'][$i]);
+                        unset($search_results['Total_Amount'][$i]);
+                        unset($search_results['transactionID'][$i]);
+                    }
+                }
+                
+                //index reset
+                $search_results['New_user_id'] = array_values($search_results['New_user_id']);
+                $search_results['sales_id'] = array_values($search_results['sales_id']);
+                $search_results['Date_Time'] = array_values($search_results['Date_Time']);
+                $search_results['Retailer_Ref'] = array_values($search_results['Retailer_Ref']);
+                $search_results['Outlet_Ref'] = array_values($search_results['Outlet_Ref']);
+                $search_results['Retailer_Name'] = array_values($search_results['Retailer_Name']);
+                $search_results['Outlet_Name'] = array_values($search_results['Outlet_Name']);
+                $search_results['Transaction_Type'] = array_values($search_results['Transaction_Type']);
+                $search_results['Cash_Spent'] = array_values($search_results['Cash_Spent']);
+                $search_results['Discount_Amount'] = array_values($search_results['Discount_Amount']);
+                $search_results['Total_Amount'] = array_values($search_results['Total_Amount']);
+                $search_results['transactionID'] = array_values($search_results['transactionID']);
+                
 		$arrOutlets = Dashboard::model()->outletsArray();
 		
 		$lineChartDataArr =[];
@@ -356,14 +395,14 @@ class DashboardController extends Controller
 			{
 				$hourTotal = 0;
 				
-				foreach($search_results as $rec) //search all results
+				for($i=0; $i<count($search_results['New_user_id']); $i++) //search all results
 				{
 					
-					if($rec->Outlet_Name == $outlet) //if record matches current outlet being searched for
+					if($search_results['Outlet_Name'][$i] == $outlet) //if record matches current outlet being searched for
 					{
 
 						//Convert dates into a comparable formamt
-						$d1 = date('Y-m-d H:i:s', strtotime($rec->Date_Time));
+						$d1 = date('Y-m-d H:i:s', strtotime($search_results['Date_Time'][$i]));
 
 						$d2 = date("Y-m-d H:i:s", strtotime('+'.($i+1).' hours', strtotime($date))); 
 
@@ -371,7 +410,7 @@ class DashboardController extends Controller
 
 						if(($d1 >= $d3) && $d1 <= $d2){
 
-							$hourTotal = $hourTotal + $rec->Total_Amount; //if within date range, add total
+							$hourTotal = $hourTotal + $search_results['Total_Amount'][$i]; //if within date range, add total
 						}
 
 					}
