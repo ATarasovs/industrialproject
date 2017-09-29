@@ -310,7 +310,7 @@ class DashboardController extends Controller
 
 	}
 
-	public function loadDailyLineChartData($date, $timefrom, $timeto)
+	public function loadDailyLineChartData($date, $timefrom, $timeto, $tribeID)
 	{
 		$criteria = new CDbCriteria();
 
@@ -336,47 +336,19 @@ class DashboardController extends Controller
 			 $criteria->addCondition("TIME(Date_Time) = '$timeto'");
 		}
                 
-                //Get tribe
-                $tribeID = 22;  //get from page
                 $tribeCriteria = new CDbCriteria();
                 $tribeCriteria->addCondition("filterID = '$tribeID'");
                 $customer = Customer::model()->findAll($tribeCriteria);
-                $customer_array = $customer->getAttributes();
-                
-		$search_results_data = Dashboard::model()->findAll($criteria);
-                $search_results = $search_results_data->getAttributes();
-                //remove records that don't match up
-                $search_results['New_user_id'] = array_intersect($search_results['New_user_id'], $customer_array['customerID']);
-                
-                for ($i=0; $i<count($search_results['New_user_id']); $i++) {
-                    if (!array_key_exists($i, $search_results['New_user_id'])) {
-                        unset($search_results['sales_id'][$i]);
-                        unset($search_results['Date_Time'][$i]);
-                        unset($search_results['Retailer_Ref'][$i]);
-                        unset($search_results['Outlet_Ref'][$i]);
-                        unset($search_results['Retailer_Name'][$i]);
-                        unset($search_results['Outlet_Name'][$i]);
-                        unset($search_results['Transaction_Type'][$i]);
-                        unset($search_results['Cash_Spent'][$i]);
-                        unset($search_results['Discount_Amount'][$i]);
-                        unset($search_results['Total_Amount'][$i]);
-                        unset($search_results['transactionID'][$i]);
-                    }
+                $customer_array = array();
+                $counter = 0;
+                foreach($customer as $c) {
+                    $customer_array[$counter] = $c->customerID;
+                    $counter++;
                 }
+                $customer_array = array_values($customer_array);
+                $criteria->addInCondition('New_user_id', $customer_array);
                 
-                //index reset
-                $search_results['New_user_id'] = array_values($search_results['New_user_id']);
-                $search_results['sales_id'] = array_values($search_results['sales_id']);
-                $search_results['Date_Time'] = array_values($search_results['Date_Time']);
-                $search_results['Retailer_Ref'] = array_values($search_results['Retailer_Ref']);
-                $search_results['Outlet_Ref'] = array_values($search_results['Outlet_Ref']);
-                $search_results['Retailer_Name'] = array_values($search_results['Retailer_Name']);
-                $search_results['Outlet_Name'] = array_values($search_results['Outlet_Name']);
-                $search_results['Transaction_Type'] = array_values($search_results['Transaction_Type']);
-                $search_results['Cash_Spent'] = array_values($search_results['Cash_Spent']);
-                $search_results['Discount_Amount'] = array_values($search_results['Discount_Amount']);
-                $search_results['Total_Amount'] = array_values($search_results['Total_Amount']);
-                $search_results['transactionID'] = array_values($search_results['transactionID']);
+		$search_results = Dashboard::model()->findAll($criteria);
                 
 		$arrOutlets = Dashboard::model()->outletsArray();
 		
@@ -424,7 +396,7 @@ class DashboardController extends Controller
 
 	}
 
-	public function loadLineChartData($nDays, $dateFrom, $dateTo, $timefrom, $timeto, $weekdayfrom, $weekdayto)
+	public function loadLineChartData($nDays, $dateFrom, $dateTo, $timefrom, $timeto, $weekdayfrom, $weekdayto, $tribeID)
 	{
 		if($dateFrom == ""){
 			
@@ -598,10 +570,20 @@ class DashboardController extends Controller
 				$dates = array_reverse($dates);
 		}
 
-
+                
+                $tribeCriteria = new CDbCriteria();
+                $tribeCriteria->addCondition("filterID = '$tribeID'");
+                $customer = Customer::model()->findAll($tribeCriteria);
+                $customer_array = array();
+                $counter = 0;
+                foreach($customer as $c) {
+                    $customer_array[$counter] = $c->customerID;
+                    $counter++;
+                }
+                $customer_array = array_values($customer_array);
+                $criteria->addInCondition('New_user_id', $customer_array);
 
 		$search_results = Dashboard::model()->findAll($criteria);
-		
 		$lineChartDataArr =[];
 
 		$lineChartDataArr[] = $dates;

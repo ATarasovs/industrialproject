@@ -24,8 +24,6 @@ class Customer extends CActiveRecord
 	{
 		return array(
 			array('customerID, filterID', 'required'),
-			array('customerID', 'length', 'max'=>10),
-			array('filterID', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('filterID, customerID', 'safe', 'on'=>'search'),
@@ -73,7 +71,7 @@ class Customer extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('filterID',$this->filterID);
-		$criteria->compare('customerID',$this->customerID);
+		$criteria->compare('customerID',$this->customerID, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

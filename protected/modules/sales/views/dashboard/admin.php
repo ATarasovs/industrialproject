@@ -235,6 +235,11 @@ $this->pageTitle=Yii::app()->baseUrl;
 			<a class="dropdown-item pull-right" onClick="weekdayDropdownTo(6)" >Sunday</a>
 			</div>
 		</div>
+		
+		<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-list-ol" aria-hidden="true"></i></div>
+                <input id="filterByTribeID" type="text" class="form-control filterInput" id="inlineFormInput" placeholder="Tribe ID:"> 
+            </div>
 		&nbsp;
 
 	</div>
