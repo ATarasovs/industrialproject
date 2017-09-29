@@ -251,8 +251,8 @@ $this->pageTitle=Yii::app()->baseUrl;
 					<button id="ServicesLine" onclick="clearLineQuickView(4);" type="button" value="Services" class="btn btn-primary"><i class="fa fa-wrench" aria-hidden="true"></i> Services</button> &nbsp;
 					<button id="ResetLine" onclick="clearLineQuickView(5);" type="button" value="Reset" class="btn btn-danger pull-right"> Reset</button>
 					<hr>
-					<div id="outletWarning" style="display:none"><h4><span class="badge badge-warning">At least 1 outlet filter must be selected!</span></h4> </div>
-					<div id="quickviewSuccess" style="display:none"><h4><span class="badge badge-success">Quickview created!</span></h4> </div>
+					<div id="outletWarning" style="display:none"> <div class="alert alert-warning">Warning: At least 1 outlet filter must be selected!</div> <br> </div>
+					<div id="quickviewSuccess" style="display:none"> <div class="alert alert-success">Success! Quickview created</div> <br> </div>
 					<span id="userCreatedViews">
 						
 						</span>

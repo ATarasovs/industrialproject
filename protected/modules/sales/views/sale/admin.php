@@ -11,22 +11,24 @@
 /* @var $model Sale */
 
 if(Yii::app()->user->hasFlash('success')) { ?>
-    <div class="info">
+    <div class="alert alert-success">
         <?php echo Yii::app()->user->getFlash('success'); ?> <br/>
     </div>
 <?php } 
 
 if(Yii::app()->user->hasFlash('successTribeSave')) { ?>
-    <div class="info">
+    <div class="alert alert-success">
         <?php echo Yii::app()->user->getFlash('successTribeSave'); ?> <br/>
     </div>
 <?php } 
 
 if(Yii::app()->user->hasFlash('errorTribeSave')) { ?>
-    <div class="info">
+    <div class="alert alert-danger">
         <?php echo Yii::app()->user->getFlash('errorTribeSave'); ?> <br/>
     </div>
 <?php } ?>
+<div id="maxuserWarning" style="display:none"> <div class="alert alert-warning">Warning: No more than 5 users can be selected at one time!</div> <br> </div>
+<div id="emptyfieldsWarning" style="display:none"> <div class="alert alert-warning">Warning: One or more empty fields!</div> <br> </div>
 
 
 <h1>List of Sales</h1>

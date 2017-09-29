@@ -142,7 +142,11 @@ function initButtons() {
         var totalAmountTo = $("#filterByTotalAmountTo").val();
         
         if (title == "" || description == "") {
-            alert("One of the required fields is empty. Title and description should not be empty.");
+            document.getElementById('emptyfieldsWarning').style.display="inline";
+
+            $('html, body').animate({
+                scrollTop: $("#navtop").offset().top
+            }, 2000);
         }
         else {
             location.href = saveTribeReqUrl + "&title=" + title + "&description=" + description + "&datefrom=" + dateFrom + "&dateto=" + dateTo + "&timefrom=" + timeFrom + "&timeto=" + timeTo + "&weekdayfrom=" + weekdayFrom + "&weekdayto=" + weekdayTo + "&year="+ year +"&month=" + month + "&retailer="  + retailerName + "&outlet=" + outletName + "&newuserid=" + newUserId + "&transactiontype=" + transactionType + "&totalamountfrom=" + totalAmountFrom + "&totalamountto=" + totalAmountTo;
@@ -213,7 +217,10 @@ function search() {
         var arrayLength = userIds.length;
         if(arrayLength>5)
         {
-            alert("Maximum amount of users should be not more than 5!")
+            document.getElementById('maxuserWarning').style.display="inline";
+            $('html, body').animate({
+                scrollTop: $("#navtop").offset().top
+            }, 2000);
             return;
         }
         else {
